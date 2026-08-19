@@ -98,7 +98,3 @@ PyRakSamp находится на стадии beta. API и внутренняя
 ## Community
 
 [BlastHack — тема проекта](https://www.blast.hk/threads/257129/)
-
-## Лицензия
-
-MIT
