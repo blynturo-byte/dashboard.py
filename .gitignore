@@ -1,0 +1,8 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# User scripts (keep the folder itself)
+scripts/*
+!scripts/.gitkeep
