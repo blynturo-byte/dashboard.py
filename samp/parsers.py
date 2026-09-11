@@ -1,4 +1,5 @@
 import math
+from typing import Callable
 
 from core.bitstream import BitStream
 from core import logger
@@ -160,9 +161,7 @@ class RPCParser:
             })
 
         return {
-            "state": "update_scores_and_pings",
             "scores_and_pings": entries,
-            "count": len(entries),
         }
 
 
@@ -258,9 +257,7 @@ class RPCParser:
         amount = bs.read_int32()
 
         return {
-            "state": "give_player_money",
             "amount": int(amount),
-            "money_delta": int(amount),
         }
 
 
@@ -328,18 +325,11 @@ class RPCParser:
         fighting_style = bs.read_uint8()
 
         return {
-            "state": "world_player_add",
             "player_id": int(player_id),
             "skin_id": int(skin_id),
-
-            "xPlayer": float(pos_x),
-            "yPlayer": float(pos_y),
-            "zPlayer": float(pos_z),
-
             "x": float(pos_x),
             "y": float(pos_y),
             "z": float(pos_z),
-
             "facing_angle": float(facing_angle),
             "fighting_style": int(fighting_style),
         }
@@ -351,7 +341,6 @@ class RPCParser:
         player_id = bs.read_uint16()
 
         return {
-            "state": "world_player_remove",
             "player_id": int(player_id),
         }
 
@@ -373,16 +362,15 @@ class RPCParser:
         interior = bs.read_uint8()
 
         return {
-            "state": "world_vehicle_add",
             "vehicle_id": vehicle_id,
             "model_id": model_id,
-            "CarX": x,
-            "CarY": y,
-            "CarZ": z,
+            "x": x,
+            "y": y,
+            "z": z,
             "rotation": rotation,
             "color1": color1,
             "color2": color2,
-            "CarHealth": float(health),
+            "health": float(health),
             "interior": interior,
         }
 
@@ -393,9 +381,7 @@ class RPCParser:
         vehicle_id = bs.read_uint16()
 
         return {
-            "state": "world_vehicle_remove",
             "vehicle_id": int(vehicle_id),
-            "wVehicleID": int(vehicle_id),
         }
 
 
@@ -408,18 +394,14 @@ class RPCParser:
         x = bs.read_float()
         y = bs.read_float()
         z = bs.read_float()
-        
+
         return {
-            "state": "create_pickup",
             "pickup_id": int(pickup_id),
-            "iPickupID": int(pickup_id),
             "model_id": int(model_id),
-            "iModelID": int(model_id),
             "spawn_type": int(spawn_type),
-            "iSpawnType": int(spawn_type),
-            "xPickup": float(x),
-            "yPickup": float(y),
-            "zPickup": float(z),
+            "x": float(x),
+            "y": float(y),
+            "z": float(z),
         }
 
 
@@ -429,9 +411,7 @@ class RPCParser:
         pickup_id = bs.read_int32()
 
         return {
-            "state": "destroy_pickup",
             "pickup_id": int(pickup_id),
-            "iPickupID": int(pickup_id),
         }
 
 
@@ -448,14 +428,12 @@ class RPCParser:
         style = bs.read_uint8()
 
         return {
-            "state": "set_map_icon",
             "icon_id": icon_id,
-            "xMAP": x,
-            "yMAP": y,
-            "zMAP": z,
+            "x": x,
+            "y": y,
+            "z": z,
             "marker_type": marker_type,
             "color": color,
-            "color_hex": f"0x{color:08X}",
             "style": style,
         }
 
@@ -478,21 +456,16 @@ class RPCParser:
         text = bs.read_compressed_string(max_chars=4096, encoding="cp1251")
 
         return {
-            "state": "create_3d_text_label",
             "label_id": int(label_id),
-            "text_label_id": int(label_id),
             "color": int(color),
-            "color_hex": f"0x{int(color) & 0xFFFFFFFF:08X}",
-            "XLabel": float(x),
-            "YLabel": float(y),
-            "ZLabel": float(z),
+            "x": float(x),
+            "y": float(y),
+            "z": float(z),
             "draw_distance": float(draw_distance),
             "use_los": bool(use_los_raw),
-            "use_los_raw": int(use_los_raw),
             "attached_player_id": int(attached_player_id),
             "attached_vehicle_id": int(attached_vehicle_id),
             "text": text,
-            "label_text": text,
         }
 
 
@@ -502,9 +475,16 @@ class RPCParser:
         label_id = bs.read_uint16()
 
         return {
-            "state": "delete_3d_text_label",
             "label_id": int(label_id),
-            "text_label_id": int(label_id),
+        }
+
+    @staticmethod
+    def remove_map_icon(bs: BitStream) -> dict | None:
+
+        icon_id = bs.read_uint8()
+
+        return {
+            "icon_id": int(icon_id),
         }
 
 
@@ -539,12 +519,9 @@ class RPCParser:
         is_passenger = bs.read_uint8()
 
         return {
-            "state": "enter_vehicle",
             "player_id": int(player_id),
             "vehicle_id": int(vehicle_id),
-            "wVehicleID": int(vehicle_id),
             "is_passenger": int(is_passenger),
-            "passenger": int(is_passenger),
         }
 
 
@@ -555,11 +532,8 @@ class RPCParser:
         seat_id = bs.read_uint8()
 
         return {
-            "state": "put_player_in_vehicle",
             "vehicle_id": int(vehicle_id),
-            "wVehicleID": int(vehicle_id),
             "seat_id": int(seat_id),
-            "bSeatID": int(seat_id),
         }
 
 
@@ -572,15 +546,10 @@ class RPCParser:
         z = bs.read_float()
 
         return {
-            "state": "set_vehicle_pos",
             "vehicle_id": int(vehicle_id),
-            "wVehicleID": int(vehicle_id),
             "x": float(x),
             "y": float(y),
             "z": float(z),
-            "XVehicle": float(x),
-            "YVehicle": float(y),
-            "ZVehicle": float(z),
         }
 
 
@@ -592,8 +561,6 @@ class RPCParser:
         velocity_z = bs.read_float()
 
         return {
-            "state": "set_player_velocity",
-
             "velocity_x": float(velocity_x),
             "velocity_y": float(velocity_y),
             "velocity_z": float(velocity_z),
@@ -616,7 +583,6 @@ class RPCParser:
         velocity_z = bs.read_float()
 
         return {
-            "state": "set_vehicle_velocity",
             "turn": int(turn),
 
             "velocity_x_car": float(velocity_x),
@@ -633,9 +599,87 @@ class RPCParser:
 
     @staticmethod
     def reset_player_money(bs: BitStream) -> dict | None:
+        return {}
+
+    @staticmethod
+    def show_game_text(bs: BitStream) -> dict | None:
+
+        style = bs.read_uint32()
+        time = bs.read_uint32()
+        message_length = bs.read_uint32()
+
+        text = (
+            bs.read_string(message_length, "cp1251", errors="ignore")
+            if message_length > 0
+            else ""
+        )
 
         return {
-            "state": "reset_player_money",
+            "style": int(style),
+            "time": int(time),
+            "text": text,
+        }
+
+    @staticmethod
+    def set_checkpoint(bs: BitStream) -> dict | None:
+
+        x = bs.read_float()
+        y = bs.read_float()
+        z = bs.read_float()
+        radius = bs.read_float()
+
+        return {
+            "xCP": float(x),
+            "yCP": float(y),
+            "zCP": float(z),
+            "fRadius": float(radius),
+        }
+
+    @staticmethod
+    def disable_checkpoint(bs: BitStream) -> dict | None:
+        return {}
+
+    @staticmethod
+    def game_mode_restart(bs: BitStream) -> dict | None:
+        return {}
+
+    @staticmethod
+    def set_race_checkpoint(bs: BitStream) -> dict | None:
+
+        cp_type = bs.read_uint8()
+
+        x = bs.read_float()
+        y = bs.read_float()
+        z = bs.read_float()
+
+        next_x = bs.read_float()
+        next_y = bs.read_float()
+        next_z = bs.read_float()
+
+        radius = bs.read_float()
+
+        return {
+            "type": int(cp_type),
+            "xCP": float(x),
+            "yCP": float(y),
+            "zCP": float(z),
+            "xNextCP": float(next_x),
+            "yNextCP": float(next_y),
+            "zNextCP": float(next_z),
+            "fRadius": float(radius),
+        }
+
+    @staticmethod
+    def disable_race_checkpoint(bs: BitStream) -> dict | None:
+        return {}
+
+    @staticmethod
+    def toggle_player_controllable(bs: BitStream) -> dict | None:
+
+        moveable = bs.read_uint8()
+
+        return {
+            "frozen": not bool(moveable),
         }
 
     @staticmethod
@@ -666,32 +710,29 @@ class RPCParser:
         szText = bs.read_string(szTextLen, "cp1251", errors="ignore") if szTextLen > 0 else ""
 
         return {
-            "state": "show_text_draw",
-            "wTextDrawID": wTextDrawID,
             "textdraw_id": wTextDrawID,
             "flags": flags,
-            "fLetterWidth": fLetterWidth,
-            "fLetterHeight": fLetterHeight,
-            "dLetterColor": dLetterColor,
-            "fLineWidth": fLineWidth,
-            "fLineHeight": fLineHeight,
-            "dBoxColor": dBoxColor,
+            "letter_width": fLetterWidth,
+            "letter_height": fLetterHeight,
+            "letter_color": dLetterColor,
+            "line_width": fLineWidth,
+            "line_height": fLineHeight,
+            "box_color": dBoxColor,
             "shadow": shadow,
             "outline": outline,
-            "dBackgroundColor": dBackgroundColor,
+            "background_color": dBackgroundColor,
             "style": style,
             "selectable": selectable,
-            "fX": fX,
-            "fY": fY,
-            "wModelID": wModelID,
-            "fRotX": fRotX,
-            "fRotY": fRotY,
-            "fRotZ": fRotZ,
-            "fZoom": fZoom,
-            "wColor1": wColor1,
-            "wColor2": wColor2,
-            "szTextLen": szTextLen,
-            "szText": szText,
+            "x": fX,
+            "y": fY,
+            "model_id": wModelID,
+            "rot_x": fRotX,
+            "rot_y": fRotY,
+            "rot_z": fRotZ,
+            "zoom": fZoom,
+            "color1": wColor1,
+            "color2": wColor2,
+            "text": szText,
         }
 
     @staticmethod
@@ -701,10 +742,7 @@ class RPCParser:
         text = bs.read_string(textLength, "cp1251", errors="ignore") if textLength > 0 else ""
 
         return {
-            "state": "text_draw_set_string",
-            "wTextDrawID": wTextDrawID,
             "textdraw_id": wTextDrawID,
-            "textLength": textLength,
             "text": text,
         }
 
@@ -713,8 +751,6 @@ class RPCParser:
         wTextDrawID = bs.read_uint16()
 
         return {
-            "state": "hide_text_draw",
-            "wTextDrawID": wTextDrawID,
             "textdraw_id": wTextDrawID,
         }
 
@@ -734,7 +770,6 @@ class RPCParser:
             raw_extra = bs.read_bytes(bs.remaining_bits // 8)
 
         result = {
-            "state": "set_vehicle_params",
             "vehicle_id": int(vehicle_id),
             "params": params,
             "params_format": params_format,
@@ -760,47 +795,208 @@ class RPCParser:
 
 
 
+RPC_PARSE_REGISTRY: dict[str, tuple[int, "Callable[[BitStream], dict | None]"]] = {
+    "request_spawn": (
+        RPCConstants.REQUEST_SPAWN,
+        RPCParser.request_spawn,
+    ),
+    "update_scores_and_pings": (
+        RPCConstants.UPDATE_SCORES_PINGS_IPS,
+        RPCParser.update_scores_and_pings,
+    ),
+    "give_player_money": (
+        RPCConstants.SCR_GIVE_PLAYER_MONEY,
+        RPCParser.give_player_money,
+    ),
+    "show_dialog": (
+        RPCConstants.SCR_DIALOG_BOX,
+        RPCParser.show_dialog,
+    ),
+    "client_message": (
+        RPCConstants.CLIENT_MESSAGE,
+        RPCParser.client_message,
+    ),
+    "server_quit": (
+        RPCConstants.SERVER_QUIT,
+        RPCParser.server_quit,
+    ),
+    "connection_rejected": (
+        RPCConstants.CONNECTION_REJECTED,
+        RPCParser.connection_rejected,
+    ),
+    "server_join": (
+        RPCConstants.SERVER_JOIN,
+        RPCParser.server_join,
+    ),
+    "init_game": (
+        RPCConstants.INIT_GAME,
+        RPCParser.init_game,
+    ),
+    "set_spawn_info": (
+        RPCConstants.SCR_SET_SPAWN_INFO,
+        RPCParser.set_spawn_info,
+    ),
+    "set_player_name": (
+        RPCConstants.SCR_SET_PLAYER_NAME,
+        RPCParser.set_player_name,
+    ),
+    "set_player_pos": (
+        RPCConstants.SCR_SET_PLAYER_POS,
+        RPCParser.set_player_pos,
+    ),
+    "set_player_pos_find_z": (
+        RPCConstants.SCR_SET_PLAYER_POS_FIND_Z,
+        RPCParser.set_player_pos,
+    ),
+    "set_player_facing_angle": (
+        RPCConstants.SCR_SET_PLAYER_FACING_ANGLE,
+        RPCParser.set_player_facing_angle,
+    ),
+    "set_player_skin": (
+        RPCConstants.SCR_SET_PLAYER_SKIN,
+        RPCParser.set_player_skin,
+    ),
+    "play_audio_stream": (
+        RPCConstants.PLAY_AUDIO_STREAM,
+        RPCParser.play_audio_stream,
+    ),
+    "set_player_health": (
+        RPCConstants.SCR_SET_PLAYER_HEALTH,
+        RPCParser.set_player_health,
+    ),
+    "set_player_armour": (
+        RPCConstants.SCR_SET_PLAYER_ARMOUR,
+        RPCParser.set_player_armour,
+    ),
+    "set_weapon_ammo": (
+        RPCConstants.SCR_SET_WEAPON_AMMO,
+        RPCParser.set_weapon_ammo,
+    ),
+    "set_camera_behind": (
+        RPCConstants.SCR_SET_CAMERA_BEHIND_PLAYER,
+        RPCParser.set_camera_behind,
+    ),
+    "world_player_add": (
+        RPCConstants.WORLD_PLAYER_ADD,
+        RPCParser.world_player_add,
+    ),
+    "world_player_remove": (
+        RPCConstants.WORLD_PLAYER_REMOVE,
+        RPCParser.world_player_remove,
+    ),
+    "world_vehicle_add": (
+        RPCConstants.WORLD_VEHICLE_ADD,
+        RPCParser.world_vehicle_add,
+    ),
+    "world_vehicle_remove": (
+        RPCConstants.WORLD_VEHICLE_REMOVE,
+        RPCParser.world_vehicle_remove,
+    ),
+    "set_map_icon": (
+        RPCConstants.SCR_SET_MAP_ICON,
+        RPCParser.set_map_icon,
+    ),
+    "remove_map_icon": (
+        RPCConstants.SCR_DISABLE_MAP_ICON,
+        RPCParser.remove_map_icon,
+    ),
+    "create_pickup": (
+        RPCConstants.CREATE_PICKUP,
+        RPCParser.create_pickup,
+    ),
+    "destroy_pickup": (
+        RPCConstants.DESTROY_PICKUP,
+        RPCParser.destroy_pickup,
+    ),
+    "create_3d_text_label": (
+        RPCConstants.SCR_CREATE_3D_TEXT_LABEL,
+        RPCParser.create_3d_text_label,
+    ),
+    "delete_3d_text_label": (
+        RPCConstants.SCR_DELETE_3D_TEXT_LABEL,
+        RPCParser.delete_3d_text_label,
+    ),
+    "set_interior": (
+        RPCConstants.SCR_SET_INTERIOR,
+        RPCParser.set_interior,
+    ),
+    "set_camera_pos": (
+        RPCConstants.SCR_SET_CAMERA_POS,
+        RPCParser.set_camera_pos,
+    ),
+    "enter_vehicle": (
+        RPCConstants.ENTER_VEHICLE,
+        RPCParser.enter_vehicle,
+    ),
+    "put_player_in_vehicle": (
+        RPCConstants.SCR_PUT_PLAYER_IN_VEHICLE,
+        RPCParser.put_player_in_vehicle,
+    ),
+    "set_vehicle_pos": (
+        RPCConstants.SCR_SET_VEHICLE_POS,
+        RPCParser.set_vehicle_pos,
+    ),
+    "set_player_velocity": (
+        RPCConstants.SCR_SET_PLAYER_VELOCITY,
+        RPCParser.set_player_velocity,
+    ),
+    "set_vehicle_velocity": (
+        RPCConstants.SCR_SET_VEHICLE_VELOCITY,
+        RPCParser.set_vehicle_velocity,
+    ),
+    "set_vehicle_params": (
+        RPCConstants.SCR_VEHICLE_PARAMS,
+        RPCParser.set_vehicle_params,
+    ),
+    "reset_player_money": (
+        RPCConstants.SCR_RESET_MONEY,
+        RPCParser.reset_player_money,
+    ),
+    "show_game_text": (
+        RPCConstants.SCR_DISPLAY_GAME_TEXT,
+        RPCParser.show_game_text,
+    ),
+    "set_checkpoint": (
+        RPCConstants.SET_CHECKPOINT,
+        RPCParser.set_checkpoint,
+    ),
+    "disable_checkpoint": (
+        RPCConstants.DISABLE_CHECKPOINT,
+        RPCParser.disable_checkpoint,
+    ),
+    "game_mode_restart": (
+        RPCConstants.GAME_MODE_RESTART,
+        RPCParser.game_mode_restart,
+    ),
+    "set_race_checkpoint": (
+        RPCConstants.SET_RACE_CHECKPOINT,
+        RPCParser.set_race_checkpoint,
+    ),
+    "disable_race_checkpoint": (
+        RPCConstants.DISABLE_RACE_CHECKPOINT,
+        RPCParser.disable_race_checkpoint,
+    ),
+    "toggle_player_controllable": (
+        RPCConstants.SCR_TOGGLE_PLAYER_CONTROLLABLE,
+        RPCParser.toggle_player_controllable,
+    ),
+    "show_text_draw": (
+        RPCConstants.SCR_SHOW_TEXT_DRAW,
+        RPCParser.show_text_draw,
+    ),
+    "text_draw_set_string": (
+        RPCConstants.SCR_TEXT_DRAW_SET_STRING,
+        RPCParser.text_draw_set_string,
+    ),
+    "hide_text_draw": (
+        RPCConstants.SCR_HIDE_TEXT_DRAW,
+        RPCParser.hide_text_draw,
+    ),
+}
+
 RPC_PARSERS = {
-    RPCConstants.REQUEST_SPAWN: RPCParser.request_spawn,
-    RPCConstants.UPDATE_SCORES_PINGS_IPS: RPCParser.update_scores_and_pings,
-    RPCConstants.SCR_GIVE_PLAYER_MONEY: RPCParser.give_player_money,
-    RPCConstants.SCR_DIALOG_BOX: RPCParser.show_dialog,
-    RPCConstants.CLIENT_MESSAGE: RPCParser.client_message,
-    RPCConstants.SERVER_QUIT: RPCParser.server_quit,
-    RPCConstants.CONNECTION_REJECTED: RPCParser.connection_rejected,
-    RPCConstants.SERVER_JOIN: RPCParser.server_join,
-    RPCConstants.INIT_GAME: RPCParser.init_game,
-    RPCConstants.SCR_SET_SPAWN_INFO: RPCParser.set_spawn_info,
-    RPCConstants.SCR_SET_PLAYER_NAME: RPCParser.set_player_name,
-    RPCConstants.SCR_SET_PLAYER_POS: RPCParser.set_player_pos,
-    RPCConstants.SCR_SET_PLAYER_FACING_ANGLE: RPCParser.set_player_facing_angle,
-    RPCConstants.SCR_SET_PLAYER_SKIN: RPCParser.set_player_skin,
-    RPCConstants.PLAY_AUDIO_STREAM: RPCParser.play_audio_stream,
-    RPCConstants.SCR_SET_PLAYER_HEALTH: RPCParser.set_player_health,
-    RPCConstants.SCR_SET_PLAYER_ARMOUR: RPCParser.set_player_armour,
-    RPCConstants.SCR_SET_WEAPON_AMMO: RPCParser.set_weapon_ammo,
-    RPCConstants.SCR_SET_CAMERA_BEHIND_PLAYER: RPCParser.set_camera_behind,
-    RPCConstants.WORLD_PLAYER_ADD: RPCParser.world_player_add,
-    RPCConstants.WORLD_PLAYER_REMOVE: RPCParser.world_player_remove,
-    RPCConstants.WORLD_VEHICLE_ADD: RPCParser.world_vehicle_add,
-    RPCConstants.WORLD_VEHICLE_REMOVE: RPCParser.world_vehicle_remove,
-    RPCConstants.SCR_SET_MAP_ICON: RPCParser.set_map_icon,
-    RPCConstants.CREATE_PICKUP: RPCParser.create_pickup,
-    RPCConstants.DESTROY_PICKUP: RPCParser.destroy_pickup,
-    RPCConstants.SCR_CREATE_3D_TEXT_LABEL: RPCParser.create_3d_text_label,
-    RPCConstants.SCR_DELETE_3D_TEXT_LABEL: RPCParser.delete_3d_text_label,
-    RPCConstants.SCR_SET_INTERIOR: RPCParser.set_interior,
-    RPCConstants.SCR_SET_CAMERA_POS: RPCParser.set_camera_pos,
-    RPCConstants.ENTER_VEHICLE: RPCParser.enter_vehicle,
-    RPCConstants.SCR_PUT_PLAYER_IN_VEHICLE: RPCParser.put_player_in_vehicle,
-    RPCConstants.SCR_SET_VEHICLE_POS: RPCParser.set_vehicle_pos,
-    RPCConstants.SCR_SET_PLAYER_VELOCITY: RPCParser.set_player_velocity,
-    RPCConstants.SCR_SET_VEHICLE_VELOCITY: RPCParser.set_vehicle_velocity,
-    RPCConstants.SCR_VEHICLE_PARAMS: RPCParser.set_vehicle_params,
-    RPCConstants.SCR_RESET_MONEY: RPCParser.reset_player_money,
-    RPCConstants.SCR_SHOW_TEXT_DRAW: RPCParser.show_text_draw,
-    RPCConstants.SCR_TEXT_DRAW_SET_STRING: RPCParser.text_draw_set_string,
-    RPCConstants.SCR_HIDE_TEXT_DRAW: RPCParser.hide_text_draw,
+    rpc_id: (name, parser)
+    for name, (rpc_id, parser) in RPC_PARSE_REGISTRY.items()
 }
 
 
@@ -809,11 +1005,11 @@ class RPC:
     @staticmethod
     def _read_rpc_id(
         bs: BitStream
-    ) -> tuple[int, int]:
+    ) -> int:
 
         rpc_id = bs.read_bits(8)
-        skip = bs.read_bits(2)
-        return rpc_id, skip
+        bs.read_bits(2)
+        return rpc_id
 
     @staticmethod
     def _bits_to_bytes(value: int, bitlen: int) -> bytes:
@@ -833,15 +1029,17 @@ class RPC:
         rpc_id: int,
         payload: bytes
     ) -> tuple[dict | None, BitStream | None]:
-        rpc_parser = RPC_PARSERS.get(rpc_id)
+        entry = RPC_PARSERS.get(rpc_id)
 
-        if rpc_parser is None:
+        if entry is None:
             return None, None
+
+        rpc_name, rpc_parser = entry
 
         payload_bs = BitStream(payload)
 
         try:
-            return rpc_parser(payload_bs), payload_bs
+            parsed = rpc_parser(payload_bs)
         except Exception as error:
             logger.rpc_parse_error(
                 f"RPC PAYLOAD PARSE ERROR"
@@ -849,17 +1047,22 @@ class RPC:
             )
             return None, payload_bs
 
+        if parsed is not None:
+            parsed.setdefault("state", rpc_name)
+
+        return parsed, payload_bs
+
     @staticmethod
     def read_rpc(data: bytes) -> dict | None:
 
-        if len(data) < 3:
+        if len(data) < 2:
             return None
 
         try:
 
             bs = BitStream(data)
 
-            rpc_id, skip = RPC._read_rpc_id(bs)
+            rpc_id = RPC._read_rpc_id(bs)
 
             bitlen = bs.read_compressed(16, unsigned=True)
 
@@ -867,7 +1070,7 @@ class RPC:
                 logger.rpc_parse_error(
                     f"RPC ERROR Not enough bits: "
                     f"need {bitlen}, have {bs.remaining_bits} "
-                    f"rpc_id={rpc_id} skip={skip} "
+                    f"rpc_id={rpc_id} "
                     f"body_len={len(data)} "
                     f"first_4_bytes={data[:4].hex()}"
                 )
@@ -880,15 +1083,9 @@ class RPC:
                 rpc_id,
                 payload_bytes
             )
-            effective_bitlen = bitlen
-
-            if payload_bs is not None:
-                effective_bitlen = payload_bs.bitpos - payload_bs.skipped_bits
 
             return {
                 "rpc_id": rpc_id,
-                "skip": skip,
-                "bitlen": effective_bitlen,
                 "payload": payload_bytes,
                 "parsed_payload": parsed_payload,
                 "raw": data,
@@ -908,7 +1105,6 @@ class PacketParser:
     ) -> dict:
 
         return {
-            "type": "open_connection_reply",
             "raw": data
         }
 
@@ -923,7 +1119,6 @@ class PacketParser:
         cookie = (data[0] << 8) | data[1]
 
         return {
-            "type": "open_connection_cookie",
             "cookie": cookie,
             "raw": data
         }
@@ -952,7 +1147,6 @@ class PacketParser:
         )
 
         return {
-            "type": "auth_key",
             "key": key,
             "key_len": key_len,
             "raw": data
@@ -973,7 +1167,6 @@ class PacketParser:
         server_challenge = bs.read_uint32()
 
         return {
-            "type": "connection_request_accepted",
             "binary_address": binary_address,
             "port": port,
             "player_index": player_index,
@@ -993,7 +1186,6 @@ class PacketParser:
         sender_ms = bs.read_uint32()
 
         return {
-            "type": "internal_ping",
             "sender_ms": sender_ms,
             "raw": data
         }
@@ -1011,7 +1203,6 @@ class PacketParser:
         sender_ms = bs.read_uint32()
 
         return {
-            "type": "connected_pong",
             "receiver_ms": receiver_ms,
             "sender_ms": sender_ms,
             "raw": data
@@ -1031,7 +1222,6 @@ class PacketParser:
         )
 
         return {
-            "type": "disconnection_notification",
             "reason": reason,
             "raw": data
         }
@@ -1092,9 +1282,8 @@ class PacketParser:
 
         health = float(bs.read_uint16())
 
-        health_armour_byte = bs.read_uint8()
-        health_nibble = (health_armour_byte >> 4) & 0x0F
-        armour_nibble = health_armour_byte & 0x0F
+        health_nibble = bs.read_bits(4)
+        armour_nibble = bs.read_bits(4)
 
         if health_nibble == 0x0F:
             player_health = 100
@@ -1111,11 +1300,9 @@ class PacketParser:
             player_armour = armour_nibble * 7
 
         return {
-            "type": "vehicle_sync",
             "packet_id": PacketID.VEHICLE_SYNC,
             "player_id": player_id,
             "vehicle_id": vehicle_id,
-            "wVehicleID": vehicle_id,
             "lr": lr,
             "ud": ud,
             "keys": keys,
@@ -1123,17 +1310,192 @@ class PacketParser:
             "quat_x": qx,
             "quat_y": qy,
             "quat_z": qz,
-            "CarX": x,
-            "CarY": y,
-            "CarZ": z,
+            "x": x,
+            "y": y,
+            "z": z,
             "velocity_x": velocity_x,
             "velocity_y": velocity_y,
             "velocity_z": velocity_z,
-            "CarHealth": health,
+            "vehicle_health": health,
             "health": player_health,
             "armour": player_armour,
             "raw": data,
         }
+
+    @staticmethod
+    def passenger_sync(
+        data: bytes
+    ) -> dict | None:
+        try:
+            bs = BitStream(data)
+            if bs.remaining_bits < 16:
+                return None
+            player_id = bs.read_uint16()
+            if bs.remaining_bits < 24 * 8:
+                pass
+            vehicle_id = bs.read_uint16()
+            drive_by = bs.read_bits(1)
+            seat_flags = bs.read_bits(7)
+            weapon = bs.read_uint8()
+            health = bs.read_uint8()
+            armour = bs.read_uint8()
+            lr = bs.read_uint16()
+            ud = bs.read_uint16()
+            keys = bs.read_uint16()
+            x = bs.read_float()
+            y = bs.read_float()
+            z = bs.read_float()
+            return {
+                "packet_id": PacketID.PASSENGER_SYNC,
+                "player_id": int(player_id),
+                "vehicle_id": int(vehicle_id),
+                "seat_id": int(seat_flags),
+                "drive_by": int(drive_by),
+                "weapon": int(weapon),
+                "health": int(health),
+                "armour": int(armour),
+                "lr": int(lr),
+                "ud": int(ud),
+                "keys": int(keys),
+                "x": float(x),
+                "y": float(y),
+                "z": float(z),
+                "raw": data,
+            }
+        except EOFError:
+            return None
+        except Exception as e:
+            logger.rpc_parse_error(f"passenger_sync parse error: {e}")
+            return None
+
+    @staticmethod
+    def player_sync(
+        data: bytes
+    ) -> dict | None:
+        try:
+            bs = BitStream(data)
+            if bs.remaining_bits < 16:
+                return None
+            player_id = bs.read_uint16()
+
+            bHasLR = bs.read_bool()
+            lr = bs.read_uint16() if bHasLR else 0
+
+            bHasUD = bs.read_bool()
+            ud = bs.read_uint16() if bHasUD else 0
+
+            wKeys = bs.read_uint16()
+
+            x = bs.read_float()
+            y = bs.read_float()
+            z = bs.read_float()
+
+            cwNeg = bs.read_bool()
+            cxNeg = bs.read_bool()
+            cyNeg = bs.read_bool()
+            czNeg = bs.read_bool()
+            cx = bs.read_uint16()
+            cy = bs.read_uint16()
+            cz = bs.read_uint16()
+            qx = cx / 65535.0
+            qy = cy / 65535.0
+            qz = cz / 65535.0
+            if cxNeg:
+                qx = -qx
+            if cyNeg:
+                qy = -qy
+            if czNeg:
+                qz = -qz
+            diff = 1.0 - qx * qx - qy * qy - qz * qz
+            if diff < 0.0:
+                diff = 0.0
+            qw = math.sqrt(diff)
+            if cwNeg:
+                qw = -qw
+
+            hl = bs.read_bits(4)
+            al = bs.read_bits(4)
+            if hl == 0x0F:
+                health = 100
+            elif hl == 0:
+                health = 0
+            else:
+                health = hl * 7
+            if al == 0x0F:
+                armour = 100
+            elif al == 0:
+                armour = 0
+            else:
+                armour = al * 7
+
+            weapon = bs.read_uint8()
+            special_action = bs.read_uint8()
+
+            magnitude = bs.read_float()
+            if magnitude != 0.0:
+                sx = bs.read_uint16()
+                sy = bs.read_uint16()
+                sz = bs.read_uint16()
+                vx = (sx / 32767.5 - 1.0) * magnitude
+                vy = (sy / 32767.5 - 1.0) * magnitude
+                vz = (sz / 32767.5 - 1.0) * magnitude
+            else:
+                vx = 0.0
+                vy = 0.0
+                vz = 0.0
+
+            bHasSurf = bs.read_bool()
+            if bHasSurf:
+                wSurf = bs.read_uint16()
+                surfX = bs.read_float()
+                surfY = bs.read_float()
+                surfZ = bs.read_float()
+            else:
+                wSurf = 0xFFFF
+                surfX = 0.0
+                surfY = 0.0
+                surfZ = 0.0
+
+            bHasAnim = bs.read_bool()
+            if bHasAnim:
+                anim = bs.read_int32()
+            else:
+                anim = 0
+
+            return {
+                "packet_id": PacketID.PLAYER_SYNC,
+                "player_id": int(player_id),
+                "lr": int(lr),
+                "ud": int(ud),
+                "keys": int(wKeys),
+                "x": float(x),
+                "y": float(y),
+                "z": float(z),
+                "quat_w": float(qw),
+                "quat_x": float(qx),
+                "quat_y": float(qy),
+                "quat_z": float(qz),
+                "health": int(health),
+                "armour": int(armour),
+                "weapon": int(weapon),
+                "special_action": int(special_action),
+                "velocity_x": float(vx),
+                "velocity_y": float(vy),
+                "velocity_z": float(vz),
+                "has_surf": bool(bHasSurf),
+                "surf_vehicle_id": int(wSurf),
+                "surf_x": float(surfX),
+                "surf_y": float(surfY),
+                "surf_z": float(surfZ),
+                "has_anim": bool(bHasAnim),
+                "anim_id": int(anim),
+                "raw": data,
+            }
+        except EOFError:
+            return None
+        except Exception as e:
+            logger.rpc_parse_error(f"player_sync parse error: {e}")
+            return None
 
     @staticmethod
     def rpc(
@@ -1146,26 +1508,64 @@ class PacketParser:
             return None
 
         return {
-            "type": "rpc",
             "rpc_id": parsed["rpc_id"],
-            "skip_bits": parsed["skip"],
-            "bitlen": parsed["bitlen"],
             "payload": parsed["payload"],
             "parsed_payload": parsed["parsed_payload"],
             "raw": data
         }
 
 
+PACKET_PARSE_REGISTRY: dict[str, tuple[int, "Callable[[bytes], dict | None]"]] = {
+    "open_connection_reply": (
+        PacketID.OPEN_CONNECTION_REPLY,
+        PacketParser.open_connection_reply,
+    ),
+    "open_connection_cookie": (
+        PacketID.OPEN_CONNECTION_COOKIE,
+        PacketParser.open_connection_cookie,
+    ),
+    "auth_key": (
+        PacketID.AUTH_KEY,
+        PacketParser.auth_key,
+    ),
+    "connection_request_accepted": (
+        PacketID.CONNECTION_REQUEST_ACCEPTED,
+        PacketParser.connection_request_accepted,
+    ),
+    "internal_ping": (
+        PacketID.INTERNAL_PING,
+        PacketParser.internal_ping,
+    ),
+    "connected_pong": (
+        PacketID.CONNECTED_PONG,
+        PacketParser.connected_pong,
+    ),
+    "disconnection_notification": (
+        PacketID.DISCONNECTION_NOTIFICATION,
+        PacketParser.disconnection_notification,
+    ),
+    "rpc": (
+        PacketID.RPC,
+        PacketParser.rpc,
+    ),
+    "player_sync": (
+        PacketID.PLAYER_SYNC,
+        PacketParser.player_sync,
+    ),
+    "vehicle_sync": (
+        PacketID.VEHICLE_SYNC,
+        PacketParser.vehicle_sync,
+    ),
+    "passenger_sync": (
+        PacketID.PASSENGER_SYNC,
+        PacketParser.passenger_sync,
+    ),
+}
+
+
 PACKET_PARSERS = {
-    PacketID.OPEN_CONNECTION_REPLY: PacketParser.open_connection_reply,
-    PacketID.OPEN_CONNECTION_COOKIE: PacketParser.open_connection_cookie,
-    PacketID.AUTH_KEY: PacketParser.auth_key,
-    PacketID.CONNECTION_REQUEST_ACCEPTED: PacketParser.connection_request_accepted,
-    PacketID.INTERNAL_PING: PacketParser.internal_ping,
-    PacketID.CONNECTED_PONG: PacketParser.connected_pong,
-    PacketID.DISCONNECTION_NOTIFICATION: PacketParser.disconnection_notification,
-    PacketID.RPC: PacketParser.rpc,
-    PacketID.VEHICLE_SYNC: PacketParser.vehicle_sync,
+    packet_id: (name, parser)
+    for name, (packet_id, parser) in PACKET_PARSE_REGISTRY.items()
 }
 
 
@@ -1176,12 +1576,14 @@ def parse_packet(data: bytes) -> dict:
 
     packet_id = data[0]
 
-    parser = PACKET_PARSERS.get(packet_id)
+    entry = PACKET_PARSERS.get(packet_id)
 
-    if parser:
+    if entry is not None:
+        packet_name, parser = entry
         result = parser(data[1:])
 
         if result is not None:
+            result.setdefault("type", packet_name)
             result["packet_id"] = packet_id
             return result
 

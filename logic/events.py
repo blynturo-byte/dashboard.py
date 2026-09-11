@@ -162,25 +162,9 @@ def _default_on_disconnect(bot):
 def _default_on_spawn(bot):
     pass
 
-@emitter.on("onConnectionRejected")
-def _default_on_connection_rejected(
-    bot,
-    reason_code,
-    reason_text,
-    parsed,
-    packet,
-):
-    pass
-
 
 @emitter.on("onKick")
-def _default_on_kick(
-    bot,
-    reason_code,
-    reason_text,
-    parsed,
-    packet,
-):
+def _default_on_kick(bot, reason_code):
     pass
 
 @emitter.on("onSendPacket")
@@ -208,32 +192,27 @@ def _default_on_show_dialog(
     info,
     button1,
     button2,
-    parsed,
-    packet,
 ):
     pass
 
 
 @emitter.on("OnShowTextDraw")
-def _default_on_show_text_draw(
-    bot,
-    textdraw_id,
-    style,
-    selectable,
-    model_id,
-    parsed,
-    packet,
-):
+def _default_on_show_text_draw(bot, textdraw_id, info):
+    pass
+
+
+@emitter.on("OnTextDrawSetString")
+def _default_on_text_draw_set_string(bot, textdraw_id, text):
+    pass
+
+
+@emitter.on("onHideTextDraw")
+def _default_on_hide_text_draw(bot, textdraw_id):
     pass
 
 
 @emitter.on("onShowChat")
-def _default_on_show_chat(
-    bot,
-    message,
-    parsed,
-    packet,
-):
+def _default_on_show_chat(bot, message):
     pass
 
 @emitter.on("onVehicleStreamIn")
@@ -261,6 +240,22 @@ def _default_on_player_stream_in(
     pass
 
 
+@emitter.on("onPlayerStreamOut")
+def _default_on_player_stream_out(
+    bot,
+    player_id,
+):
+    pass
+
+
+@emitter.on("onVehicleStreamOut")
+def _default_on_vehicle_stream_out(
+    bot,
+    vehicle_id,
+):
+    pass
+
+
 
 @emitter.on("onSetMapIcon")
 def _default_on_set_map_icon(
@@ -269,9 +264,12 @@ def _default_on_set_map_icon(
     xyz,
     marker_type,
     style,
-    parsed,
-    packet,
 ):
+    pass
+
+
+@emitter.on("onRemoveMapIcon")
+def _default_on_remove_map_icon(bot, icon_id):
     pass
 
 
@@ -281,16 +279,19 @@ def _default_on_create_3d_text_label(
     label_id,
     text,
     color,
-    XLabel,
-    YLabel,
-    ZLabel,
+    x,
+    y,
+    z,
     draw_distance,
     use_los,
     attached_player_id,
     attached_vehicle_id,
-    parsed,
-    packet,
 ):
+    pass
+
+
+@emitter.on("onDelete3DTextLabel")
+def _default_on_delete_3d_text_label(bot, label_id):
     pass
 
 
@@ -299,8 +300,6 @@ def _default_on_put_player_in_vehicle(
     bot,
     vehicle_id,
     seat_id,
-    parsed,
-    packet,
 ):
     pass
 
@@ -312,8 +311,6 @@ def _default_on_player_enter_vehicle(
     player_id,
     vehicle_id,
     is_passenger,
-    parsed,
-    packet,
 ):
     pass
 
@@ -344,4 +341,65 @@ def _default_on_set_player_health(bot, health):
 
 @emitter.on("OnSetPlayerArmour")
 def _default_on_set_player_armour(bot, armour):
+    pass
+
+
+@emitter.on("OnSetInterior")
+def _default_on_set_interior(bot, interior_id):
+    pass
+
+
+@emitter.on("OnSetMoney")
+def _default_on_set_money(bot, money):
+    pass
+
+
+@emitter.on("OnSetPosition")
+def _default_on_set_position(bot, x, y, z):
+    pass
+
+
+@emitter.on("OnSetSkin")
+def _default_on_set_skin(bot, player_id, skin_id):
+    pass
+
+
+@emitter.on("OnGameText")
+def _default_on_game_text(bot, style, time, text):
+    pass
+
+
+@emitter.on("OnSetCheckpoint")
+def _default_on_set_checkpoint(bot, x, y, z, radius):
+    pass
+
+
+@emitter.on("OnDisableCheckpoint")
+def _default_on_disable_checkpoint(bot):
+    pass
+
+
+@emitter.on("OnGameModeRestart")
+def _default_on_game_mode_restart(bot):
+    pass
+
+
+@emitter.on("OnSetRaceCheckpoint")
+def _default_on_set_race_checkpoint(
+    bot,
+    checkpoint_type,
+    position,
+    next_position,
+    radius,
+):
+    pass
+
+
+@emitter.on("OnDisableRaceCheckpoint")
+def _default_on_disable_race_checkpoint(bot):
+    pass
+
+
+@emitter.on("OnFreeze")
+def _default_on_freeze(bot, frozen):
     pass

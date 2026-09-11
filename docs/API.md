@@ -19,7 +19,7 @@
 - `sendchat(message)` - Отправляет сообщение в чат. Строки с `/` отправляются как server command.
 - `SendDialogResponse(dialog_id, response, list_item, text="")` - Отправляет ответ на диалог.
 - `sendClickTextdraw(textdraw_id)` - Нажимает textdraw.
-- `SendKey(keys)` - Устанавливает состояние клавиш бота. Возвращает `True` при успешной установке.
+- `SetKey(keys=None, lr=None, ud=None)` - Устанавливает состояние клавиш (`keys` 0..65535) и осей управления `lr`/`ud` (-32768..32767) бота. Любые `None` параметры не изменяют текущее значение. Возвращает `True` при успешной установке.
 
 ## Pickups / Death
 
@@ -43,7 +43,12 @@
 
 ## Players / Stream
 
-- `getallplayers()` - Возвращает всех известных игроков.
+- `getallplayers()` - Возвращает список ников всех известных игроков.
+- `getplayers()` - Возвращает `Dict[int, PlayerInfo]` игроков в зоне стрима.
+- `getplayer(player_id)` - Возвращает `PlayerInfo` стрим-игрока или `None`.
+- `GetDialog()` - Возвращает dict последнего показанного сервером диалога (`dialog_id`, `dialog_style`, `dialog_title`, `dialog_info`, `dialog_button1`, `dialog_button2`, `updated_at`) или `None`.
+- `gettextdraw(textdraw_id)` - Возвращает dict textdraw (`textdraw_id`, `text`, `x`, `y`, `style`, `selectable`, `model_id`, цвета, `updated_at`) или `None`.
+- `getalltextdraws()` - Возвращает `Dict[int, dict]` всех известных textdraw.
 - `getallvehicles()` - Возвращает все известные транспортные средства.
 - `getvehicle(vehicle_id)` - Возвращает данные транспорта или `None`.
 - `getallpickups()` - Возвращает все известные pickup.
@@ -88,12 +93,8 @@
 
 ## Packets
 
-- `SendPacket(payload, reliability=..., ordering_channel=0, priority=...)` - Отправляет произвольный RakNet packet.
-
-## Utility
-
-- `wait(seconds)` - Блокирующий `sleep` на указанное количество секунд.
-
+- `SendPacket(packet_id, payload=b"", reliability=..., ordering_channel=0, priority=...)` - Отправляет произвольный RakNet packet. Байт `packet_id` подставляется автоматически.
+- `SendRPC(rpc_id, payload=b"", reliability=..., ordering_channel=0, priority=...)` - Отправляет RPC с указанным id. `payload` - чистые данные RPC (без rpc_id, флагов и bitlen), обёртка `[ID_RPC][rpc_id][bitlen][данные]` строится автоматически. По умолчанию RELIABLE / MEDIUM_PRIORITY.
 
 ## Events
 
@@ -103,25 +104,41 @@
 - `onRequestConnect(bot)` - запрошено подключение.
 - `onOpenConnectionReplyTimeout(bot, attempts, old_ip, old_port)` - истёк таймаут ответа на OpenConnection.
 - `onHandshakeFailed(bot, stage, reason, server_ip, server_port)` - handshake завершился ошибкой.
-- `onStateReset(bot, reason, counter)` - сброшено runtime-состояние.
-- `onconnect(bot)` - подключение завершено и бот перешёл в connected state.
+- `onStateReset(bot, reason, counter)` - сообщает о сбросе состояния
+- `onconnect(bot)` - пришел rpc initgame, подключение завершено
 - `disconnect(bot)` - соединение разорвано.
-- `onSpawn(bot)` - сервер сообщил о spawn бота.
-- `onConnectionRejected(bot, reason_code, reason_text, parsed, packet)` - сервер отклонил подключение.
-- `onKick(bot, reason_code, reason_text, parsed, packet)` - получен kick/reject с причиной.
+- `onSpawn(bot)` - сервер сообщил о спавне бота.
+- `onKick(bot, reason_code)` - получен rpc CONNECTION_REJECTED с причиной (1 - incorrect version, 2 - nick already logged in, 3 - bad mod version, 4 - no free slots).
 - `onSendPacket(bot, packet_id, body)` - перед отправкой packet.
-- `onSendRPC(bot, rpc_id, payload)` - перед отправкой RPC.
+- `onSendRPC(bot, rpc_id, payload)` - перед отправкой RPC. `payload` - чистые данные RPC (без rpc_id, флагов и bitlen).
 - `onReceivePacket(bot, packet_id, payload)` - получен SAMP packet.
-- `onReceiveRPC(bot, rpc_id, payload)` - получен RPC.
-- `onShowDialog(bot, dialog_id, dialog_style, title, info, button1, button2, parsed, packet)` - сервер показал диалог.
-- `OnShowTextDraw(bot, textdraw_id, style, selectable, model_id, parsed, packet)` - сервер показал textdraw.
-- `onShowChat(bot, message, parsed, packet)` - получено сообщение чата.
+- `onReceiveRPC(bot, rpc_id, payload)` - получен RPC. `payload` - чистые данные RPC (без rpc_id и bitlen).
+- `onShowDialog(bot, dialog_id, dialog_style, title, info, button1, button2)` - сервер показал диалог.
+- `OnShowTextDraw(bot, textdraw_id, info)` - сервер показал textdraw; `info` - dict со всеми полями (`text`, `x`, `y`, `style`, `selectable`, `model_id`, `letter_color`, `box_color`, `background_color`, ...).
+- `OnTextDrawSetString(bot, textdraw_id, text)` - сервер обновил текст textdraw (SCR_TEXT_DRAW_SET_STRING).
+- `onHideTextDraw(bot, textdraw_id)` - сервер скрыл textdraw (HideTextDraw).
+- `onShowChat(bot, message)` - получено сообщение чата.
 - `onVehicleStreamIn(bot, model_id, vehicle_id, x, y, z)` - транспорт добавлен в stream.
 - `onPlayerStreamIn(bot, player_id, skin_id, x, y, z)` - игрок добавлен в stream.
-- `onSetMapIcon(bot, icon_id, xyz, marker_type, style, parsed, packet)` - сервер установил map icon.
-- `onCreate3DTextLabel(bot, label_id, text, color, x, y, z, draw_distance, use_los, attached_player_id, attached_vehicle_id, parsed, packet)` - создан 3D text label.
-- `onPutPlayerInVehicle(bot, vehicle_id, seat_id, parsed, packet)` - бот помещён в транспорт.
-- `onPlayerEnterVehicle(bot, player_id, vehicle_id, is_passenger, parsed, packet)` - игрок вошёл в транспорт.
+- `onPlayerStreamOut(bot, player_id)` - игрок покинул stream (WORLD_PLAYER_REMOVE).
+- `onVehicleStreamOut(bot, vehicle_id)` - транспорт покинул stream (WORLD_VEHICLE_REMOVE).
+- `OnSetInterior(bot, interior_id)` - сервер установил интерьер боту (SCR_SET_INTERIOR).
+- `OnSetMoney(bot, money)` - изменены деньги бота: GivePlayerMoney (дельта) или ResetPlayerMoney (0).
+- `OnSetPosition(bot, x, y, z)` - сервер установил позицию боту (SCR_SET_PLAYER_POS / SCR_SET_PLAYER_POS_FIND_Z).
+- `OnSetSkin(bot, player_id, skin_id)` - сервер установил скин игроку (SCR_SET_PLAYER_SKIN).
+- `OnGameText(bot, style, time, text)` - сервер показал gametext (ShowGameText); текст также выводится в консоль `[GAMETEXT] ...`.
+- `OnSetCheckpoint(bot, x, y, z, radius)` - установлен обычный checkpoint (SET_CHECKPOINT).
+- `OnDisableCheckpoint(bot)` - отключён обычный checkpoint (DISABLE_CHECKPOINT).
+- `OnGameModeRestart(bot)` - сервер перезапускается (GAME_MODE_RESTART); в консоль пишется "The Server Is restarting...".
+- `OnSetRaceCheckpoint(bot, checkpoint_type, position, next_position, radius)` - установлен race checkpoint (SET_RACE_CHECKPOINT); `position`/`next_position` - кортежи (x, y, z).
+- `OnDisableRaceCheckpoint(bot)` - отключён race checkpoint (DISABLE_RACE_CHECKPOINT).
+- `OnFreeze(bot, frozen)` - TogglePlayerControllable: `frozen=True` если бот заморожен.
+- `onSetMapIcon(bot, icon_id, xyz, marker_type, style)` - сервер установил map icon.
+- `onRemoveMapIcon(bot, icon_id)` - сервер удалил map icon (RemoveMapIcon).
+- `onCreate3DTextLabel(bot, label_id, text, color, x, y, z, draw_distance, use_los, attached_player_id, attached_vehicle_id)` - создан 3D text label.
+- `onDelete3DTextLabel(bot, label_id)` - удалён 3D text label (Delete3DTextLabel).
+- `onPutPlayerInVehicle(bot, vehicle_id, seat_id)` - бот помещён в транспорт.
+- `onPlayerEnterVehicle(bot, player_id, vehicle_id, is_passenger)` - игрок вошёл в транспорт.
 - `OnCoordMoveStart(bot, movement)` - создано движение `MoveToCoord`.
 - `OnCoordMovePhaseChange(bot, movement, old_phase, new_phase)` - изменилась фаза движения.
 - `OnCoordMoveEnd(bot, movement, status)` - завершилось движение `MoveToCoord`.

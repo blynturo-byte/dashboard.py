@@ -737,14 +737,14 @@ def main(argv: list[str] | None = None):
     try:
         while True:
             if bot.session.is_reconnecting():
-                time.sleep(0.001)
+                time.sleep(0.1)
                 continue
 
             if not bot.api.is_connected():
                 time.sleep(float(DISCONNECTED_RECONNECT_POLL))
                 continue
 
-            time.sleep(0.05)
+            time.sleep(0.5)
 
     except KeyboardInterrupt:
         logger.info("Stopping bot...")

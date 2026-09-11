@@ -37,7 +37,13 @@ class ServerInfo:
 class ChatInfo:
 
     def __init__(self):
-        pass
+        self.last_dialog: dict | None = None
+
+    def get_last_dialog(self) -> dict | None:
+        if self.last_dialog is None:
+            return None
+
+        return dict(self.last_dialog)
 
     def process_packet(self, packet: dict) -> None:
         if packet.get("type") != "rpc":
@@ -50,6 +56,13 @@ class ChatInfo:
 
         if "message" in parsed:
             logger.chat(f"{parsed['message']}")
+
+        elif parsed.get("state") == "show_game_text":
+            logger.gametext(
+                f"{parsed.get('text', '')} "
+                f"(style={parsed.get('style')}, "
+                f"time={parsed.get('time')}ms)"
+            )
 
         elif "url" in parsed:
             logger.audio(f"{parsed['url']}")
@@ -81,24 +94,33 @@ class ChatInfo:
             button2 = parsed.get("dialog_button2", "")
             info = parsed.get("dialog_info", "")
 
-            logger.dialog("\n" + "=" * 60)
-            logger.dialog(f"ID: {dialog_id}")
-            logger.dialog(f"Style: {style}")
+            self.last_dialog = {
+                "dialog_id": dialog_id,
+                "dialog_style": style,
+                "dialog_title": title,
+                "dialog_info": info,
+                "dialog_button1": button1,
+                "dialog_button2": button2,
+                "updated_at": time.time(),
+            }
+
+            lines = [
+                "=" * 60,
+                f"ID: {dialog_id}",
+                f"Style: {style}",
+            ]
 
             if title:
-                logger.dialog(f"Title: {title}")
+                lines.append(f"Title: {title}")
 
-            logger.dialog("-" * 60)
+            lines.append("-" * 60)
+            lines.append(info if info else "[empty dialog text]")
+            lines.append("-" * 60)
+            lines.append(f"Button1: {button1}")
+            lines.append(f"Button2: {button2}")
+            lines.append("=" * 60)
 
-            if info:
-                logger.dialog(info)
-            else:
-                logger.dialog("[empty dialog text]")
-
-            logger.dialog("-" * 60)
-            logger.dialog(f"Button1: {button1}")
-            logger.dialog(f"Button2: {button2}")
-            logger.dialog("=" * 60 + "\n")
+            logger.dialog("\n" + "\n".join(lines) + "\n")
 
 
 
@@ -139,12 +161,12 @@ class StreamVehicleInfo:
     def update_from_packet(self, packet: dict) -> None:
         self.model_id = int(packet.get("model_id", self.model_id))
 
-        self.x = float(packet.get("CarX", self.x))
-        self.y = float(packet.get("CarY", self.y))
-        self.z = float(packet.get("CarZ", self.z))
+        self.x = float(packet.get("x", self.x))
+        self.y = float(packet.get("y", self.y))
+        self.z = float(packet.get("z", self.z))
         self.rotation = float(packet.get("rotation", self.rotation))
 
-        self.health = float(packet.get("CarHealth", self.health))
+        self.health = float(packet.get("health", self.health))
         self.interior = int(packet.get("interior", self.interior))
 
         self.color1 = int(packet.get("color1", self.color1))
@@ -189,76 +211,58 @@ class Stream3DTextLabelInfo:
         draw_distance: float,
         *,
         use_los: bool = False,
-        use_los_raw: int = 0,
         attached_player_id: int = 0xFFFF,
         attached_vehicle_id: int = 0xFFFF,
-        raw_text: str = "",
-        text_format: str = "",
     ):
         self.label_id: int = int(label_id)
-        self.text_label_id: int = int(label_id)
         self.text: str = str(text or "")
-        self.label_text: str = self.text
 
         self.color: int = int(color) & 0xFFFFFFFF
         self.color_hex: str = f"0x{self.color:08X}"
 
-        self.XLabel: float = float(x)
-        self.YLabel: float = float(y)
-        self.ZLabel: float = float(z)
+        self.x: float = float(x)
+        self.y: float = float(y)
+        self.z: float = float(z)
 
         self.draw_distance: float = float(draw_distance)
         self.use_los: bool = bool(use_los)
-        self.use_los_raw: int = int(use_los_raw)
 
         self.attached_player_id: int = int(attached_player_id)
         self.attached_vehicle_id: int = int(attached_vehicle_id)
 
-        self.raw_text: str = str(raw_text or "")
-        self.text_format: str = str(text_format or "")
         self.updated_at: float = time.time()
 
     def update_from_packet(self, packet: dict) -> None:
-        self.text = str(packet.get("text", packet.get("label_text", self.text)) or "")
-        self.label_text = self.text
+        self.text = str(packet.get("text", self.text) or "")
 
         self.color = int(packet.get("color", self.color)) & 0xFFFFFFFF
         self.color_hex = f"0x{self.color:08X}"
 
-        self.XLabel = float(packet.get("XLabel", self.XLabel))
-        self.YLabel = float(packet.get("YLabel", self.YLabel))
-        self.ZLabel = float(packet.get("ZLabel", self.ZLabel))
+        self.x = float(packet.get("x", self.x))
+        self.y = float(packet.get("y", self.y))
+        self.z = float(packet.get("z", self.z))
 
         self.draw_distance = float(packet.get("draw_distance", self.draw_distance))
         self.use_los = bool(packet.get("use_los", self.use_los))
-        self.use_los_raw = int(packet.get("use_los_raw", self.use_los_raw))
 
         self.attached_player_id = int(packet.get("attached_player_id", self.attached_player_id))
         self.attached_vehicle_id = int(packet.get("attached_vehicle_id", self.attached_vehicle_id))
-
-        self.raw_text = str(packet.get("raw_text", self.raw_text) or "")
-        self.text_format = str(packet.get("text_format", self.text_format) or "")
         self.updated_at = time.time()
 
     def to_dict(self) -> dict:
         return {
             "label_id": self.label_id,
-            "text_label_id": self.text_label_id,
             "text": self.text,
-            "label_text": self.label_text,
             "color": self.color,
             "color_hex": self.color_hex,
-            "XLabel": self.XLabel,
-            "YLabel": self.YLabel,
-            "ZLabel": self.ZLabel,
+            "x": self.x,
+            "y": self.y,
+            "z": self.z,
             "draw_distance": self.draw_distance,
             "use_los": self.use_los,
-            "use_los_raw": self.use_los_raw,
             "attached_player_id": self.attached_player_id,
             "attached_vehicle_id": self.attached_vehicle_id,
             "updated_at": self.updated_at,
-            "raw_text": self.raw_text,
-            "text_format": self.text_format,
         }
 
 
@@ -274,43 +278,94 @@ class StreamPickupInfo:
         z: float,
     ):
         self.pickup_id: int = int(pickup_id)
-        self.iPickupID: int = int(pickup_id)
         self.model_id: int = int(model_id)
-        self.iModelID: int = int(model_id)
         self.spawn_type: int = int(spawn_type)
-        self.iSpawnType: int = int(spawn_type)
-        self.xPickup: float = float(x)
-        self.yPickup: float = float(y)
-        self.zPickup: float = float(z)
+        self.x: float = float(x)
+        self.y: float = float(y)
+        self.z: float = float(z)
         self.updated_at: float = time.time()
 
     def update_from_packet(self, packet: dict) -> None:
-        self.model_id = int(packet.get("model_id", packet.get("iModelID", self.model_id)))
-        self.iModelID = self.model_id
-        self.spawn_type = int(packet.get("spawn_type", packet.get("iSpawnType", self.spawn_type)))
-        self.iSpawnType = self.spawn_type
-        self.xPickup = float(packet.get("xPickup", self.xPickup))
-        self.yPickup = float(packet.get("yPickup", self.yPickup))
-        self.zPickup = float(packet.get("zPickup", self.zPickup))
+        self.model_id = int(packet.get("model_id", self.model_id))
+        self.spawn_type = int(packet.get("spawn_type", self.spawn_type))
+        self.x = float(packet.get("x", self.x))
+        self.y = float(packet.get("y", self.y))
+        self.z = float(packet.get("z", self.z))
         self.updated_at = time.time()
 
     def distance_to(self, x: float, y: float, z: float) -> float:
-        dx = float(x) - self.xPickup
-        dy = float(y) - self.yPickup
-        dz = float(z) - self.zPickup
+        dx = float(x) - self.x
+        dy = float(y) - self.y
+        dz = float(z) - self.z
         return math.sqrt(dx * dx + dy * dy + dz * dz)
 
     def to_dict(self) -> dict:
         return {
             "pickup_id": self.pickup_id,
-            "iPickupID": self.iPickupID,
             "model_id": self.model_id,
-            "iModelID": self.iModelID,
             "spawn_type": self.spawn_type,
-            "iSpawnType": self.iSpawnType,
-            "xPickup": self.xPickup,
-            "yPickup": self.yPickup,
-            "zPickup": self.zPickup,
+            "x": self.x,
+            "y": self.y,
+            "z": self.z,
+            "updated_at": self.updated_at,
+        }
+
+
+class TextDrawInfo:
+
+    def __init__(self, textdraw_id: int):
+        self.textdraw_id: int = int(textdraw_id)
+        self.text: str = ""
+        self.x: float = 0.0
+        self.y: float = 0.0
+        self.style: int = 0
+        self.selectable: bool = False
+        self.model_id: int = 0
+        self.letter_color: int = 0
+        self.box_color: int = 0
+        self.background_color: int = 0
+        self.flags: int = 0
+        self.letter_width: float = 0.0
+        self.letter_height: float = 0.0
+        self.zoom: float = 0.0
+        self.updated_at: float = time.time()
+
+    def update_from_packet(self, packet: dict) -> None:
+        self.text = str(packet.get("text", self.text) or "")
+        self.x = float(packet.get("x", self.x))
+        self.y = float(packet.get("y", self.y))
+        self.style = int(packet.get("style", self.style))
+        self.selectable = bool(packet.get("selectable", self.selectable))
+        self.model_id = int(packet.get("model_id", self.model_id))
+        self.letter_color = int(packet.get("letter_color", self.letter_color))
+        self.box_color = int(packet.get("box_color", self.box_color))
+        self.background_color = int(packet.get("background_color", self.background_color))
+        self.flags = int(packet.get("flags", self.flags))
+        self.letter_width = float(packet.get("letter_width", self.letter_width))
+        self.letter_height = float(packet.get("letter_height", self.letter_height))
+        self.zoom = float(packet.get("zoom", self.zoom))
+        self.updated_at = time.time()
+
+    def update_text(self, text: str) -> None:
+        self.text = str(text or "")
+        self.updated_at = time.time()
+
+    def to_dict(self) -> dict:
+        return {
+            "textdraw_id": self.textdraw_id,
+            "text": self.text,
+            "x": self.x,
+            "y": self.y,
+            "style": self.style,
+            "selectable": self.selectable,
+            "model_id": self.model_id,
+            "letter_color": self.letter_color,
+            "box_color": self.box_color,
+            "background_color": self.background_color,
+            "flags": self.flags,
+            "letter_width": self.letter_width,
+            "letter_height": self.letter_height,
+            "zoom": self.zoom,
             "updated_at": self.updated_at,
         }
 
@@ -321,6 +376,7 @@ class StreamInfo:
         self.vehicles: Dict[int, StreamVehicleInfo] = {}
         self.text_labels_3d: Dict[int, Stream3DTextLabelInfo] = {}
         self.pickups: Dict[int, StreamPickupInfo] = {}
+        self.textdraws: Dict[int, TextDrawInfo] = {}
 
     _STATE_HANDLERS = {
         "world_vehicle_add": "_handle_vehicle_add",
@@ -330,6 +386,9 @@ class StreamInfo:
         "destroy_pickup": "_handle_pickup_remove",
         "create_3d_text_label": "_handle_label_create",
         "delete_3d_text_label": "_handle_label_remove",
+        "show_text_draw": "_handle_textdraw_add",
+        "text_draw_set_string": "_handle_textdraw_text",
+        "hide_text_draw": "_handle_textdraw_remove",
     }
 
     def process_packet(self, packet: dict) -> None:
@@ -350,16 +409,16 @@ class StreamInfo:
             getattr(self, handler)(parsed)
 
     def _handle_vehicle_sync(self, packet: dict) -> None:
-        vehicle_id = int(packet.get("vehicle_id", packet.get("wVehicleID", 0)))
+        vehicle_id = int(packet.get("vehicle_id", 0))
         if vehicle_id <= 0:
             return
 
         vehicle = self.vehicles.get(vehicle_id)
         if vehicle is not None:
-            vehicle.x = float(packet.get("CarX", 0.0))
-            vehicle.y = float(packet.get("CarY", 0.0))
-            vehicle.z = float(packet.get("CarZ", 0.0))
-            vehicle.health = float(packet.get("CarHealth", vehicle.health))
+            vehicle.x = float(packet.get("x", 0.0))
+            vehicle.y = float(packet.get("y", 0.0))
+            vehicle.z = float(packet.get("z", 0.0))
+            vehicle.health = float(packet.get("vehicle_health", vehicle.health))
             vehicle.updated_at = time.time()
 
     def _handle_vehicle_add(self, parsed: dict) -> None:
@@ -373,11 +432,11 @@ class StreamInfo:
             self.vehicles[vehicle_id] = StreamVehicleInfo(
                 vehicle_id,
                 int(parsed.get("model_id", 0)),
-                float(parsed.get("CarX", 0.0)),
-                float(parsed.get("CarY", 0.0)),
-                float(parsed.get("CarZ", 0.0)),
+                float(parsed.get("x", 0.0)),
+                float(parsed.get("y", 0.0)),
+                float(parsed.get("z", 0.0)),
                 float(parsed.get("rotation", 0.0)),
-                health=float(parsed.get("CarHealth", 1000.0)),
+                health=float(parsed.get("health", 1000.0)),
                 interior=int(parsed.get("interior", 0)),
                 color1=int(parsed.get("color1", 0)),
                 color2=int(parsed.get("color2", 0)),
@@ -390,20 +449,20 @@ class StreamInfo:
             del self.vehicles[vehicle_id]
 
     def _handle_vehicle_pos(self, parsed: dict) -> None:
-        vehicle_id = int(parsed.get("vehicle_id", parsed.get("wVehicleID", 0)))
+        vehicle_id = int(parsed.get("vehicle_id", 0))
         if vehicle_id <= 0:
             return
 
         vehicle = self.vehicles.get(vehicle_id)
         if vehicle is not None:
             vehicle.update_position(
-                float(parsed.get("x", parsed.get("XVehicle", 0.0))),
-                float(parsed.get("y", parsed.get("YVehicle", 0.0))),
-                float(parsed.get("z", parsed.get("ZVehicle", 0.0))),
+                float(parsed.get("x", 0.0)),
+                float(parsed.get("y", 0.0)),
+                float(parsed.get("z", 0.0)),
             )
 
     def _handle_pickup_create(self, parsed: dict) -> None:
-        pickup_id = int(parsed.get("pickup_id", parsed.get("iPickupID", 0)))
+        pickup_id = int(parsed.get("pickup_id", 0))
         if pickup_id < 0:
             return
 
@@ -412,20 +471,20 @@ class StreamInfo:
         else:
             self.pickups[pickup_id] = StreamPickupInfo(
                 pickup_id,
-                int(parsed.get("model_id", parsed.get("iModelID", 0))),
-                int(parsed.get("spawn_type", parsed.get("iSpawnType", 0))),
-                float(parsed.get("xPickup", 0.0)),
-                float(parsed.get("yPickup", 0.0)),
-                float(parsed.get("zPickup", 0.0)),
+                int(parsed.get("model_id", 0)),
+                int(parsed.get("spawn_type", 0)),
+                float(parsed.get("x", 0.0)),
+                float(parsed.get("y", 0.0)),
+                float(parsed.get("z", 0.0)),
             )
 
     def _handle_pickup_remove(self, parsed: dict) -> None:
-        pickup_id = int(parsed.get("pickup_id", parsed.get("iPickupID", -1)))
+        pickup_id = int(parsed.get("pickup_id", -1))
         if pickup_id in self.pickups:
             del self.pickups[pickup_id]
 
     def _handle_label_create(self, parsed: dict) -> None:
-        label_id = int(parsed.get("label_id", parsed.get("text_label_id", 0)))
+        label_id = int(parsed.get("label_id", 0))
         if label_id < 0:
             return
 
@@ -434,24 +493,50 @@ class StreamInfo:
         else:
             self.text_labels_3d[label_id] = Stream3DTextLabelInfo(
                 label_id,
-                str(parsed.get("text", parsed.get("label_text", "")) or ""),
+                str(parsed.get("text", "") or ""),
                 int(parsed.get("color", 0)),
-                float(parsed.get("XLabel", 0.0)),
-                float(parsed.get("YLabel", 0.0)),
-                float(parsed.get("ZLabel", 0.0)),
+                float(parsed.get("x", 0.0)),
+                float(parsed.get("y", 0.0)),
+                float(parsed.get("z", 0.0)),
                 float(parsed.get("draw_distance", 0.0)),
                 use_los=bool(parsed.get("use_los", False)),
-                use_los_raw=int(parsed.get("use_los_raw", 0)),
                 attached_player_id=int(parsed.get("attached_player_id", 0xFFFF)),
                 attached_vehicle_id=int(parsed.get("attached_vehicle_id", 0xFFFF)),
-                raw_text=str(parsed.get("raw_text", "") or ""),
-                text_format=str(parsed.get("text_format", "") or ""),
             )
 
     def _handle_label_remove(self, parsed: dict) -> None:
-        label_id = int(parsed.get("label_id", parsed.get("text_label_id", -1)))
+        label_id = int(parsed.get("label_id", -1))
         if label_id in self.text_labels_3d:
             del self.text_labels_3d[label_id]
+
+    def _handle_textdraw_add(self, parsed: dict) -> None:
+        textdraw_id = int(parsed.get("textdraw_id", -1))
+        if textdraw_id < 0:
+            return
+
+        textdraw = self.textdraws.get(textdraw_id)
+        if textdraw is None:
+            textdraw = TextDrawInfo(textdraw_id)
+            self.textdraws[textdraw_id] = textdraw
+
+        textdraw.update_from_packet(parsed)
+
+    def _handle_textdraw_text(self, parsed: dict) -> None:
+        textdraw_id = int(parsed.get("textdraw_id", -1))
+        if textdraw_id < 0:
+            return
+
+        textdraw = self.textdraws.get(textdraw_id)
+        if textdraw is None:
+            textdraw = TextDrawInfo(textdraw_id)
+            self.textdraws[textdraw_id] = textdraw
+
+        textdraw.update_text(str(parsed.get("text", "") or ""))
+
+    def _handle_textdraw_remove(self, parsed: dict) -> None:
+        textdraw_id = int(parsed.get("textdraw_id", -1))
+        if textdraw_id in self.textdraws:
+            del self.textdraws[textdraw_id]
 
     def get_vehicle(self, vehicle_id: int) -> StreamVehicleInfo | None:
         return self.vehicles.get(int(vehicle_id))
@@ -480,10 +565,20 @@ class StreamInfo:
             for label_id, label in self.text_labels_3d.items()
         }
 
+    def get_textdraw(self, textdraw_id: int) -> TextDrawInfo | None:
+        return self.textdraws.get(int(textdraw_id))
+
+    def get_all_textdraws(self) -> Dict[int, dict]:
+        return {
+            textdraw_id: textdraw.to_dict()
+            for textdraw_id, textdraw in self.textdraws.items()
+        }
+
     def clear(self) -> None:
         self.vehicles.clear()
         self.text_labels_3d.clear()
         self.pickups.clear()
+        self.textdraws.clear()
 
 
 
@@ -543,6 +638,8 @@ class PlayerInfo:
         self.rate_player: float = 0.200
 
         self.interior: int = 0
+
+        self.frozen: bool = False
 
         self.is_npc: bool = False
 
@@ -1081,8 +1178,197 @@ class AllPlayersInfo:
                 "restart from zero with same accel/inertia"
             )
 
+    def _handle_player_sync(self, packet: dict) -> None:
+        try:
+            player_id = int(packet.get("player_id", -1))
+        except Exception:
+            return
+        if player_id < 0:
+            return
+        player = self._streamed_players.get(player_id)
+        if player is None:
+            player = self._players.get(player_id)
+            if player is None:
+                return
+        try:
+            if "x" in packet:
+                player._x = float(packet["x"])
+            if "y" in packet:
+                player._y = float(packet["y"])
+            if "z" in packet:
+                player._z = float(packet["z"])
+            if "quat_w" in packet:
+                player.quat_w = float(packet.get("quat_w", player.quat_w))
+                player.quat_x = float(packet.get("quat_x", player.quat_x))
+                player.quat_y = float(packet.get("quat_y", player.quat_y))
+                player.quat_z = float(packet.get("quat_z", player.quat_z))
+            if "health" in packet:
+                player.health = float(packet["health"])
+            if "armour" in packet:
+                player.armour = float(packet["armour"])
+            if "lr" in packet:
+                player.lr = int(packet["lr"])
+            if "ud" in packet:
+                player.ud = int(packet["ud"])
+            if "keys" in packet:
+                player.keys = int(packet["keys"])
+            if "velocity_x" in packet:
+                player.velocity_x = float(packet["velocity_x"])
+                player.velocity_y = float(packet["velocity_y"])
+                player.velocity_z = float(packet["velocity_z"])
+                player._last_velocity_time = time.time()
+            if "weapon" in packet:
+                player.weapon_id = int(packet["weapon"])
+            if "special_action" in packet:
+                player.special_action = int(packet["special_action"])
+            if "anim_id" in packet:
+                player.animation_id = int(packet["anim_id"])
+            if packet.get("has_surf"):
+                player.surfing_vehicle_id = int(packet.get("surf_vehicle_id", player.surfing_vehicle_id))
+                player.surfing_x = float(packet.get("surf_x", player.surfing_x))
+                player.surfing_y = float(packet.get("surf_y", player.surfing_y))
+                player.surfing_z = float(packet.get("surf_z", player.surfing_z))
+            try:
+                player.set_onfoot()
+            except Exception:
+                player.sync_state = "onfoot"
+                player.clear_current_vehicle()
+            other = self._players.get(player_id)
+            if other is not None and other is not player:
+                other._x = player._x
+                other._y = player._y
+                other._z = player._z
+                other.quat_w = player.quat_w
+                other.quat_x = player.quat_x
+                other.quat_y = player.quat_y
+                other.quat_z = player.quat_z
+                other.health = player.health
+                other.armour = player.armour
+                try:
+                    other.set_onfoot()
+                except Exception:
+                    other.sync_state = "onfoot"
+                    other.clear_current_vehicle()
+        except Exception as e:
+            logger.debug(f"player_sync update failed for {player_id}: {e}")
+
+    def _handle_vehicle_sync(self, packet: dict) -> None:
+        try:
+            player_id = int(packet.get("player_id", -1))
+        except Exception:
+            return
+        if player_id < 0:
+            return
+        player = self._streamed_players.get(player_id)
+        if player is None:
+            player = self._players.get(player_id)
+            if player is None:
+                return
+        try:
+            if "x" in packet:
+                player._x = float(packet["x"])
+                player._y = float(packet["y"])
+                player._z = float(packet["z"])
+            if "quat_w" in packet:
+                player.quat_w = float(packet.get("quat_w", player.quat_w))
+                player.quat_x = float(packet.get("quat_x", player.quat_x))
+                player.quat_y = float(packet.get("quat_y", player.quat_y))
+                player.quat_z = float(packet.get("quat_z", player.quat_z))
+            if "health" in packet:
+                player.health = float(packet["health"])
+            if "armour" in packet:
+                player.armour = float(packet["armour"])
+            if "lr" in packet:
+                player.lr = int(packet["lr"])
+            if "ud" in packet:
+                player.ud = int(packet["ud"])
+            if "keys" in packet:
+                player.keys = int(packet["keys"])
+            if "velocity_x" in packet:
+                player.velocity_x = float(packet["velocity_x"])
+                player.velocity_y = float(packet["velocity_y"])
+                player.velocity_z = float(packet["velocity_z"])
+                player._last_velocity_time = time.time()
+            if "vehicle_id" in packet:
+                vid = int(packet["vehicle_id"])
+                if vid:
+                    try:
+                        player.set_vehicle_state(vid, seat_id=0)
+                    except Exception:
+                        player.current_vehicle_id = vid
+                        player.vehicle_id = vid
+                        player.sync_state = "vehicle"
+            other = self._players.get(player_id)
+            if other is not None and other is not player:
+                other._x = player._x
+                other._y = player._y
+                other._z = player._z
+                other.quat_w = player.quat_w
+                other.quat_x = player.quat_x
+                other.quat_y = player.quat_y
+                other.quat_z = player.quat_z
+                try:
+                    other.set_vehicle_state(int(packet.get("vehicle_id", other.current_vehicle_id)), seat_id=0)
+                except Exception:
+                    pass
+        except Exception as e:
+            logger.debug(f"vehicle_sync update failed for {player_id}: {e}")
+
+    def _handle_passenger_sync(self, packet: dict) -> None:
+        try:
+            player_id = int(packet.get("player_id", -1))
+        except Exception:
+            return
+        if player_id < 0:
+            return
+        player = self._streamed_players.get(player_id)
+        if player is None:
+            player = self._players.get(player_id)
+            if player is None:
+                return
+        try:
+            if "x" in packet:
+                player._x = float(packet["x"])
+                player._y = float(packet["y"])
+                player._z = float(packet["z"])
+            if "health" in packet:
+                player.health = float(packet["health"])
+            if "armour" in packet:
+                player.armour = float(packet["armour"])
+            vid = int(packet.get("vehicle_id", 0) or 0)
+            seat = int(packet.get("seat_id", 1) or 1)
+            if vid:
+                try:
+                    player.set_vehicle_state(vid, seat_id=seat)
+                except Exception:
+                    player.current_vehicle_id = vid
+                    player.vehicle_id = vid
+                    player.sync_state = "passenger"
+            other = self._players.get(player_id)
+            if other is not None and other is not player:
+                other._x = player._x
+                other._y = player._y
+                other._z = player._z
+                if vid:
+                    try:
+                        other.set_vehicle_state(vid, seat_id=seat)
+                    except Exception:
+                        pass
+        except Exception as e:
+            logger.debug(f"passenger_sync update failed for {player_id}: {e}")
+
     def process_packet(self, packet: dict, stream_info=None) -> None:
-        if packet.get("type") != "rpc":
+        ptype = packet.get("type")
+        if ptype == "player_sync":
+            self._handle_player_sync(packet)
+            return
+        if ptype == "vehicle_sync":
+            self._handle_vehicle_sync(packet)
+            return
+        if ptype == "passenger_sync":
+            self._handle_passenger_sync(packet)
+            return
+        if ptype != "rpc":
             return
 
         parsed = packet.get("parsed_payload")
@@ -1092,12 +1378,12 @@ class AllPlayersInfo:
 
         if parsed.get("state") == "put_player_in_vehicle":
             try:
-                vehicle_id = int(parsed.get("vehicle_id", parsed.get("wVehicleID", 0)))
+                vehicle_id = int(parsed.get("vehicle_id", 0))
             except Exception:
                 vehicle_id = 0
 
             try:
-                seat_id = int(parsed.get("seat_id", parsed.get("bSeatID", 0)))
+                seat_id = int(parsed.get("seat_id", 0))
             except Exception:
                 seat_id = 0
 
@@ -1131,7 +1417,7 @@ class AllPlayersInfo:
 
         if parsed.get("state") == "world_vehicle_remove":
             try:
-                vehicle_id = int(parsed.get("vehicle_id", parsed.get("wVehicleID", 0)))
+                vehicle_id = int(parsed.get("vehicle_id", 0))
             except Exception:
                 vehicle_id = 0
 
@@ -1156,16 +1442,16 @@ class AllPlayersInfo:
 
         if parsed.get("state") == "set_vehicle_pos":
             try:
-                vehicle_id = int(parsed.get("vehicle_id", parsed.get("wVehicleID", 0)))
+                vehicle_id = int(parsed.get("vehicle_id", 0))
             except Exception:
                 vehicle_id = 0
 
             if vehicle_id <= 0:
                 return
 
-            x = float(parsed.get("x", parsed.get("XVehicle", 0.0)))
-            y = float(parsed.get("y", parsed.get("YVehicle", 0.0)))
-            z = float(parsed.get("z", parsed.get("ZVehicle", 0.0)))
+            x = float(parsed.get("x", 0.0))
+            y = float(parsed.get("y", 0.0))
+            z = float(parsed.get("z", 0.0))
 
             current_vehicle_id = int(self.bot.get_current_vehicle_id())
 
@@ -1261,9 +1547,9 @@ class AllPlayersInfo:
 
             skin = int(parsed.get("skin_id", 0))
 
-            x = float(parsed.get("xPlayer", parsed.get("x", 0.0)))
-            y = float(parsed.get("yPlayer", parsed.get("y", 0.0)))
-            z = float(parsed.get("zPlayer", parsed.get("z", 0.0)))
+            x = float(parsed.get("x", 0.0))
+            y = float(parsed.get("y", 0.0))
+            z = float(parsed.get("z", 0.0))
 
             angle = float(parsed.get("facing_angle", 0.0))
             color = int(parsed.get("player_color", 0))
@@ -1318,11 +1604,11 @@ class AllPlayersInfo:
                     )
 
         elif (
-            "skin_id" in parsed
+            "skin" in parsed
             and "player_id" in parsed
         ):
             player_id = parsed["player_id"]
-            skin = parsed["skin_id"]
+            skin = parsed["skin"]
 
             if player_id == self.bot.player_id:
                 self.bot.skin = skin
@@ -1374,8 +1660,8 @@ class AllPlayersInfo:
             old_money = self.bot.money
             self.bot.money = 0
 
-        elif "interior" in parsed:
-            self.bot.interior = parsed["interior"]
+        elif "interior_id" in parsed:
+            self.bot.interior = parsed["interior_id"]
 
 
     def update_scores_and_pings(self, entries: list[dict]) -> None:
@@ -1463,6 +1749,3 @@ class AllPlayersInfo:
 
     def get_player_count(self) -> int:
         return len(self._players)
-
-    def get_streamed_count(self) -> int:
-        return len(self._streamed_players)

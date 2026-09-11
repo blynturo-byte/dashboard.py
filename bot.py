@@ -46,8 +46,6 @@ class Bot:
         self.network = Network(host, port)
         self.protocol = RakNetProtocol(self.network, security)
 
-        # Сессия владеет runtime-состоянием и инфраструктурой; BotAPI — только
-        # публичный интерфейс поверх неё.
         self.session = SampSession(
             self.protocol,
             self.host,

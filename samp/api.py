@@ -6,7 +6,8 @@ import threading
 from .constants import PacketID, PacketReliability, PacketPriority
 from .session import SampSession
 from .sender import get_delivery_params
-from .packets import PacketBuilder
+from .packets import PacketBuilder, RPCBuilder
+from .parsers import RPC
 from core import logger
 
 from logic.movement import (
@@ -15,19 +16,6 @@ from logic.movement import (
     normalize_movement_randomization,
 )
 from logic.events import emitter
-
-
-def wait(seconds: float) -> None:
-
-    try:
-        seconds = float(seconds)
-    except (TypeError, ValueError):
-        seconds = 0.0
-
-    if seconds < 0:
-        seconds = 0.0
-
-    time.sleep(seconds)
 
 
 MAX_ENTER_VEHICLE_DISTANCE = 10.0
@@ -77,14 +65,21 @@ class BotAPI:
             )
 
             if packet_id == PacketID.RPC and body:
-                rpc_id = body[0]
+                parsed = RPC.read_rpc(body)
+
+                if parsed is None:
+                    logger.debug(
+                        f"onSendRPC: failed to parse outgoing rpc "
+                        f"body_len={len(body)} first_4_bytes={body[:4].hex()}"
+                    )
+                    continue
 
                 emitter.emit(
                     "onSendRPC",
                     self,
-                    rpc_id,
-                    body[1:],
-                    key=rpc_id,
+                    parsed["rpc_id"],
+                    parsed["payload"],
+                    key=parsed["rpc_id"],
                 )
 
     def reset_api_caches(self) -> None:
@@ -143,22 +138,58 @@ class BotAPI:
             rpc_name="dialog_response",
         )
 
-    def SendKey(self, keys: int) -> bool:
-
-        try:
-            value = int(keys) & 0xFFFF
-        except Exception:
-            logger.error(f"SendKey failed: bad keys={keys!r}")
-            return False
-
+    def SetKey(
+        self,
+        keys: int | None = None,
+        lr: int | None = None,
+        ud: int | None = None,
+    ) -> bool:
         bot_player = self.session.players.bot
+        updated: dict[str, int] = {}
 
-        if hasattr(bot_player, "set_keys"):
-            bot_player.set_keys(value)
-        else:
-            bot_player.keys = value
+        if keys is not None:
+            try:
+                value = int(keys) & 0xFFFF
+            except Exception:
+                logger.error(f"SetKey failed: bad keys={keys!r}")
+                return False
 
-        logger.info(f"SendKey -> keys={value}")
+            if hasattr(bot_player, "set_keys"):
+                bot_player.set_keys(value)
+            else:
+                bot_player.keys = value
+
+            updated["keys"] = value
+
+        if lr is not None:
+            try:
+                lr_value = int(round(float(lr)))
+            except Exception:
+                logger.error(f"SetKey failed: bad lr={lr!r}")
+                return False
+
+            lr_value = max(-32768, min(32767, int(lr_value)))
+            bot_player.lr = lr_value
+            updated["lr"] = lr_value
+
+        if ud is not None:
+            try:
+                ud_value = int(round(float(ud)))
+            except Exception:
+                logger.error(f"SetKey failed: bad ud={ud!r}")
+                return False
+
+            ud_value = max(-32768, min(32767, int(ud_value)))
+            bot_player.ud = ud_value
+            updated["ud"] = ud_value
+
+        if not updated:
+            logger.info("SetKey -> no changes (all None)")
+            return True
+
+        logger.info(
+            "SetKey -> " + ", ".join(f"{k}={v}" for k, v in updated.items())
+        )
         return True
 
     def sendClickTextdraw(self, textdraw_id: int) -> None:
@@ -218,14 +249,14 @@ class BotAPI:
 
         for pickup in list(pickups.values()):
             try:
-                pickup_id = int(getattr(pickup, "pickup_id", getattr(pickup, "iPickupID", -1)))
+                pickup_id = int(getattr(pickup, "pickup_id", -1))
 
                 if pickup_id < 0:
                     continue
 
-                x_pickup = float(getattr(pickup, "xPickup", 0.0))
-                y_pickup = float(getattr(pickup, "yPickup", 0.0))
-                z_pickup = float(getattr(pickup, "zPickup", 0.0))
+                x_pickup = float(getattr(pickup, "x", 0.0))
+                y_pickup = float(getattr(pickup, "y", 0.0))
+                z_pickup = float(getattr(pickup, "z", 0.0))
 
                 key = (
                     pickup_id,
@@ -255,9 +286,9 @@ class BotAPI:
                 self.SendPickup(pickup_id)
                 logger.info(
                     f"AUTOPICKUP pickup_id={pickup_id} "
-                    f"xPickup={x_pickup:.3f} "
-                    f"yPickup={y_pickup:.3f} "
-                    f"zPickup={z_pickup:.3f}"
+                    f"x={x_pickup:.3f} "
+                    f"y={y_pickup:.3f} "
+                    f"z={z_pickup:.3f}"
                 )
 
             except Exception:
@@ -525,7 +556,8 @@ class BotAPI:
 
     def SendPacket(
         self,
-        payload: bytes,
+        packet_id: int,
+        payload: bytes = b"",
         reliability: int = PacketReliability.UNRELIABLE,
         ordering_channel: int = 0,
         priority: int = PacketPriority.HIGH_PRIORITY,
@@ -533,8 +565,34 @@ class BotAPI:
         if not self.session.connected:
             return
 
+        if payload is None:
+            payload = b""
+
         self.session.protocol.send_with_header(
-            payload,
+            PacketBuilder.create(int(packet_id) & 0xFF, bytes(payload)),
+            reliability,
+            ordering_channel,
+            priority,
+        )
+
+    def SendRPC(
+        self,
+        rpc_id: int,
+        payload: bytes = b"",
+        reliability: int = PacketReliability.RELIABLE,
+        ordering_channel: int = 0,
+        priority: int = PacketPriority.MEDIUM_PRIORITY,
+    ) -> None:
+        if not self.session.connected:
+            return
+
+        if payload is None:
+            payload = b""
+
+        self.session.protocol.send_with_header(
+            PacketBuilder.rpc(
+                RPCBuilder.create(int(rpc_id) & 0xFF, bytes(payload))
+            ),
             reliability,
             ordering_channel,
             priority,
@@ -605,6 +663,12 @@ class BotAPI:
     def getallplayers(self):
         return self.session.players.get_all_players()
 
+    def getplayers(self):
+        return self.session.players.get_streamed_players()
+
+    def getplayer(self, player_id: int):
+        return self.session.players.get_streamed_players().get(int(player_id))
+
     def getallvehicles(self):
         return self.session.stream.get_all_vehicles()
 
@@ -637,6 +701,20 @@ class BotAPI:
             return None
 
         return label.to_dict()
+
+    def gettextdraw(self, textdraw_id: int):
+        textdraw = self.session.stream.get_textdraw(int(textdraw_id))
+
+        if textdraw is None:
+            return None
+
+        return textdraw.to_dict()
+
+    def getalltextdraws(self):
+        return self.session.stream.get_all_textdraws()
+
+    def GetDialog(self):
+        return self.session.chat.get_last_dialog()
 
     def getbothealth(self):
         return self.session.players.bot.health

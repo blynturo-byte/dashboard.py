@@ -1,316 +1,187 @@
 from .parsers import parse_packet as samp_parse_packet
-from .constants import RPC as RPCConstants
+from core import logger
 
 
 class SampPacketHandler:
 
-    CONNECTION_REJECTED_REASONS = {
-        1: "Incorrect client version",
-        2: "This account is already logged in",
-        3: "Bad mod version",
-        4: "No free player slots available",
-    }
-
     def _emit_connection_rejected_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed or "reason_kick" not in parsed:
-            return
+        parsed = result.get("parsed_payload") or {}
 
         try:
-            reason_code = int(parsed.get("reason_kick"))
+            reason_code = int(parsed.get("reason_kick", -1))
         except Exception:
             reason_code = -1
-
-        reason_text = self.CONNECTION_REJECTED_REASONS.get(
-            reason_code,
-            f"Unknown reason ({reason_code})",
-        )
-
-        self.session._emit_callback(
-            "onConnectionRejected",
-            reason_code,
-            reason_text,
-            parsed,
-            result,
-        )
 
         self.session._emit_callback(
             "onKick",
             reason_code,
-            reason_text,
-            parsed,
-            result,
         )
 
     def _emit_show_dialog_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if "dialog_id" not in parsed or "dialog_info" not in parsed:
-            return
-
-        dialog_id = parsed.get("dialog_id")
-        dialog_style = parsed.get("dialog_style")
-        title = parsed.get("dialog_title", "")
-        info = parsed.get("dialog_info", "")
-        button1 = parsed.get("dialog_button1", "")
-        button2 = parsed.get("dialog_button2", "")
-
-
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "onShowDialog",
-            dialog_id,
-            dialog_style,
-            title,
-            info,
-            button1,
-            button2,
-            parsed,
-            result,
+            parsed.get("dialog_id"),
+            parsed.get("dialog_style"),
+            parsed.get("dialog_title", ""),
+            parsed.get("dialog_info", ""),
+            parsed.get("dialog_button1", ""),
+            parsed.get("dialog_button2", ""),
         )
 
     def _stop_coord_movement_on_dialog(self, result: dict) -> None:
-        dialog_type = None
-        if result.get("type") == "rpc":
-            parsed = result.get("parsed_payload") or {}
-            if "dialog_id" in parsed and "dialog_info" in parsed:
-                dialog_type = "show_dialog"
-
-        if dialog_type is not None:
-            self.api._handle_coord_movement_dialog(dialog_type)
+        self.api._handle_coord_movement_dialog("show_dialog")
 
     def _emit_show_text_draw_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
+        parsed = result.get("parsed_payload") or {}
 
-        if result.get("rpc_id") != RPCConstants.SCR_SHOW_TEXT_DRAW:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if parsed.get("state") != "show_text_draw":
-            return
+        info = dict(parsed)
+        info.pop("state", None)
 
         self.session._emit_callback(
             "OnShowTextDraw",
             parsed.get("textdraw_id"),
-            parsed.get("style"),
-            bool(parsed.get("selectable")),
-            parsed.get("wModelID"),
-            parsed,
-            result,
+            info,
+        )
+
+    def _emit_text_draw_set_string_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnTextDrawSetString",
+            parsed.get("textdraw_id"),
+            parsed.get("text", ""),
+        )
+
+    def _emit_hide_text_draw_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "onHideTextDraw",
+            parsed.get("textdraw_id"),
         )
 
     def _emit_show_chat_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if "message" not in parsed:
-            return
-
-        message = parsed.get("message", "")
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "onShowChat",
-            message,
-            parsed,
-            result,
+            parsed.get("message", ""),
         )
 
 
     def _emit_vehicle_stream_in_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        if result.get("rpc_id") != RPCConstants.WORLD_VEHICLE_ADD:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if parsed.get("state") != "world_vehicle_add":
-            return
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "onVehicleStreamIn",
             parsed.get("model_id"),
             parsed.get("vehicle_id"),
-            parsed.get("CarX"),
-            parsed.get("CarY"),
-            parsed.get("CarZ"),
+            parsed.get("x"),
+            parsed.get("y"),
+            parsed.get("z"),
         )
 
 
     def _emit_player_stream_in_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        if result.get("rpc_id") != RPCConstants.WORLD_PLAYER_ADD:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if parsed.get("state") != "world_player_add":
-            return
-
-        x = parsed.get("xPlayer", parsed.get("x"))
-        y = parsed.get("yPlayer", parsed.get("y"))
-        z = parsed.get("zPlayer", parsed.get("z"))
+        parsed = result.get("parsed_payload") or {}
 
         for event_name in ("OnPlayerStreamIn", "onPlayerStreamIn"):
             self.session._emit_callback(
                 event_name,
                 parsed.get("player_id"),
                 parsed.get("skin_id"),
-                x,
-                y,
-                z,
+                parsed.get("x"),
+                parsed.get("y"),
+                parsed.get("z"),
+            )
+
+    def _emit_player_stream_out_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        for event_name in ("OnPlayerStreamOut", "onPlayerStreamOut"):
+            self.session._emit_callback(
+                event_name,
+                parsed.get("player_id"),
+            )
+
+    def _emit_vehicle_stream_out_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        for event_name in ("OnVehicleStreamOut", "onVehicleStreamOut"):
+            self.session._emit_callback(
+                event_name,
+                parsed.get("vehicle_id"),
             )
 
 
     def _emit_set_map_icon_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        if result.get("rpc_id") != RPCConstants.SCR_SET_MAP_ICON:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if parsed.get("state") != "set_map_icon":
-            return
-
-        x = parsed.get("x", parsed.get("xMAP"))
-        y = parsed.get("y", parsed.get("yMAP"))
-        z = parsed.get("z", parsed.get("zMAP"))
-        xyz = parsed.get("xyz") or (x, y, z)
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "onSetMapIcon",
             parsed.get("icon_id"),
-            xyz,
+            (parsed.get("x"), parsed.get("y"), parsed.get("z")),
             parsed.get("marker_type"),
             parsed.get("style"),
-            parsed,
-            result,
+        )
+
+    def _emit_remove_map_icon_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "onRemoveMapIcon",
+            parsed.get("icon_id"),
         )
 
     def _emit_create_3d_text_label_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        if result.get("rpc_id") != RPCConstants.SCR_CREATE_3D_TEXT_LABEL:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if parsed.get("state") != "create_3d_text_label":
-            return
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "onCreate3DTextLabel",
             parsed.get("label_id"),
-            parsed.get("text", parsed.get("label_text", "")),
+            parsed.get("text"),
             parsed.get("color"),
-            parsed.get("XLabel"),
-            parsed.get("YLabel"),
-            parsed.get("ZLabel"),
+            parsed.get("x"),
+            parsed.get("y"),
+            parsed.get("z"),
             parsed.get("draw_distance"),
             parsed.get("use_los"),
             parsed.get("attached_player_id"),
             parsed.get("attached_vehicle_id"),
-            parsed,
-            result,
+        )
+
+    def _emit_delete_3d_text_label_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "onDelete3DTextLabel",
+            parsed.get("label_id"),
         )
 
 
     def _emit_enter_vehicle_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        if result.get("rpc_id") != RPCConstants.ENTER_VEHICLE:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if parsed.get("state") != "enter_vehicle":
-            return
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "onPlayerEnterVehicle",
             parsed.get("player_id"),
             parsed.get("vehicle_id"),
-            parsed.get("is_passenger", parsed.get("passenger", 0)),
-            parsed,
-            result,
+            parsed.get("is_passenger"),
         )
 
     def _emit_put_player_in_vehicle_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        if result.get("rpc_id") != RPCConstants.SCR_PUT_PLAYER_IN_VEHICLE:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed:
-            return
-
-        if parsed.get("state") != "put_player_in_vehicle":
-            return
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "onPutPlayerInVehicle",
             parsed.get("vehicle_id"),
             parsed.get("seat_id"),
-            parsed,
-            result,
         )
 
     def _emit_set_player_health_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        if result.get("rpc_id") != RPCConstants.SCR_SET_PLAYER_HEALTH:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed or "health" not in parsed:
-            return
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "OnSetPlayerHealth",
@@ -318,39 +189,153 @@ class SampPacketHandler:
         )
 
     def _emit_set_player_armour_event(self, result: dict) -> None:
-        if result.get("type") != "rpc":
-            return
-
-        if result.get("rpc_id") != RPCConstants.SCR_SET_PLAYER_ARMOUR:
-            return
-
-        parsed = result.get("parsed_payload")
-
-        if not parsed or "armour" not in parsed:
-            return
+        parsed = result.get("parsed_payload") or {}
 
         self.session._emit_callback(
             "OnSetPlayerArmour",
             parsed.get("armour"),
         )
 
+    def _emit_set_interior_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnSetInterior",
+            parsed.get("interior_id"),
+        )
+
+    def _emit_give_money_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnSetMoney",
+            parsed.get("amount"),
+        )
+
+    def _emit_reset_money_event(self, result: dict) -> None:
+        self.session._emit_callback(
+            "OnSetMoney",
+            0,
+        )
+
+    def _emit_set_position_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnSetPosition",
+            parsed.get("x"),
+            parsed.get("y"),
+            parsed.get("z"),
+        )
+
+    def _emit_set_skin_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnSetSkin",
+            parsed.get("player_id"),
+            parsed.get("skin"),
+        )
+
+    def _emit_game_text_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnGameText",
+            parsed.get("style"),
+            parsed.get("time"),
+            parsed.get("text"),
+        )
+
+    def _emit_set_checkpoint_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnSetCheckpoint",
+            parsed.get("xCP"),
+            parsed.get("yCP"),
+            parsed.get("zCP"),
+            parsed.get("fRadius"),
+        )
+
+    def _emit_disable_checkpoint_event(self, result: dict) -> None:
+        self.session._emit_callback("OnDisableCheckpoint")
+
+    def _emit_game_mode_restart_event(self, result: dict) -> None:
+        logger.info("The Server Is restarting...")
+        self.session._emit_callback("OnGameModeRestart")
+
+    def _emit_set_race_checkpoint_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnSetRaceCheckpoint",
+            parsed.get("type"),
+            (
+                parsed.get("xCP"),
+                parsed.get("yCP"),
+                parsed.get("zCP"),
+            ),
+            (
+                parsed.get("xNextCP"),
+                parsed.get("yNextCP"),
+                parsed.get("zNextCP"),
+            ),
+            parsed.get("fRadius"),
+        )
+
+    def _emit_disable_race_checkpoint_event(self, result: dict) -> None:
+        self.session._emit_callback("OnDisableRaceCheckpoint")
+
+    def _emit_freeze_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        frozen = bool(parsed.get("frozen"))
+
+        self.session.players.bot.frozen = frozen
+
+        self.session._emit_callback(
+            "OnFreeze",
+            frozen,
+        )
+
+
     def __init__(self, session):
         self.session = session
 
         self._rpc_router = {
-            RPCConstants.CONNECTION_REJECTED: self._emit_connection_rejected_event,
-            RPCConstants.ENTER_VEHICLE: self._emit_enter_vehicle_event,
-            RPCConstants.SCR_PUT_PLAYER_IN_VEHICLE: self._emit_put_player_in_vehicle_event,
-            RPCConstants.SCR_SET_PLAYER_HEALTH: self._emit_set_player_health_event,
-            RPCConstants.SCR_SET_PLAYER_ARMOUR: self._emit_set_player_armour_event,
-            RPCConstants.WORLD_PLAYER_ADD: self._emit_player_stream_in_event,
-            RPCConstants.WORLD_VEHICLE_ADD: self._emit_vehicle_stream_in_event,
-            RPCConstants.SCR_SET_MAP_ICON: self._emit_set_map_icon_event,
-            RPCConstants.SCR_CREATE_3D_TEXT_LABEL: self._emit_create_3d_text_label_event,
-            RPCConstants.SCR_DIALOG_BOX: self._emit_dialog_handlers,
-            RPCConstants.SCR_SHOW_TEXT_DRAW: self._emit_show_text_draw_event,
-            RPCConstants.CLIENT_MESSAGE: self._emit_show_chat_event,
-            RPCConstants.INIT_GAME: self._handle_init_game,
+            "connection_rejected": self._emit_connection_rejected_event,
+            "enter_vehicle": self._emit_enter_vehicle_event,
+            "put_player_in_vehicle": self._emit_put_player_in_vehicle_event,
+            "set_player_health": self._emit_set_player_health_event,
+            "set_player_armour": self._emit_set_player_armour_event,
+            "set_interior": self._emit_set_interior_event,
+            "give_player_money": self._emit_give_money_event,
+            "reset_player_money": self._emit_reset_money_event,
+            "set_player_pos": self._emit_set_position_event,
+            "set_player_pos_find_z": self._emit_set_position_event,
+            "set_player_skin": self._emit_set_skin_event,
+            "show_game_text": self._emit_game_text_event,
+            "set_checkpoint": self._emit_set_checkpoint_event,
+            "disable_checkpoint": self._emit_disable_checkpoint_event,
+            "game_mode_restart": self._emit_game_mode_restart_event,
+            "set_race_checkpoint": self._emit_set_race_checkpoint_event,
+            "disable_race_checkpoint": self._emit_disable_race_checkpoint_event,
+            "toggle_player_controllable": self._emit_freeze_event,
+            "world_player_add": self._emit_player_stream_in_event,
+            "world_player_remove": self._emit_player_stream_out_event,
+            "world_vehicle_add": self._emit_vehicle_stream_in_event,
+            "world_vehicle_remove": self._emit_vehicle_stream_out_event,
+            "set_map_icon": self._emit_set_map_icon_event,
+            "remove_map_icon": self._emit_remove_map_icon_event,
+            "create_3d_text_label": self._emit_create_3d_text_label_event,
+            "delete_3d_text_label": self._emit_delete_3d_text_label_event,
+            "show_dialog": self._emit_dialog_handlers,
+            "show_text_draw": self._emit_show_text_draw_event,
+            "text_draw_set_string": self._emit_text_draw_set_string_event,
+            "hide_text_draw": self._emit_hide_text_draw_event,
+            "client_message": self._emit_show_chat_event,
+            "init_game": self._handle_init_game,
         }
 
     @property
@@ -404,14 +389,10 @@ class SampPacketHandler:
         self.session.chat.process_packet(result)
 
     def _handle_init_game(self, result: dict) -> None:
-        if (
-            result.get("type") == "rpc"
-            and result.get("rpc_id") == RPCConstants.INIT_GAME
-        ):
-            self.session.mark_init_game_received()
-            self.session._emit_callback("onconnect")
+        self.session.mark_init_game_received()
+        self.session._emit_callback("onconnect")
 
-            self.session.send_rpc_request_class(0)
+        self.session.send_rpc_request_class(0)
 
     def _handle_open_connection_cookie(self, result: dict) -> None:
         if result.get("type") != "open_connection_cookie":
@@ -439,7 +420,12 @@ class SampPacketHandler:
         self._emit_show_dialog_event(result)
 
     def _dispatch_rpc_handlers(self, result: dict) -> None:
-        handler = self._rpc_router.get(result.get("rpc_id"))
+        parsed = result.get("parsed_payload")
+
+        if not parsed:
+            return
+
+        handler = self._rpc_router.get(parsed.get("state"))
         if handler is not None:
             handler(result)
 

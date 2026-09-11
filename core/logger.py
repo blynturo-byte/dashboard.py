@@ -15,6 +15,7 @@ PACKET_LOG_MODE = False
 EVENT_LOG_MODE = False
 CHAT_LOG_MODE = True
 DIALOG_LOG_MODE = True
+GAMETEXT_LOG_MODE = True
 
 
 def _writer_loop():
@@ -71,6 +72,7 @@ def configure(
     event: bool | None = None,
     chat: bool | None = None,
     dialog: bool | None = None,
+    gametext: bool | None = None,
 ) -> None:
     global INFO_MODE
     global DEBUG_MODE
@@ -78,6 +80,7 @@ def configure(
     global EVENT_LOG_MODE
     global CHAT_LOG_MODE
     global DIALOG_LOG_MODE
+    global GAMETEXT_LOG_MODE
 
     if info is not None:
         INFO_MODE = bool(info)
@@ -96,6 +99,9 @@ def configure(
 
     if dialog is not None:
         DIALOG_LOG_MODE = bool(dialog)
+
+    if gametext is not None:
+        GAMETEXT_LOG_MODE = bool(gametext)
 
 
 def raw(message: str) -> None:
@@ -133,6 +139,11 @@ def chat(message: str) -> None:
 def dialog(message: str) -> None:
     if DIALOG_LOG_MODE:
         _safe_print(message)
+
+
+def gametext(message: str) -> None:
+    if GAMETEXT_LOG_MODE:
+        _safe_print(f"[GAMETEXT] {message}")
 
 
 def warn(message: str) -> None:

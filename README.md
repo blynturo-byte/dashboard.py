@@ -75,6 +75,7 @@ def on_dialog(bot, dialog_id, dialog_style, title, info, button1, button2, parse
 - [Configuration](docs/CONFIGURATION.md)
 - [Movement](docs/MOVEMENT.md)
 - [Protocol](docs/PROTOCOL.md)
+- [BitStream](docs/BITSTREAM.md)
 
 ## Структура проекта
 
