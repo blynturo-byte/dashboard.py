@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.2.1
+
+Fixed:
+
+- Исправлен баг с позицией бота при спавне: менеджеры определяли RPC по содержимому словаря (`x/y/z` без `player_id`), из-за чего пикапы, map icons, 3D labels и транспорт перезаписывали позицию бота. Все менеджеры (`ServerInfo`, `ChatInfo`, `AllPlayersInfo`) переведены на роутинг по `state`.
+
+События:
+
+- Новые: `onPlayerDeath`, `OnPlayerAnimation`, `OnPlayerClearAnimation`, `onRemoveFromVehicle`, `OnGivePlayerWeapon`, `OnResetPlayerWeapons`, `OnSetWeaponAmmo`, `OnPlayAudioStream`, `OnStopAudioStream`, `onBotStopping`, `onServerTimeout`, `onProxyConnect`, `onProxyDisconnect`, `onProxyError`, `onProxyChange`.
+
+API:
+
+- Добавлены `getaudio()`, `getbotweapons()`.
+
+Соединение:
+
+- Параметр `server_password` в `config.ini`
+
+Парсеры/менеджеры:
+
+- Новые RPC: `WORLD_PLAYER_DEATH`, `ApplyPlayerAnimation`, `ClearPlayerAnimations`, `StopAudioStream`, `GivePlayerWeapon`, `ResetPlayerWeapons`, `RemovePlayerFromVehicle`, `SetVehicleZAngle`.
+- Оружие бота (`PlayerInfo.weapons`) заполняется из GivePlayerWeapon / ResetPlayerWeapons / SetWeaponAmmo / SetSpawnInfo.
+- Бот переходит в `onfoot` при RemovePlayerFromVehicle; ротация транспорта обновляется при SetVehicleZAngle.
+- `ChatInfo` хранит текущий аудиопоток, `StopAudioStream` сбрасывает его.
+- Диалог печатается в консоль одним блоком.
+
 ## 0.2.0-beta
 
 Breaking:

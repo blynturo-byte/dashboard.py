@@ -28,6 +28,7 @@ HANDSHAKE_PACKET_TYPES = frozenset(
         "open_connection_reply",
         "auth_key",
         "connection_request_accepted",
+        "invalid_password",
     }
 )
 
@@ -45,6 +46,7 @@ class SampSession:
         sync_scheduler,
         fps: float = 100.0,
         pings_ips_continuous: bool = False,
+        server_password: str | None = None,
     ):
         self.api = None
         self._emit_callback = lambda event, *args, **kwargs: None
@@ -53,6 +55,7 @@ class SampSession:
         self.server_ip = server_ip
         self.server_port = server_port
         self.nickname = nickname
+        self.server_password = str(server_password) if server_password else None
         self.pings_ips_continuous = bool(pings_ips_continuous)
         self._first_connect = True
 
@@ -521,12 +524,12 @@ class SampSession:
 
         try:
             self._emit_callback(
-                "onServerSilenceTimeout",
+                "onServerTimeout",
                 elapsed,
                 self._server_silence_timeout,
             )
         except Exception as e:
-            logger.warn(f"onServerSilenceTimeout emit failed: {e}")
+            logger.warn(f"onServerTimeout emit failed: {e}")
 
         self.reconnect(delay=1.0, threaded=True)
 
@@ -821,7 +824,7 @@ class SampSession:
 
     def send_connection_request(self) -> None:
         self._sender.send(
-            PacketBuilder.connection_request(),
+            PacketBuilder.connection_request(self.server_password),
             packet_name="connection_request",
         )
 
@@ -1114,10 +1117,19 @@ class SampSession:
         self._handshake_stage = "init_game"
         return None
 
+    def _on_invalid_password(self, packet: dict) -> bool:
+        logger.error("Invalid server password.")
+        self.report_handshake_failure(
+            "invalid_password",
+            "Invalid server password.",
+        )
+        return False
+
     _HANDSHAKE_REACTIONS = {
         "open_connection_reply": _on_open_connection_reply,
         "auth_key": _on_auth_key,
         "connection_request_accepted": _on_connection_request_accepted,
+        "invalid_password": _on_invalid_password,
     }
 
     def disconnect(self, reason: str = "user request") -> None:

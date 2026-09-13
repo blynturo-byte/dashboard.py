@@ -106,6 +106,38 @@ class SampPacketHandler:
                 parsed.get("player_id"),
             )
 
+    def _emit_player_death_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "onPlayerDeath",
+            parsed.get("player_id"),
+        )
+
+    def _emit_apply_player_animation_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnPlayerAnimation",
+            parsed.get("player_id"),
+            parsed.get("anim_lib", ""),
+            parsed.get("anim_name", ""),
+            parsed.get("delta"),
+            parsed.get("loop"),
+            parsed.get("lock_x"),
+            parsed.get("lock_y"),
+            parsed.get("freeze"),
+            parsed.get("duration_ms"),
+        )
+
+    def _emit_clear_player_animation_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnPlayerClearAnimation",
+            parsed.get("player_id"),
+        )
+
     def _emit_vehicle_stream_out_event(self, result: dict) -> None:
         parsed = result.get("parsed_payload") or {}
 
@@ -179,6 +211,41 @@ class SampPacketHandler:
             parsed.get("vehicle_id"),
             parsed.get("seat_id"),
         )
+
+    def _emit_remove_player_from_vehicle_event(self, result: dict) -> None:
+        self.session._emit_callback("onRemoveFromVehicle")
+
+    def _emit_give_player_weapon_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnGivePlayerWeapon",
+            parsed.get("weapon_id"),
+            parsed.get("ammo"),
+        )
+
+    def _emit_reset_player_weapons_event(self, result: dict) -> None:
+        self.session._emit_callback("OnResetPlayerWeapons")
+
+    def _emit_set_weapon_ammo_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnSetWeaponAmmo",
+            parsed.get("weapon_id"),
+            parsed.get("ammo"),
+        )
+
+    def _emit_play_audio_stream_event(self, result: dict) -> None:
+        parsed = result.get("parsed_payload") or {}
+
+        self.session._emit_callback(
+            "OnPlayAudioStream",
+            parsed.get("url"),
+        )
+
+    def _emit_stop_audio_stream_event(self, result: dict) -> None:
+        self.session._emit_callback("OnStopAudioStream")
 
     def _emit_set_player_health_event(self, result: dict) -> None:
         parsed = result.get("parsed_payload") or {}
@@ -307,6 +374,12 @@ class SampPacketHandler:
             "connection_rejected": self._emit_connection_rejected_event,
             "enter_vehicle": self._emit_enter_vehicle_event,
             "put_player_in_vehicle": self._emit_put_player_in_vehicle_event,
+            "remove_player_from_vehicle": self._emit_remove_player_from_vehicle_event,
+            "give_player_weapon": self._emit_give_player_weapon_event,
+            "reset_player_weapons": self._emit_reset_player_weapons_event,
+            "set_weapon_ammo": self._emit_set_weapon_ammo_event,
+            "play_audio_stream": self._emit_play_audio_stream_event,
+            "stop_audio_stream": self._emit_stop_audio_stream_event,
             "set_player_health": self._emit_set_player_health_event,
             "set_player_armour": self._emit_set_player_armour_event,
             "set_interior": self._emit_set_interior_event,
@@ -324,6 +397,9 @@ class SampPacketHandler:
             "toggle_player_controllable": self._emit_freeze_event,
             "world_player_add": self._emit_player_stream_in_event,
             "world_player_remove": self._emit_player_stream_out_event,
+            "world_player_death": self._emit_player_death_event,
+            "apply_player_animation": self._emit_apply_player_animation_event,
+            "clear_player_animation": self._emit_clear_player_animation_event,
             "world_vehicle_add": self._emit_vehicle_stream_in_event,
             "world_vehicle_remove": self._emit_vehicle_stream_out_event,
             "set_map_icon": self._emit_set_map_icon_event,

@@ -466,6 +466,11 @@ def load_config(
         "PINGS_IPS_CONTINUOUS",
         fallback=False,
     )
+    server_password = config.get(
+        "Connection",
+        "server_password",
+        fallback="",
+    ).strip() or None
     cli_host = getattr(args, "host", None)
     cli_port = getattr(args, "port", None)
 
@@ -609,6 +614,7 @@ def load_config(
         "port": int(port),
         "fps": fps,
         "pings_ips_continuous": bool(pings_ips_continuous),
+        "server_password": server_password,
         "random_ip": random_ip,
         "random_ip_server_name": random_ip_server_name,
         "nick": nick,
@@ -712,6 +718,7 @@ def main(argv: list[str] | None = None):
             fps=cfg["fps"],
             pings_ips_continuous=cfg["pings_ips_continuous"],
             proxy_address=cfg["proxy_address"],
+            server_password=cfg["server_password"],
         )
     except ValueError as e:
         logger.error(str(e))

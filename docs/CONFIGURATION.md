@@ -9,6 +9,7 @@ host = 127.0.0.1
 port = 7777
 FPS = 50
 PINGS_IPS_CONTINUOUS = false
+server_password =
 
 [Player]
 random_nick = false
@@ -28,6 +29,7 @@ RATE_PLAYER_FLUCTUATION_MAX = 0.02
 - `FPS` - частота сетевого цикла.
 - `random_ip` - использовать случайный IP из `server_ips.txt`.
 - `PINGS_IPS_CONTINUOUS` - периодически отправлять обновление scores/pings.
+- `server_password` - пароль сервера. Пустое значение - без пароля. При неверном пароле соединение останавливается
 - `random_nick` - генерировать случайный ник.
 - `nick` - ник бота.
 - `RATE_PLAYER` - интервал player sync. Можно указать число или диапазон.

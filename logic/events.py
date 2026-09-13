@@ -304,6 +304,11 @@ def _default_on_put_player_in_vehicle(
     pass
 
 
+@emitter.on("onRemoveFromVehicle")
+def _default_on_remove_from_vehicle(bot):
+    pass
+
+
 
 @emitter.on("onPlayerEnterVehicle")
 def _default_on_player_enter_vehicle(
@@ -364,6 +369,31 @@ def _default_on_set_skin(bot, player_id, skin_id):
     pass
 
 
+@emitter.on("OnGivePlayerWeapon")
+def _default_on_give_player_weapon(bot, weapon_id, ammo):
+    pass
+
+
+@emitter.on("OnResetPlayerWeapons")
+def _default_on_reset_player_weapons(bot):
+    pass
+
+
+@emitter.on("OnSetWeaponAmmo")
+def _default_on_set_weapon_ammo(bot, weapon_id, ammo):
+    pass
+
+
+@emitter.on("OnPlayAudioStream")
+def _default_on_play_audio_stream(bot, url):
+    pass
+
+
+@emitter.on("OnStopAudioStream")
+def _default_on_stop_audio_stream(bot):
+    pass
+
+
 @emitter.on("OnGameText")
 def _default_on_game_text(bot, style, time, text):
     pass
@@ -402,4 +432,60 @@ def _default_on_disable_race_checkpoint(bot):
 
 @emitter.on("OnFreeze")
 def _default_on_freeze(bot, frozen):
+    pass
+
+
+@emitter.on("onBotStopping")
+def _default_on_bot_stopping(bot):
+    pass
+
+
+@emitter.on("onProxyConnect")
+def _default_on_proxy_connect(bot, info):
+    pass
+
+
+@emitter.on("onProxyDisconnect")
+def _default_on_proxy_disconnect(bot, info):
+    pass
+
+
+@emitter.on("onProxyError")
+def _default_on_proxy_error(bot, info, error):
+    pass
+
+
+@emitter.on("onProxyChange")
+def _default_on_proxy_change(bot, old_info, new_info):
+    pass
+
+
+@emitter.on("onServerTimeout")
+def _default_on_server_timeout(bot, elapsed, timeout):
+    pass
+
+
+@emitter.on("onPlayerDeath")
+def _default_on_player_death(bot, player_id):
+    pass
+
+
+@emitter.on("OnPlayerAnimation")
+def _default_on_player_animation(
+    bot,
+    player_id,
+    anim_lib,
+    anim_name,
+    delta,
+    loop,
+    lock_x,
+    lock_y,
+    freeze,
+    duration_ms,
+):
+    pass
+
+
+@emitter.on("OnPlayerClearAnimation")
+def _default_on_player_clear_animation(bot, player_id):
     pass

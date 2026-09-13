@@ -37,6 +37,7 @@ class Bot:
         fps: float = 100.0,
         pings_ips_continuous: bool = False,
         proxy_address: str | None = None,
+        server_password: str | None = None,
     ):
         validate_nickname_length(nickname)
 
@@ -54,6 +55,7 @@ class Bot:
             sync_scheduler=sync_scheduler,
             fps=fps,
             pings_ips_continuous=pings_ips_continuous,
+            server_password=server_password,
         )
 
         self.api = BotAPI(self.session)

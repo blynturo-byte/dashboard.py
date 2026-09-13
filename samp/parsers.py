@@ -263,7 +263,7 @@ class RPCParser:
 
     @staticmethod
     def play_audio_stream(bs: BitStream) -> dict | None:
-        
+
         url = bs.read_string(
             bs.read_uint8(),
             "ascii",
@@ -274,6 +274,10 @@ class RPCParser:
         return {
             "url": url,
         }
+
+    @staticmethod
+    def stop_audio_stream(bs: BitStream) -> dict | None:
+        return {}
 
 
     @staticmethod
@@ -337,6 +341,62 @@ class RPCParser:
 
     @staticmethod
     def world_player_remove(bs: BitStream) -> dict | None:
+
+        player_id = bs.read_uint16()
+
+        return {
+            "player_id": int(player_id),
+        }
+
+    @staticmethod
+    def world_player_death(bs: BitStream) -> dict | None:
+
+        player_id = bs.read_uint16()
+
+        return {
+            "player_id": int(player_id),
+        }
+
+    @staticmethod
+    def apply_player_animation(bs: BitStream) -> dict | None:
+
+        player_id = bs.read_uint16()
+
+        anim_lib = bs.read_string(
+            bs.read_uint8(),
+            "cp1251",
+            errors="ignore"
+        )
+
+        anim_name = bs.read_string(
+            bs.read_uint8(),
+            "cp1251",
+            errors="ignore"
+        )
+
+        delta = bs.read_float()
+
+        loop = bs.read_bool()
+        lock_x = bs.read_bool()
+        lock_y = bs.read_bool()
+        freeze = bs.read_bool()
+
+        duration_ms = bs.read_uint32()
+
+        return {
+            "player_id": int(player_id),
+            "anim_lib": anim_lib,
+            "anim_name": anim_name,
+            "delta": float(delta),
+            "loop": bool(loop),
+            "lock_x": bool(lock_x),
+            "lock_y": bool(lock_y),
+            "freeze": bool(freeze),
+            "duration_ms": int(duration_ms),
+        }
+
+    @staticmethod
+    def clear_player_animation(bs: BitStream) -> dict | None:
 
         player_id = bs.read_uint16()
 
@@ -535,6 +595,38 @@ class RPCParser:
             "vehicle_id": int(vehicle_id),
             "seat_id": int(seat_id),
         }
+
+    @staticmethod
+    def remove_player_from_vehicle(bs: BitStream) -> dict | None:
+        return {}
+
+
+    @staticmethod
+    def set_vehicle_z_angle(bs: BitStream) -> dict | None:
+
+        vehicle_id = bs.read_uint16()
+        rotation = bs.read_float()
+
+        return {
+            "vehicle_id": int(vehicle_id),
+            "rotation": float(rotation),
+        }
+
+
+    @staticmethod
+    def give_player_weapon(bs: BitStream) -> dict | None:
+
+        weapon_id = bs.read_uint8()
+        ammo = bs.read_uint32()
+
+        return {
+            "weapon_id": int(weapon_id),
+            "ammo": int(ammo),
+        }
+
+    @staticmethod
+    def reset_player_weapons(bs: BitStream) -> dict | None:
+        return {}
 
 
     @staticmethod
@@ -860,6 +952,10 @@ RPC_PARSE_REGISTRY: dict[str, tuple[int, "Callable[[BitStream], dict | None]"]] 
         RPCConstants.PLAY_AUDIO_STREAM,
         RPCParser.play_audio_stream,
     ),
+    "stop_audio_stream": (
+        RPCConstants.STOP_AUDIO_STREAM,
+        RPCParser.stop_audio_stream,
+    ),
     "set_player_health": (
         RPCConstants.SCR_SET_PLAYER_HEALTH,
         RPCParser.set_player_health,
@@ -872,6 +968,14 @@ RPC_PARSE_REGISTRY: dict[str, tuple[int, "Callable[[BitStream], dict | None]"]] 
         RPCConstants.SCR_SET_WEAPON_AMMO,
         RPCParser.set_weapon_ammo,
     ),
+    "give_player_weapon": (
+        RPCConstants.SCR_GIVE_PLAYER_WEAPON,
+        RPCParser.give_player_weapon,
+    ),
+    "reset_player_weapons": (
+        RPCConstants.SCR_RESET_PLAYER_WEAPONS,
+        RPCParser.reset_player_weapons,
+    ),
     "set_camera_behind": (
         RPCConstants.SCR_SET_CAMERA_BEHIND_PLAYER,
         RPCParser.set_camera_behind,
@@ -883,6 +987,18 @@ RPC_PARSE_REGISTRY: dict[str, tuple[int, "Callable[[BitStream], dict | None]"]] 
     "world_player_remove": (
         RPCConstants.WORLD_PLAYER_REMOVE,
         RPCParser.world_player_remove,
+    ),
+    "world_player_death": (
+        RPCConstants.WORLD_PLAYER_DEATH,
+        RPCParser.world_player_death,
+    ),
+    "apply_player_animation": (
+        RPCConstants.SCR_APPLY_ANIMATION,
+        RPCParser.apply_player_animation,
+    ),
+    "clear_player_animation": (
+        RPCConstants.SCR_CLEAR_ANIMATIONS,
+        RPCParser.clear_player_animation,
     ),
     "world_vehicle_add": (
         RPCConstants.WORLD_VEHICLE_ADD,
@@ -931,6 +1047,14 @@ RPC_PARSE_REGISTRY: dict[str, tuple[int, "Callable[[BitStream], dict | None]"]] 
     "put_player_in_vehicle": (
         RPCConstants.SCR_PUT_PLAYER_IN_VEHICLE,
         RPCParser.put_player_in_vehicle,
+    ),
+    "remove_player_from_vehicle": (
+        RPCConstants.SCR_REMOVE_PLAYER_FROM_VEHICLE,
+        RPCParser.remove_player_from_vehicle,
+    ),
+    "set_vehicle_z_angle": (
+        RPCConstants.SCR_SET_VEHICLE_Z_ANGLE,
+        RPCParser.set_vehicle_z_angle,
     ),
     "set_vehicle_pos": (
         RPCConstants.SCR_SET_VEHICLE_POS,
@@ -1223,6 +1347,15 @@ class PacketParser:
 
         return {
             "reason": reason,
+            "raw": data
+        }
+
+    @staticmethod
+    def invalid_password(
+        data: bytes
+    ) -> dict:
+
+        return {
             "raw": data
         }
 
@@ -1531,6 +1664,10 @@ PACKET_PARSE_REGISTRY: dict[str, tuple[int, "Callable[[bytes], dict | None]"]] =
     "connection_request_accepted": (
         PacketID.CONNECTION_REQUEST_ACCEPTED,
         PacketParser.connection_request_accepted,
+    ),
+    "invalid_password": (
+        PacketID.INVALPASSWORD,
+        PacketParser.invalid_password,
     ),
     "internal_ping": (
         PacketID.INTERNAL_PING,

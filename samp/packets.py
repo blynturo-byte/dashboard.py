@@ -452,8 +452,13 @@ class PacketPayloadBuilder:
         return bytes([(cookie >> 8) & 0xFF, cookie & 0xFF])
 
     @staticmethod
-    def connection_request() -> bytes:
-        return b""
+    def connection_request(password: str | None = None) -> bytes:
+        if not password:
+            return b""
+
+        password_bytes = str(password).encode("ascii", errors="ignore")
+
+        return password_bytes
 
     @staticmethod
     def auth_key_response(server_key: str) -> bytes:

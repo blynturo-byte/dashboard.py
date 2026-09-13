@@ -12,6 +12,20 @@ class ServerInfo:
 
         self.spawn_response: bool | None = None
 
+    _RPC_HANDLERS = {
+        "init_game": "_handle_init_game",
+        "request_spawn": "_handle_request_spawn",
+    }
+
+    def _handle_init_game(self, parsed: dict) -> None:
+        self.hostname = parsed.get("hostname", self.hostname)
+
+        if "d_spawns_available" in parsed:
+            self.d_spawns_available = parsed["d_spawns_available"]
+
+    def _handle_request_spawn(self, parsed: dict) -> None:
+        self.spawn_response = bool(parsed.get("spawn_response"))
+
     def process_packet(self, packet: dict) -> None:
         if packet.get("type") != "rpc":
             return
@@ -21,23 +35,16 @@ class ServerInfo:
         if not parsed:
             return
 
-        if "hostname" in parsed:
-            self.hostname = parsed["hostname"]
-
-            if "d_spawns_available" in parsed:
-                self.d_spawns_available = parsed["d_spawns_available"]
-            return
-
-        if "spawn_response" in parsed:
-            self.spawn_response = bool(parsed["spawn_response"])
-
-            return
+        handler = self._RPC_HANDLERS.get(parsed.get("state"))
+        if handler is not None:
+            getattr(self, handler)(parsed)
 
 
 class ChatInfo:
 
     def __init__(self):
         self.last_dialog: dict | None = None
+        self.audio_url: str | None = None
 
     def get_last_dialog(self) -> dict | None:
         if self.last_dialog is None:
@@ -45,6 +52,90 @@ class ChatInfo:
 
         return dict(self.last_dialog)
 
+    def get_audio(self) -> str | None:
+        return self.audio_url
+
+    def _handle_client_message(self, parsed: dict) -> None:
+        logger.chat(f"{parsed.get('message', '')}")
+
+    def _handle_show_game_text(self, parsed: dict) -> None:
+        logger.gametext(
+            f"{parsed.get('text', '')} "
+            f"(style={parsed.get('style')}, "
+            f"time={parsed.get('time')}ms)"
+        )
+
+    def _handle_play_audio_stream(self, parsed: dict) -> None:
+        self.audio_url = parsed.get("url")
+        logger.audio(f"{parsed.get('url', '')}")
+
+    def _handle_stop_audio_stream(self, parsed: dict) -> None:
+        self.audio_url = None
+
+    def _handle_connection_rejected(self, parsed: dict) -> None:
+        reason_code = parsed.get("reason_kick")
+
+        reasons = {
+            1: "Incorrect client version",
+            2: "This account is already logged in",
+            3: "Bad mod version",
+            4: "No free player slots available"
+        }
+
+        reason_text = reasons.get(
+            reason_code,
+            f"Unknown reason ({reason_code})"
+        )
+
+        logger.error(f"CONNECTION REJECTED!")
+        logger.error(f"Reason: {reason_text}")
+        logger.error(f"The server has kicked the bot.\n")
+
+    def _handle_show_dialog(self, parsed: dict) -> None:
+        dialog_id = parsed.get("dialog_id")
+        style = parsed.get("dialog_style")
+        title = parsed.get("dialog_title", "")
+        button1 = parsed.get("dialog_button1", "")
+        button2 = parsed.get("dialog_button2", "")
+        info = parsed.get("dialog_info", "")
+
+        self.last_dialog = {
+            "dialog_id": dialog_id,
+            "dialog_style": style,
+            "dialog_title": title,
+            "dialog_info": info,
+            "dialog_button1": button1,
+            "dialog_button2": button2,
+            "updated_at": time.time(),
+        }
+
+        lines = [
+            "=" * 60,
+            f"ID: {dialog_id}",
+            f"Style: {style}",
+        ]
+
+        if title:
+            lines.append(f"Title: {title}")
+
+        lines.append("-" * 60)
+        lines.append(info if info else "[empty dialog text]")
+        lines.append("-" * 60)
+        lines.append(f"Button1: {button1}")
+        lines.append(f"Button2: {button2}")
+        lines.append("=" * 60)
+
+        logger.dialog("\n" + "\n".join(lines) + "\n")
+
+    _RPC_HANDLERS = {
+        "client_message": "_handle_client_message",
+        "show_game_text": "_handle_show_game_text",
+        "play_audio_stream": "_handle_play_audio_stream",
+        "stop_audio_stream": "_handle_stop_audio_stream",
+        "connection_rejected": "_handle_connection_rejected",
+        "show_dialog": "_handle_show_dialog",
+    }
+
     def process_packet(self, packet: dict) -> None:
         if packet.get("type") != "rpc":
             return
@@ -54,73 +145,9 @@ class ChatInfo:
         if not parsed:
             return
 
-        if "message" in parsed:
-            logger.chat(f"{parsed['message']}")
-
-        elif parsed.get("state") == "show_game_text":
-            logger.gametext(
-                f"{parsed.get('text', '')} "
-                f"(style={parsed.get('style')}, "
-                f"time={parsed.get('time')}ms)"
-            )
-
-        elif "url" in parsed:
-            logger.audio(f"{parsed['url']}")
-
-        elif "reason_kick" in parsed:
-            reason_code = parsed["reason_kick"]
-
-            reasons = {
-                1: "Incorrect client version",
-                2: "This account is already logged in",
-                3: "Bad mod version",
-                4: "No free player slots available"
-            }
-
-            reason_text = reasons.get(
-                reason_code,
-                f"Unknown reason ({reason_code})"
-            )
-
-            logger.error(f"CONNECTION REJECTED!")
-            logger.error(f"Reason: {reason_text}")
-            logger.error(f"The server has kicked the bot.\n")
-
-        elif "dialog_id" in parsed and "dialog_info" in parsed:
-            dialog_id = parsed.get("dialog_id")
-            style = parsed.get("dialog_style")
-            title = parsed.get("dialog_title", "")
-            button1 = parsed.get("dialog_button1", "")
-            button2 = parsed.get("dialog_button2", "")
-            info = parsed.get("dialog_info", "")
-
-            self.last_dialog = {
-                "dialog_id": dialog_id,
-                "dialog_style": style,
-                "dialog_title": title,
-                "dialog_info": info,
-                "dialog_button1": button1,
-                "dialog_button2": button2,
-                "updated_at": time.time(),
-            }
-
-            lines = [
-                "=" * 60,
-                f"ID: {dialog_id}",
-                f"Style: {style}",
-            ]
-
-            if title:
-                lines.append(f"Title: {title}")
-
-            lines.append("-" * 60)
-            lines.append(info if info else "[empty dialog text]")
-            lines.append("-" * 60)
-            lines.append(f"Button1: {button1}")
-            lines.append(f"Button2: {button2}")
-            lines.append("=" * 60)
-
-            logger.dialog("\n" + "\n".join(lines) + "\n")
+        handler = self._RPC_HANDLERS.get(parsed.get("state"))
+        if handler is not None:
+            getattr(self, handler)(parsed)
 
 
 
@@ -179,6 +206,10 @@ class StreamVehicleInfo:
         self.x = float(x)
         self.y = float(y)
         self.z = float(z)
+        self.updated_at = time.time()
+
+    def update_rotation(self, rotation: float) -> None:
+        self.rotation = float(rotation)
         self.updated_at = time.time()
 
     def to_dict(self) -> dict:
@@ -382,6 +413,7 @@ class StreamInfo:
         "world_vehicle_add": "_handle_vehicle_add",
         "world_vehicle_remove": "_handle_vehicle_remove",
         "set_vehicle_pos": "_handle_vehicle_pos",
+        "set_vehicle_z_angle": "_handle_vehicle_z_angle",
         "create_pickup": "_handle_pickup_create",
         "destroy_pickup": "_handle_pickup_remove",
         "create_3d_text_label": "_handle_label_create",
@@ -459,6 +491,17 @@ class StreamInfo:
                 float(parsed.get("x", 0.0)),
                 float(parsed.get("y", 0.0)),
                 float(parsed.get("z", 0.0)),
+            )
+
+    def _handle_vehicle_z_angle(self, parsed: dict) -> None:
+        vehicle_id = int(parsed.get("vehicle_id", 0))
+        if vehicle_id <= 0:
+            return
+
+        vehicle = self.vehicles.get(vehicle_id)
+        if vehicle is not None:
+            vehicle.update_rotation(
+                float(parsed.get("rotation", vehicle.rotation)),
             )
 
     def _handle_pickup_create(self, parsed: dict) -> None:
@@ -635,6 +678,18 @@ class PlayerInfo:
         self.animation_id: int = 0
         self.animation_flags: int = 255
 
+        self.anim_lib: str = ""
+        self.anim_name: str = ""
+        self.anim_delta: float = 4.1
+        self.anim_loop: bool = False
+        self.anim_lock_x: bool = False
+        self.anim_lock_y: bool = False
+        self.anim_freeze: bool = False
+        self.anim_duration_ms: int = 0
+        self.anim_active: bool = False
+
+        self.weapons: Dict[int, int] = {}
+
         self.rate_player: float = 0.200
 
         self.interior: int = 0
@@ -726,6 +781,38 @@ class PlayerInfo:
             self.quat_y,
             self.quat_z
         )
+
+    def apply_animation(
+        self,
+        anim_lib: str,
+        anim_name: str,
+        delta: float = 4.1,
+        loop: bool = False,
+        lock_x: bool = False,
+        lock_y: bool = False,
+        freeze: bool = False,
+        duration_ms: int = 0,
+    ) -> None:
+        self.anim_lib = str(anim_lib or "")
+        self.anim_name = str(anim_name or "")
+        self.anim_delta = float(delta)
+        self.anim_loop = bool(loop)
+        self.anim_lock_x = bool(lock_x)
+        self.anim_lock_y = bool(lock_y)
+        self.anim_freeze = bool(freeze)
+        self.anim_duration_ms = int(duration_ms)
+        self.anim_active = True
+
+    def clear_animation(self) -> None:
+        self.anim_lib = ""
+        self.anim_name = ""
+        self.anim_delta = 4.1
+        self.anim_loop = False
+        self.anim_lock_x = False
+        self.anim_lock_y = False
+        self.anim_freeze = False
+        self.anim_duration_ms = 0
+        self.anim_active = False
 
 
     @property
@@ -986,6 +1073,49 @@ class PlayerInfo:
     def set_control_axes(self, lr: int, ud: int) -> None:
         self.lr = max(-32768, min(32767, int(round(lr))))
         self.ud = max(-32768, min(32767, int(round(ud))))
+
+    def give_weapon(self, weapon_id: int, ammo: int) -> None:
+        weapon_id = int(weapon_id) & 0xFF
+        ammo = int(ammo)
+
+        if ammo > 0:
+            self.weapons[weapon_id] = ammo
+        else:
+            self.weapons.pop(weapon_id, None)
+
+    def reset_weapons(self) -> None:
+        self.weapons.clear()
+
+    def set_weapon_ammo(self, weapon_id: int, ammo: int) -> None:
+        weapon_id = int(weapon_id) & 0xFF
+        ammo = int(ammo)
+
+        if ammo > 0:
+            self.weapons[weapon_id] = ammo
+        else:
+            self.weapons.pop(weapon_id, None)
+
+    def set_spawn_weapons(
+        self,
+        weapon1: int,
+        ammo1: int,
+        weapon2: int,
+        ammo2: int,
+        weapon3: int,
+        ammo3: int,
+    ) -> None:
+        self.weapons.clear()
+
+        for weapon_id, ammo in (
+            (weapon1, ammo1),
+            (weapon2, ammo2),
+            (weapon3, ammo3),
+        ):
+            if int(weapon_id) > 0 and int(ammo) > 0:
+                self.weapons[int(weapon_id) & 0xFF] = int(ammo)
+
+    def get_weapon_ammo(self, weapon_id: int) -> int:
+        return int(self.weapons.get(int(weapon_id) & 0xFF, 0))
 
     def is_onfoot(self) -> bool:
         return self.sync_state == "onfoot"
@@ -1415,6 +1545,22 @@ class AllPlayersInfo:
             return
 
 
+        if parsed.get("state") == "remove_player_from_vehicle":
+            if self.bot.is_in_vehicle():
+                old_vehicle_id = int(self.bot.get_current_vehicle_id())
+                old_seat_id = int(getattr(self.bot, "current_vehicle_seat_id", 0))
+
+                self.bot.set_onfoot()
+                self.bot.reset_velocity()
+
+                logger.info(
+                    "RemovePlayerFromVehicle -> sync_state changed to onfoot | "
+                    f"old_vehicle_id={old_vehicle_id}, old_seat_id={old_seat_id}"
+                )
+
+            return
+
+
         if parsed.get("state") == "world_vehicle_remove":
             try:
                 vehicle_id = int(parsed.get("vehicle_id", 0))
@@ -1489,16 +1635,44 @@ class AllPlayersInfo:
             )
             return
 
-        if "player_id" in parsed and "hostname" in parsed:
-            self.bot.player_id = parsed["player_id"]
+        if parsed.get("state") == "give_player_weapon":
+            weapon_id = int(parsed.get("weapon_id", 0))
+            ammo = int(parsed.get("ammo", 0))
 
-        elif (
-            "name" in parsed
-            and "player_id" in parsed
-            and "color" in parsed
-        ):
-            player_id = parsed["player_id"]
-            name = parsed["name"]
+            self.bot.give_weapon(weapon_id, ammo)
+            return
+
+        if parsed.get("state") == "reset_player_weapons":
+            self.bot.reset_weapons()
+            return
+
+        if parsed.get("state") == "set_weapon_ammo":
+            weapon_id = int(parsed.get("weapon_id", 0))
+            ammo = int(parsed.get("ammo", 0))
+
+            self.bot.set_weapon_ammo(weapon_id, ammo)
+            return
+
+        if parsed.get("state") == "set_spawn_info":
+            self.bot.team = int(parsed.get("team", 0))
+            self.bot.skin = int(parsed.get("skin", 0))
+
+            self.bot.set_spawn_weapons(
+                int(parsed.get("weapon1", 0)),
+                int(parsed.get("ammo1", 0)),
+                int(parsed.get("weapon2", 0)),
+                int(parsed.get("ammo2", 0)),
+                int(parsed.get("weapon3", 0)),
+                int(parsed.get("ammo3", 0)),
+            )
+            return
+
+        if parsed.get("state") == "init_game":
+            self.bot.player_id = parsed.get("player_id")
+
+        elif parsed.get("state") == "server_join":
+            player_id = parsed.get("player_id")
+            name = parsed.get("name")
             is_npc = parsed.get("is_npc", False)
 
             if player_id not in self._players:
@@ -1515,11 +1689,7 @@ class AllPlayersInfo:
                         f"{name} (ID: {player_id})"
                     )
 
-        elif (
-            "player_id" in parsed
-            and "reason" in parsed
-            and "name" not in parsed
-        ):
+        elif parsed.get("state") == "server_quit":
             player_id = parsed["player_id"]
 
             if player_id in self._players:
@@ -1603,12 +1773,68 @@ class AllPlayersInfo:
                         f"{name} (ID: {player_id})"
                     )
 
-        elif (
-            "skin" in parsed
-            and "player_id" in parsed
-        ):
-            player_id = parsed["player_id"]
-            skin = parsed["skin"]
+        elif parsed.get("state") == "world_player_death":
+            try:
+                player_id = int(parsed.get("player_id", -1))
+            except Exception:
+                return
+
+            if player_id in self._streamed_players:
+                name = self._streamed_players[player_id].name
+
+                del self._streamed_players[player_id]
+
+                if self.log_player_stream:
+                    logger.info(
+                        f"Player death: streamed out: "
+                        f"{name} (ID: {player_id})"
+                    )
+
+        elif parsed.get("state") == "apply_player_animation":
+            try:
+                player_id = int(parsed.get("player_id", -1))
+            except Exception:
+                return
+
+            if player_id == self.bot.player_id:
+                self.bot.animation_id = 0
+                self.bot.animation_flags = 0
+                self.bot.apply_animation(
+                    parsed.get("anim_lib", ""),
+                    parsed.get("anim_name", ""),
+                    parsed.get("delta", 4.1),
+                    parsed.get("loop", False),
+                    parsed.get("lock_x", False),
+                    parsed.get("lock_y", False),
+                    parsed.get("freeze", False),
+                    parsed.get("duration_ms", 0),
+                )
+            elif player_id in self._streamed_players:
+                self._streamed_players[player_id].apply_animation(
+                    parsed.get("anim_lib", ""),
+                    parsed.get("anim_name", ""),
+                    parsed.get("delta", 4.1),
+                    parsed.get("loop", False),
+                    parsed.get("lock_x", False),
+                    parsed.get("lock_y", False),
+                    parsed.get("freeze", False),
+                    parsed.get("duration_ms", 0),
+                )
+
+        elif parsed.get("state") == "clear_player_animation":
+            try:
+                player_id = int(parsed.get("player_id", -1))
+            except Exception:
+                return
+
+            if player_id == self.bot.player_id:
+                self.bot.clear_animation()
+            elif player_id in self._streamed_players:
+                self._streamed_players[player_id].clear_animation()
+
+        elif parsed.get("state") == "set_player_skin":
+            player_id = parsed.get("player_id")
+            skin = parsed.get("skin")
 
             if player_id == self.bot.player_id:
                 self.bot.skin = skin
@@ -1622,19 +1848,14 @@ class AllPlayersInfo:
                         f"{player_id} skin changed to {skin}"
                     )
 
-        elif (
-            "x" in parsed
-            and "y" in parsed
-            and "z" in parsed
-            and "player_id" not in parsed
-        ):
+        elif parsed.get("state") in ("set_player_pos", "set_player_pos_find_z"):
             was_in_vehicle = self.bot.is_in_vehicle()
             current_vehicle_id = int(self.bot.get_current_vehicle_id())
 
             self.bot.update_position(
-                parsed["x"],
-                parsed["y"],
-                parsed["z"]
+                parsed.get("x"),
+                parsed.get("y"),
+                parsed.get("z")
             )
             self._reset_coord_movement_acceleration("SCR_SET_PLAYER_POS")
 
@@ -1646,11 +1867,11 @@ class AllPlayersInfo:
                     f"xyz={self.bot.get_position()}"
                 )
 
-        elif "health" in parsed and "player_id" not in parsed:
-            self.bot.health = parsed["health"]
+        elif parsed.get("state") == "set_player_health":
+            self.bot.health = parsed.get("health")
 
-        elif "armour" in parsed and "player_id" not in parsed:
-            self.bot.armour = parsed["armour"]
+        elif parsed.get("state") == "set_player_armour":
+            self.bot.armour = parsed.get("armour")
 
         elif parsed.get("state") == "give_player_money":
             amount = int(parsed.get("amount", 0))
@@ -1660,8 +1881,8 @@ class AllPlayersInfo:
             old_money = self.bot.money
             self.bot.money = 0
 
-        elif "interior_id" in parsed:
-            self.bot.interior = parsed["interior_id"]
+        elif parsed.get("state") == "set_interior":
+            self.bot.interior = parsed.get("interior_id")
 
 
     def update_scores_and_pings(self, entries: list[dict]) -> None:

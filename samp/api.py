@@ -716,6 +716,12 @@ class BotAPI:
     def GetDialog(self):
         return self.session.chat.get_last_dialog()
 
+    def getaudio(self):
+        return self.session.chat.get_audio()
+
+    def getbotweapons(self):
+        return dict(self.session.players.bot.weapons)
+
     def getbothealth(self):
         return self.session.players.bot.health
 
