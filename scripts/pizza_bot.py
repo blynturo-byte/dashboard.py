@@ -90,6 +90,7 @@ class State:
         self.delays_secs = None
         self.ended_moves = set()
         self.next_ok = 0.0
+        self.wait_kind = "delay"       # "delay" = delay pizza | "retry" = coba ulang setelah gagal
         self.paused = not ENABLED
         self.abort = False
         self.stats = {
@@ -542,7 +543,13 @@ def _goto_wait():
 
 
 def _idle_wait(ts, state):
-    log(f"Menunggu delay {int(ts - time.time())} detik di titik tunggu", "info")
+    left = int(ts - time.time())
+    if st.wait_kind == "retry":
+        state = "Menunggu coba ulang di titik tunggu"
+        log(f"Sesi gagal. Mencoba lagi dalam {left} detik (menunggu di titik tunggu)", "info")
+    else:
+        state = "Menunggu delay pizza di titik tunggu"
+        log(f"Menunggu delay pizza {left} detik di titik tunggu", "info")
     _status(state=state, next_run=ts)
     while time.time() < ts and not st.paused and not st.abort:
         time.sleep(1)
@@ -584,13 +591,13 @@ def _run_job_inner():
             return _fail("Gagal sampai ke motor pizza (waktu habis)")
 
     st.job_started.clear()
+    t_enter = time.time()               # kandidat tujuan dihitung sejak sebelum naik motor
     _status(state="Naik motor")
     if not _enter(vid):
         return _fail("Gagal naik motor (terlalu jauh atau tidak ada di stream)")
     _engine_if_off()
 
     _status(state="Menunggu dialog Start Job")
-    t_wait = time.time()
     if not _wait_event(st.job_started, 15):
         secs = _recent_chat_delay(40)
         if secs is None:
@@ -603,7 +610,7 @@ def _run_job_inner():
         return _fail("Dialog Start Job tidak muncul dan delay tidak terdeteksi di chat "
                      "(lihat baris 'chat:' di log untuk pesan servernya)")
     log("Start Job ditekan", "ok")
-    t_start = t_wait                    # kandidat yang muncul sejak mulai menunggu ikut dihitung
+    t_start = t_enter
     _engine_if_off()
 
     _status(state="Memilih tujuan pertama")
@@ -624,13 +631,11 @@ def _run_job_inner():
         _status(state=f"Mengantar pizza {delivered + 1}/{DELIVERIES}")
         if _dist2(api.getbotposition(), tgt) > 2.5:     # masuk ke tengah checkpoint pelanggan
             _go(tgt, "walk", 0.0, 60, cd=1.0, reach=2.0)
-        if not _wait_customer(t_exit, 4):
-            log("pesan 'You have to deliver the pizza' belum muncul, tetap mencoba Y", "warn")
 
+        t_press = time.time()           # tujuan berikutnya bisa datang sebelum _deliver selesai
         if not _deliver(last=(delivered + 1 >= DELIVERIES)):
             return _fail("Pizza tidak terkonfirmasi terkirim setelah menekan Y "
                          "(Y mungkin tidak terkirim atau posisi kurang dekat NPC)")
-        t_done = time.time()
         delivered += 1
         st.stats["pizzas"] += 1
         _status(current=delivered)
@@ -645,7 +650,7 @@ def _run_job_inner():
             return _fail("Gagal naik motor lagi setelah mengantar")
         _engine_if_off()
         _status(state="Memilih tujuan berikutnya")
-        tgt, src = _pick_target(t_done)
+        tgt, src = _pick_target(t_press)
         if tgt is None:
             return _fail("Tujuan antar berikutnya tidak muncul")
 
@@ -689,20 +694,23 @@ def _worker():
             remain = _remaining_delay()
             if remain:
                 st.next_ok = time.time() + remain + DELAY_MARGIN
+                st.wait_kind = "delay"
                 continue
 
             result = _run_job()
             if result == OK:
                 secs = _recent_chat_delay(40) or FALLBACK_DELAY
                 st.next_ok = time.time() + secs + DELAY_MARGIN
+                st.wait_kind = "delay"
                 log(f"Delay berikutnya {int(secs)} detik", "info")
                 _status(sessions_ok=st.stats["sessions_ok"] + 1)
             elif result == DELAYED:
-                pass                      # next_ok sudah diisi dari delay yang terdeteksi
+                st.wait_kind = "delay"    # next_ok sudah diisi dari delay yang terdeteksi
             else:
                 _status(sessions_fail=st.stats["sessions_fail"] + 1,
-                        state="Gagal, mencoba lagi 60 detik")
-                st.next_ok = time.time() + 60
+                        state="Gagal, mencoba lagi sebentar lagi")
+                st.next_ok = time.time() + 75     # server menghentikan job setelah 60 dtk di luar motor
+                st.wait_kind = "retry"
         except RuntimeError as exc:
             log(f"Sesi dihentikan: {exc}", "warn")
             _status(last_error=str(exc))
