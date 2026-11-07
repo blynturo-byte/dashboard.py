@@ -25,7 +25,7 @@ from logic.events import emitter
 ENABLED = os.environ.get("PIZZA_AUTO", "1") != "0"
 PIZZA_MODEL = 448                      # Pizzaboy
 DELIVERIES = int(os.environ.get("PIZZA_DELIVERIES", "10"))
-FALLBACK_DELAY = float(os.environ.get("PIZZA_DELAY", "600"))
+FALLBACK_DELAY = float(os.environ.get("PIZZA_DELAY", "1800"))
 DELAY_MARGIN = 5.0
 KEY_YES = 65536                        # tombol Y di SA-MP
 
