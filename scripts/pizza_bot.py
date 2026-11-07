@@ -37,7 +37,6 @@ FALLBACK_DELAY = float(os.environ.get("PIZZA_DELAY", "1250"))
 TARGET_SOURCE = os.environ.get("PIZZA_TARGET", "auto").strip().lower()
 BIG_WINDOW = float(os.environ.get("PIZZA_COLLECT", "6"))
 DELAY_MARGIN = 5.0
-KEY_YES = 65536                        # tombol Y di SA-MP
 
 # (x, y, z, heading) - posisi motor pizza 1..8
 BIKE_SPOTS = [
@@ -430,18 +429,33 @@ def _engine_if_off():
 
 
 def _press_y():
+    """Tombol Y di SA-MP 0.3.7 dikirim lewat field `additional_key` (1 = Y) di paket sync,
+    BUKAN lewat `keys` (16 bit, tidak muat nilai 65536)."""
     log("menekan Y", "info")
-    bp = st.api.session.players.bot
-    for val in (KEY_YES, 0):
+    api = st.api
+    bp = api.session.players.bot
+    sync = getattr(api.session, "sync", None)
+
+    def _flush():                       # kirim paket sync sekarang juga (jangan menunggu idle-backoff)
         try:
-            if hasattr(bp, "set_keys"):
-                bp.set_keys(val)
-            else:
-                bp.keys = val
-        except Exception as exc:  # noqa: BLE001
-            log(f"gagal menekan Y: {exc}", "error")
-            return
-        time.sleep(0.4 if val else 0.1)
+            if sync is not None and sync.enabled and getattr(bp, "sync_state", "onfoot") == "onfoot":
+                sync.send_player_sync()
+        except Exception:  # noqa: BLE001
+            pass
+
+    try:
+        bp.additional_key = 1
+        _flush()
+        time.sleep(0.8)                 # lewati beberapa siklus sync, termasuk saat idle-backoff
+        bp.additional_key = 0
+        _flush()
+        time.sleep(0.4)
+    except Exception as exc:  # noqa: BLE001
+        log(f"gagal menekan Y: {exc}", "error")
+        try:
+            bp.additional_key = 0
+        except Exception:  # noqa: BLE001
+            pass
 
 
 def _drive(tgt):
