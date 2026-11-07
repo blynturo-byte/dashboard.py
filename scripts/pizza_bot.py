@@ -11,7 +11,7 @@ Alur satu sesi:
 Environment variable (opsional):
   PIZZA_AUTO=0         mulai dalam keadaan dijeda (nyalakan dari panel)
   PIZZA_DELIVERIES=10  jumlah pizza per sesi (set 1 untuk tes)
-  PIZZA_DELAY=600      delay cadangan (detik) kalau /delays tidak memuat baris pizza
+  PIZZA_DELAY=1200      delay cadangan (detik) kalau /delays tidak memuat baris pizza
 """
 import math
 import os
@@ -25,7 +25,7 @@ from logic.events import emitter
 ENABLED = os.environ.get("PIZZA_AUTO", "1") != "0"
 PIZZA_MODEL = 448                      # Pizzaboy
 DELIVERIES = int(os.environ.get("PIZZA_DELIVERIES", "10"))
-FALLBACK_DELAY = float(os.environ.get("PIZZA_DELAY", "1800"))
+FALLBACK_DELAY = float(os.environ.get("PIZZA_DELAY", "1200"))
 DELAY_MARGIN = 5.0
 KEY_YES = 65536                        # tombol Y di SA-MP
 
