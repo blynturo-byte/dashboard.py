@@ -1,5 +1,5 @@
 """
-scripts/pizza_bot.py - otomatis sidejob Pizza Delivery untuk PyRakSamp (v3).
+scripts/pizza_bot.py - otomatis sidejob Pizza Delivery untuk PyRakSamp (v4).
 
 Taruh di folder `scripts/` (sejajar bot.py). Otomatis dimuat oleh Bot._load_scripts().
 Log & status dikirim ke panel lewat event "onPizzaLog" / "onPizzaStatus".
@@ -8,8 +8,9 @@ Alur satu siklus:
   1. jalan ke titik tunggu (posisi 10) -> motor pizza ke-1..8 ter-stream
   2. naik motor terdekat -> Start Job -> /engine kalau mati
      (kalau tidak ada dialog Start Job & chat menyebut sisa delay -> tunggu sebanyak itu)
-  3. ulangi 10x: target = ICON MERAH di radar (bukan checkpoint rumah) -> berkendara -> turun
-     -> jalan ke NPC -> tekan Y -> tunggu konfirmasi (counter "Pizzas: n / 10" atau icon baru)
+  3. ulangi 10x: kumpulkan kandidat tujuan beberapa detik -> pilih CHECKPOINT TERBESAR (milik NPC
+     pelanggan, bukan checkpoint kecil di depan rumah) -> berkendara -> turun -> masuk checkpoint
+     -> tekan Y -> tunggu pesan "You gave the pizza..." -> kembali ke motor (ada batas waktu ~60 dtk)
   4. setelah 10 pizza: berkendara ke titik akhir (posisi 9), turun
   5. jalan ke titik tunggu (posisi 10), tunggu delay (~1250 dtk, atau sesuai yang tertulis di chat)
 
@@ -17,7 +18,8 @@ Environment variable (opsional):
   PIZZA_AUTO=0         mulai dalam keadaan dijeda (nyalakan dari panel)
   PIZZA_DELIVERIES=10  jumlah pizza per sesi (set 1 untuk tes)
   PIZZA_DELAY=1250     delay cadangan (detik) kalau chat tidak menyebut delay
-  PIZZA_TARGET=icon    sumber tujuan antar: icon (default) | checkpoint | auto
+  PIZZA_TARGET=auto    sumber tujuan: auto (default, checkpoint terbesar) | checkpoint | icon
+  PIZZA_COLLECT=6      detik mengumpulkan kandidat tujuan sebelum memilih
 """
 import math
 import os
@@ -32,7 +34,8 @@ ENABLED = os.environ.get("PIZZA_AUTO", "1") != "0"
 PIZZA_MODEL = 448                      # Pizzaboy
 DELIVERIES = int(os.environ.get("PIZZA_DELIVERIES", "10"))
 FALLBACK_DELAY = float(os.environ.get("PIZZA_DELAY", "1250"))
-TARGET_SOURCE = os.environ.get("PIZZA_TARGET", "icon").strip().lower()
+TARGET_SOURCE = os.environ.get("PIZZA_TARGET", "auto").strip().lower()
+BIG_WINDOW = float(os.environ.get("PIZZA_COLLECT", "6"))
 DELAY_MARGIN = 5.0
 KEY_YES = 65536                        # tombol Y di SA-MP
 
@@ -55,6 +58,9 @@ OK, FAIL, DELAYED = "ok", "fail", "delay"
 COLOR_TAG = re.compile(r"\{[0-9a-fA-F]{6}\}")
 TD_CODE = re.compile(r"~[a-zA-Z0-9]~")
 COUNT_RE = re.compile(r"pizzas?\s*:?\s*(\d+)\s*/\s*(\d+)", re.I)
+DIST_RE = re.compile(r"distance\s*:?\s*([\d.]+)\s*m", re.I)
+CONFIRM_RE = re.compile(r"you gave the pizza|\+1 delivery|delivery is confirmed", re.I)
+AT_CUSTOMER_RE = re.compile(r"you have to deliver the pizza|press 'y' to deliver", re.I)
 DELAY_WORDS = re.compile(r"delay|cooldown|tunggu|menunggu|tersisa|remaining|wait", re.I)
 UNITS = {"second": 1, "sec": 1, "detik": 1, "minute": 60, "min": 60,
          "menit": 60, "hour": 3600, "jam": 3600}
@@ -69,12 +75,10 @@ class State:
         self.bike_id = 0
         self.bike_pos = None
         self.job_active = False
-        # tujuan antar
-        self.icon = None               # (x, y, z, radius) dari map icon terakhir
-        self.icon_ver = 0
-        self.target = None             # checkpoint terakhir
-        self.target_ver = 0
-        # konfirmasi
+        self.cands = []                # kandidat tujuan: {t, kind, x, y, z, r}
+        self.tdist = None              # (meter, waktu) dari textdraw "distance: 7.9m"
+        self.deliver_ver = 0           # naik tiap pesan "You gave the pizza..."
+        self.at_customer_t = 0.0       # waktu pesan "You have to deliver the pizza..."
         self.pizza_count = 0
         self.pizza_total = 0
         self.count_ver = 0
@@ -202,7 +206,6 @@ def _on_spawn(bot, *_):
 @emitter.on("disconnect")
 def _on_disconnect(bot, *_):
     st.spawned.clear()
-    st.target = None
     st.vehicles.clear()
     log("koneksi bot terputus", "warn")
 
@@ -217,42 +220,29 @@ def _veh_out(bot, vehicle_id, *_):
     st.vehicles.pop(int(vehicle_id), None)
 
 
+def _add_cand(kind, x, y, z, r):
+    """Catat kandidat tujuan (checkpoint / race / icon) selama sesi berjalan."""
+    if not st.job_active:
+        return
+    st.cands.append({"t": time.time(), "kind": kind, "x": float(x), "y": float(y),
+                     "z": float(z), "r": float(r or 0.0)})
+    del st.cands[:-60]
+    log(f"kandidat {kind}: {x:.1f}, {y:.1f}, {z:.1f} radius={float(r or 0.0):.1f}", "info")
+
+
 @emitter.on("OnSetCheckpoint")
 def _cp(bot, x, y, z, radius, *_):
-    st.target = (float(x), float(y), float(z), float(radius or 0.0))
-    st.target_ver += 1
-    if st.job_active:
-        note = "dipakai" if TARGET_SOURCE in ("checkpoint", "auto") else "diabaikan (kemungkinan rumah)"
-        log(f"checkpoint {note}: {x:.1f}, {y:.1f}, {z:.1f} r={radius}", "info")
+    _add_cand("checkpoint", x, y, z, radius)
 
 
 @emitter.on("OnSetRaceCheckpoint")
 def _rcp(bot, cp_type, position, next_position, radius, *_):
-    st.target = (float(position[0]), float(position[1]), float(position[2]), float(radius or 0.0))
-    st.target_ver += 1
-    if st.job_active:
-        note = "dipakai" if TARGET_SOURCE in ("checkpoint", "auto") else "diabaikan"
-        log(f"race-checkpoint {note}: {position[0]:.1f}, {position[1]:.1f}, "
-            f"{position[2]:.1f} r={radius}", "info")
-
-
-@emitter.on("OnDisableCheckpoint")
-def _cp_off(bot, *_):
-    st.target = None
-
-
-@emitter.on("OnDisableRaceCheckpoint")
-def _rcp_off(bot, *_):
-    st.target = None
+    _add_cand("race", position[0], position[1], position[2], radius)
 
 
 @emitter.on("onSetMapIcon")
 def _icon(bot, icon_id, xyz, marker_type, style, *_):
-    st.icon = (float(xyz[0]), float(xyz[1]), float(xyz[2]), 3.0)
-    st.icon_ver += 1
-    if st.job_active:   # saat idle ada banyak icon statis, jangan dicatat
-        log(f"map icon #{icon_id} tipe={marker_type} style={style}: "
-            f"{xyz[0]:.1f}, {xyz[1]:.1f}, {xyz[2]:.1f}", "info")
+    _add_cand("icon", xyz[0], xyz[1], xyz[2], 0.0)
 
 
 @emitter.on("onShowChat")
@@ -263,6 +253,10 @@ def _chat(bot, message, *_):
         st.engine_off = True
     if "sidejob" in low or (st.job_active and "pizza" in low):
         log("chat: " + line[:220], "info")
+        if CONFIRM_RE.search(low):
+            st.deliver_ver += 1
+        if AT_CUSTOMER_RE.search(low):
+            st.at_customer_t = time.time()
         if DELAY_WORDS.search(low):
             secs = _parse_seconds(low)
             if secs > 0:
@@ -270,27 +264,33 @@ def _chat(bot, message, *_):
                 log(f"Delay terdeteksi dari chat: {secs} detik", "warn")
 
 
-def _feed_count(text):
-    m = COUNT_RE.search(TD_CODE.sub("", _s(text)))
-    if not m:
-        return
-    n, total = int(m.group(1)), int(m.group(2))
-    if (n, total) != (st.pizza_count, st.pizza_total):
-        st.pizza_count, st.pizza_total = n, total
-        st.count_ver += 1
-        if st.job_active:
-            log(f"Penghitung server: {n}/{total}", "info")
+def _feed_textdraw(text):
+    t = TD_CODE.sub("", _s(text))
+    m = COUNT_RE.search(t)
+    if m:
+        n, total = int(m.group(1)), int(m.group(2))
+        if (n, total) != (st.pizza_count, st.pizza_total):
+            st.pizza_count, st.pizza_total = n, total
+            st.count_ver += 1
+            if st.job_active:
+                log(f"Penghitung server: {n}/{total}", "info")
+    d = DIST_RE.search(t)
+    if d:
+        try:
+            st.tdist = (float(d.group(1)), time.time())
+        except ValueError:
+            pass
 
 
 @emitter.on("OnShowTextDraw")
 def _td_show(bot, textdraw_id, info, *_):
     text = info.get("text") if isinstance(info, dict) else getattr(info, "text", info)
-    _feed_count(text)
+    _feed_textdraw(text)
 
 
 @emitter.on("OnTextDrawSetString")
 def _td_set(bot, textdraw_id, text, *_):
-    _feed_count(text)
+    _feed_textdraw(text)
 
 
 @emitter.on("OnCoordMoveEnd")
@@ -377,9 +377,9 @@ def _go(target, mode, radius=0.0, timeout=240, cd=None, reach=None):
     api = st.api
     x, y, z = target[0], target[1], target[2]
     if cd is None:
-        cd = max(1.5, min(radius * 0.5, 6.0)) if radius else 2.0
+        cd = max(1.5, min(radius * 0.4, 6.0)) if radius else 2.0
     if reach is None:
-        reach = max(cd + 1.5, 4.0)
+        reach = max(cd + 1.5, min(radius * 0.7, 9.0), 4.0)
     mid = api.MoveToCoord(x, y, z, mode=mode, completion_distance=cd,
                           stop_on_dialog=False)
     end = time.time() + timeout
@@ -449,33 +449,66 @@ def _drive(tgt):
     return _go(tgt, "vehicle", tgt[3] if len(tgt) > 3 else 0.0)
 
 
-def _wait_target(icon_ver, cp_ver, timeout):
-    """Tunggu tujuan antar BARU. Default: map icon merah (checkpoint rumah diabaikan)."""
-    end = time.time() + timeout
+def _kind_ok(kind):
+    if TARGET_SOURCE == "icon":
+        return kind == "icon"
+    if TARGET_SOURCE == "checkpoint":
+        return kind in ("checkpoint", "race")
+    return True
+
+
+def _choose(cands):
+    """Pilih checkpoint dengan radius TERBESAR (checkpoint NPC); checkpoint kecil di depan rumah kalah."""
+    me = st.api.getbotposition()
+    cps = [c for c in cands if c["kind"] in ("checkpoint", "race")]
+    pool = cps or cands
+    best_r = max(c["r"] for c in pool)
+    top = [c for c in pool if c["r"] >= best_r * 0.8]
+    if len(top) > 1 and st.tdist and time.time() - st.tdist[1] < 5:
+        td = st.tdist[0]
+        top.sort(key=lambda c: abs(_dist2(me, (c["x"], c["y"])) - td))
+    else:
+        top.sort(key=lambda c: c["t"])
+    c = top[0]
+    ringkas = ", ".join(f"{k['kind']} r={k['r']:.1f}" for k in cands)
+    log(f"dipilih {c['kind']} radius={c['r']:.1f} dari {len(cands)} kandidat [{ringkas}]", "info")
+    return (c["x"], c["y"], c["z"], c["r"]), f"{c['kind']} r={c['r']:.1f}"
+
+
+def _pick_target(since, timeout=40):
+    """Kumpulkan kandidat sejak `since`, tunggu BIG_WINDOW detik, lalu pilih yang terbesar."""
+    end = max(time.time() + 25, since + BIG_WINDOW + timeout)
     while time.time() < end:
         _check()
-        if TARGET_SOURCE in ("icon", "auto") and st.icon and st.icon_ver != icon_ver:
-            return st.icon, "map icon"
-        if TARGET_SOURCE == "checkpoint" and st.target and st.target_ver != cp_ver:
-            return st.target, "checkpoint"
+        cands = [c for c in st.cands if c["t"] >= since and _kind_ok(c["kind"])]
+        if cands and time.time() - since >= BIG_WINDOW:
+            return _choose(cands)
         time.sleep(0.25)
-    if TARGET_SOURCE == "auto" and st.target and st.target_ver != cp_ver:
-        log("map icon tidak muncul, memakai checkpoint", "warn")
-        return st.target, "checkpoint"
     return None, None
 
 
-def _deliver(icon_ver_before, last):
-    """Tekan Y sampai ada konfirmasi (counter naik atau icon baru)."""
+def _wait_customer(t_exit, timeout):
+    """Tunggu pesan 'You have to deliver the pizza...' (tanda sudah di checkpoint pelanggan)."""
+    end = time.time() + timeout
+    while time.time() < end:
+        _check()
+        if st.at_customer_t >= t_exit:
+            return True
+        time.sleep(0.25)
+    return False
+
+
+def _deliver(last):
+    """Tekan Y sampai ada konfirmasi (chat 'You gave the pizza' atau counter naik)."""
     for attempt in range(3):
-        cnt_ver, n_before = st.count_ver, st.pizza_count
+        ver, cnt_ver, n_before = st.deliver_ver, st.count_ver, st.pizza_count
         _press_y()
         end = time.time() + 8
         while time.time() < end:
             _check()
-            if st.count_ver != cnt_ver and st.pizza_count > n_before:
+            if st.deliver_ver != ver:
                 return True
-            if st.icon_ver != icon_ver_before:
+            if st.count_ver != cnt_ver and st.pizza_count > n_before:
                 return True
             time.sleep(0.25)
         log(f"belum ada konfirmasi antar, mencoba lagi ({attempt + 1}/3)", "warn")
@@ -520,6 +553,7 @@ def _idle_wait(ts, state):
 
 def _run_job():
     st.job_active = True
+    st.cands.clear()
     try:
         return _run_job_inner()
     finally:
@@ -549,7 +583,6 @@ def _run_job_inner():
         if not _go(pos, "walk", 0.0, 120):
             return _fail("Gagal sampai ke motor pizza (waktu habis)")
 
-    icon_ver, cp_ver = st.icon_ver, st.target_ver
     st.job_started.clear()
     _status(state="Naik motor")
     if not _enter(vid):
@@ -557,6 +590,7 @@ def _run_job_inner():
     _engine_if_off()
 
     _status(state="Menunggu dialog Start Job")
+    t_wait = time.time()
     if not _wait_event(st.job_started, 15):
         secs = _recent_chat_delay(40)
         if secs is None:
@@ -569,11 +603,13 @@ def _run_job_inner():
         return _fail("Dialog Start Job tidak muncul dan delay tidak terdeteksi di chat "
                      "(lihat baris 'chat:' di log untuk pesan servernya)")
     log("Start Job ditekan", "ok")
+    t_start = t_wait                    # kandidat yang muncul sejak mulai menunggu ikut dihitung
     _engine_if_off()
 
-    tgt, src = _wait_target(icon_ver, cp_ver, 30)
+    _status(state="Memilih tujuan pertama")
+    tgt, src = _pick_target(t_start)
     if tgt is None:
-        return _fail("Tujuan antar pertama (icon merah) tidak muncul setelah Start Job")
+        return _fail("Tujuan antar pertama tidak muncul setelah Start Job")
 
     delivered = 0
     while True:
@@ -582,16 +618,19 @@ def _run_job_inner():
             f"{tgt[0]:.1f}, {tgt[1]:.1f}, {tgt[2]:.1f}", "info")
         if not _drive(tgt):
             return _fail("Gagal sampai ke tujuan antar (waktu habis / tersangkut)")
+        t_exit = time.time()
         _exit_vehicle()
 
         _status(state=f"Mengantar pizza {delivered + 1}/{DELIVERIES}")
-        if _dist2(api.getbotposition(), tgt) > 2.5:     # dekati NPC pelanggan
+        if _dist2(api.getbotposition(), tgt) > 2.5:     # masuk ke tengah checkpoint pelanggan
             _go(tgt, "walk", 0.0, 60, cd=1.0, reach=2.0)
+        if not _wait_customer(t_exit, 4):
+            log("pesan 'You have to deliver the pizza' belum muncul, tetap mencoba Y", "warn")
 
-        icon_before, cp_before = st.icon_ver, st.target_ver
-        if not _deliver(icon_before, last=(delivered + 1 >= DELIVERIES)):
+        if not _deliver(last=(delivered + 1 >= DELIVERIES)):
             return _fail("Pizza tidak terkonfirmasi terkirim setelah menekan Y "
                          "(Y mungkin tidak terkirim atau posisi kurang dekat NPC)")
+        t_done = time.time()
         delivered += 1
         st.stats["pizzas"] += 1
         _status(current=delivered)
@@ -600,14 +639,15 @@ def _run_job_inner():
         if delivered >= DELIVERIES:
             break
 
-        tgt, src = _wait_target(icon_before, cp_before, 20)
-        if tgt is None:
-            return _fail("Tujuan antar berikutnya (icon merah) tidak muncul")
-        _status(state="Naik motor lagi")
+        _status(state="Kembali ke motor")       # server memberi batas waktu ~60 dtk
         _return_to_bike()
         if not _enter(vid):
             return _fail("Gagal naik motor lagi setelah mengantar")
         _engine_if_off()
+        _status(state="Memilih tujuan berikutnya")
+        tgt, src = _pick_target(t_done)
+        if tgt is None:
+            return _fail("Tujuan antar berikutnya tidak muncul")
 
     # 10 pizza selesai -> titik akhir (posisi 9)
     _status(state="Mengembalikan motor ke titik akhir")
