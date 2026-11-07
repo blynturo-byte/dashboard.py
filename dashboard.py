@@ -298,7 +298,7 @@ def _connect_worker(host, port, nick):
             bot = _make_bot(host, port, nick)
             S["bot"] = bot
         else:
-            bot.api.SetConnectionProfile(nick, server_ip=host, server_port=int(port))
+            bot.api.SetConnectionProfile(nickname=nick, server_ip=host, server_port=int(port))
         ok = bot.api.connect()
         if not ok:
             reconnecting = False
@@ -425,6 +425,9 @@ def do_action(path, body):
             port = int(body.get("port", 7777))
         except (TypeError, ValueError):
             return {"ok": False, "msg": "Port tidak valid."}
+        m = re.match(r"^([^:\s]+):(\d{1,5})(?::\d{1,5})?$", host)
+        if m:  # host diisi "ip:port" -> pisahkan
+            host, port = m.group(1), int(m.group(2))
         if not host or not nick:
             return {"ok": False, "msg": "Host dan nick wajib diisi."}
         if len(nick) > 20:
