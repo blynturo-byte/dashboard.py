@@ -294,11 +294,15 @@ def _make_bot(host, port, nick):
 def _connect_worker(host, port, nick):
     try:
         bot = S["bot"]
+        wanted = (host, int(port), nick)
         if bot is None:
             bot = _make_bot(host, port, nick)
             S["bot"] = bot
-        else:
+            S["bot_params"] = wanted
+        elif S.get("bot_params") != wanted:
+            # hanya dipanggil kalau host/port/nick berubah
             bot.api.SetConnectionProfile(nickname=nick, server_ip=host, server_port=int(port))
+            S["bot_params"] = wanted
         ok = bot.api.connect()
         if not ok:
             reconnecting = False
