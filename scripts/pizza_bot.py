@@ -20,7 +20,15 @@ Environment variable (opsional):
   PIZZA_DELAY=1250     delay cadangan (detik) kalau chat tidak menyebut delay
   PIZZA_TARGET=auto    sumber tujuan: auto (default, checkpoint terbesar) | checkpoint | icon
   PIZZA_COLLECT=6      detik mengumpulkan kandidat tujuan sebelum memilih
+  PIZZA_ROADS=...      lokasi roads.json.gz (default: di samping script ini / folder repo)
+  PIZZA_RUN_SPEED=5    kecepatan jalan kaki (m/s)    PIZZA_BIKE_SPEED=13  kecepatan motor (m/s)
+
+Rute kendaraan mengikuti jaringan jalan GTA SA (roads.json.gz, dibuat dari nodes0-63.dat) dengan A*.
+Kalau roads.json.gz tidak ada, bot kembali bergerak lurus ke tujuan.
 """
+import gzip
+import heapq
+import json
 import math
 import os
 import re
@@ -37,6 +45,11 @@ FALLBACK_DELAY = float(os.environ.get("PIZZA_DELAY", "1250"))
 TARGET_SOURCE = os.environ.get("PIZZA_TARGET", "auto").strip().lower()
 BIG_WINDOW = float(os.environ.get("PIZZA_COLLECT", "6"))
 DELAY_MARGIN = 5.0
+# Kecepatan gerak (meter/detik). Default pustaka (coord_delay vehicle 5.0 per interval ~ 100 m/s) terlalu
+# kencang dan memicu anti speed-hack, jadi kecepatan dipasang eksplisit.
+RUN_SPEED = float(os.environ.get("PIZZA_RUN_SPEED", "5.0"))     # jalan kaki (lari biasa)
+BIKE_SPEED = float(os.environ.get("PIZZA_BIKE_SPEED", "13.0"))  # motor pizza di kota (~47 km/jam)
+MOVE_KEYS = os.environ.get("PIZZA_MOVE_KEYS", "1") != "0"       # tahan tombol sprint/gas saat bergerak
 
 # (x, y, z, heading) - posisi motor pizza 1..8
 BIKE_SPOTS = [
@@ -293,7 +306,7 @@ def _td_set(bot, textdraw_id, text, *_):
     _feed_textdraw(text)
 
 
-@emitter.on("OnCoordMoveEnd")
+@emitter.on("OnCoordMoveEnd", sync=True)
 def _move_end(bot, movement, status, *_):
     try:
         st.ended_moves.add(int(movement.get("movement_id")))
@@ -373,15 +386,45 @@ def _find_bike():
     return best[1], best[2], best[3]
 
 
-def _go(target, mode, radius=0.0, timeout=240, cd=None, reach=None):
+def _nominal_interval(mode):
+    """Interval sync nominal yang dipakai pustaka (sama dengan perhitungan di BotAPI.MoveToCoord)."""
+    sync = st.api.session.sync
+    if mode == "vehicle":
+        lo, hi = sync.rate_vehicle_min, sync.rate_vehicle_max
+    else:
+        lo, hi = sync.rate_player_min, sync.rate_player_max
+    return max(0.001, (float(lo) + float(hi)) * 0.5)
+
+
+def _move_kwargs(mode, speed=None):
+    """Kecepatan = coord_delay / interval  ->  coord_delay = kecepatan x interval."""
+    if speed is None:
+        speed = BIKE_SPEED if mode == "vehicle" else RUN_SPEED
+    kw = {
+        "coord_delay": speed * _nominal_interval(mode),
+        # hadap ke arah gerak, tanpa deviasi acak, belok halus
+        "movement_direction_control": (True, False, 0, 60 if mode == "walk" else 40),
+    }
+    if MOVE_KEYS:
+        kw["movement_keys_mode"] = "throttle:8" if mode == "vehicle" else "always:8"
+    return kw
+
+
+def _go(target, mode, radius=0.0, timeout=240, cd=None, reach=None,
+        accel_time=None, brake_time=None, speed=None):
     api = st.api
     x, y, z = target[0], target[1], target[2]
     if cd is None:
         cd = max(1.5, min(radius * 0.4, 6.0)) if radius else 2.0
     if reach is None:
         reach = max(cd + 1.5, min(radius * 0.7, 9.0), 4.0)
+    extra = {}
+    if accel_time is not None:
+        extra["accel_time"] = accel_time
+    if brake_time is not None:
+        extra["brake_time"] = brake_time
     mid = api.MoveToCoord(x, y, z, mode=mode, completion_distance=cd,
-                          stop_on_dialog=False)
+                          stop_on_dialog=False, **_move_kwargs(mode, speed), **extra)
     end = time.time() + timeout
     while time.time() < end:
         _check()
@@ -393,7 +436,7 @@ def _go(target, mode, radius=0.0, timeout=240, cd=None, reach=None):
             return True
         if mid in st.ended_moves:
             return _dist2(api.getbotposition(), (x, y, z)) <= reach + 4.0
-        time.sleep(0.5)
+        time.sleep(0.05)               # polling rapat supaya tidak ada jeda antar titik rute
     return False
 
 
@@ -458,10 +501,167 @@ def _press_y():
             pass
 
 
+# ------------------------------------------------------------------ jaringan jalan (A*)
+
+class RoadNet:
+    def __init__(self, pts, adj):
+        self.pts, self.adj = pts, adj
+        self.grid = {}
+        for k, (x, y, z) in enumerate(pts):
+            self.grid.setdefault((int(x // 100), int(y // 100)), []).append(k)
+
+    def nearest(self, x, y, z=None, maxd=150.0):
+        cx, cy = int(x // 100), int(y // 100)
+        r = int(maxd // 100) + 1
+        best = None
+        for gx in range(cx - r, cx + r + 1):
+            for gy in range(cy - r, cy + r + 1):
+                for k in self.grid.get((gx, gy), ()):
+                    px, py, pz = self.pts[k]
+                    d = math.hypot(px - x, py - y)
+                    if z is not None:
+                        d += abs(pz - z) * 0.5          # utamakan node di ketinggian yang sama (jembatan/flyover)
+                    if d <= maxd and (best is None or d < best[0]):
+                        best = (d, k)
+        return best
+
+    def route(self, start, goal):
+        pts, adj = self.pts, self.adj
+        gx, gy, gz = pts[goal]
+        openq = [(0.0, start)]
+        cost = {start: 0.0}
+        came = {}
+        while openq:
+            _, u = heapq.heappop(openq)
+            if u == goal:
+                path = [u]
+                while u in came:
+                    u = came[u]
+                    path.append(u)
+                return path[::-1]
+            for v in adj[u]:
+                c = cost[u] + math.dist(pts[u], pts[v])
+                if c < cost.get(v, 1e18):
+                    cost[v] = c
+                    came[v] = u
+                    heapq.heappush(openq, (c + math.dist(pts[v], (gx, gy, gz)), v))
+        return None
+
+
+_ROADS = {"net": None, "tried": False}
+
+
+def _roads():
+    if _ROADS["tried"]:
+        return _ROADS["net"]
+    _ROADS["tried"] = True
+    here = os.path.dirname(os.path.abspath(__file__))
+    cands = [os.environ.get("PIZZA_ROADS", ""), os.path.join(here, "roads.json.gz"),
+             os.path.join(os.path.dirname(here), "roads.json.gz"), "roads.json.gz"]
+    for path in cands:
+        if path and os.path.isfile(path):
+            try:
+                with gzip.open(path, "rt", encoding="utf-8") as f:
+                    d = json.load(f)
+                pts = [tuple(p) for p in d["p"]]
+                adj = [[] for _ in pts]
+                for i, nb in enumerate(d["e"]):
+                    for j in nb:
+                        adj[i].append(j)
+                        adj[j].append(i)
+                _ROADS["net"] = RoadNet(pts, adj)
+                log(f"data jalan dimuat: {len(pts)} node dari {path}", "info")
+                return _ROADS["net"]
+            except Exception as exc:  # noqa: BLE001
+                log(f"gagal memuat data jalan {path}: {exc}", "warn")
+    log("roads.json.gz tidak ditemukan, bot bergerak lurus ke tujuan", "warn")
+    return None
+
+
+def _angle(a, b, c):
+    """Sudut belok (derajat) di titik b untuk jalur a -> b -> c."""
+    v1 = (b[0] - a[0], b[1] - a[1])
+    v2 = (c[0] - b[0], c[1] - b[1])
+    n1, n2 = math.hypot(*v1), math.hypot(*v2)
+    if n1 < 1e-6 or n2 < 1e-6:
+        return 0.0
+    cosv = max(-1.0, min(1.0, (v1[0] * v2[0] + v1[1] * v2[1]) / (n1 * n2)))
+    return math.degrees(math.acos(cosv))
+
+
+def _plan_route(start, target):
+    """Daftar titik (x, y, z) mengikuti jalan dari `start` ke `target`; None kalau tidak ada rute."""
+    net = _roads()
+    if net is None:
+        return None
+    a = net.nearest(start[0], start[1], start[2] if len(start) > 2 else None)
+    b = net.nearest(target[0], target[1], target[2] if len(target) > 2 else None)
+    if not a or not b:
+        log("tujuan/posisi bot terlalu jauh dari jalan (>150 m), bergerak lurus", "warn")
+        return None
+    ids = net.route(a[1], b[1])
+    if not ids:
+        log("tidak ada rute jalan antara posisi bot dan tujuan, bergerak lurus", "warn")
+        return None
+    pts = [net.pts[k] for k in ids]
+    # buang node di belakang bot / di belakang tujuan supaya tidak berputar balik
+    while len(pts) >= 2 and math.dist(start[:2], pts[1][:2]) < math.dist(pts[0][:2], pts[1][:2]):
+        pts.pop(0)
+    while len(pts) >= 2 and math.dist(target[:2], pts[-2][:2]) < math.dist(pts[-1][:2], pts[-2][:2]):
+        pts.pop()
+    # sederhanakan: buang node yang hampir lurus
+    out = [pts[0]]
+    for i in range(1, len(pts) - 1):
+        if _angle(out[-1], pts[i], pts[i + 1]) >= 6.0 or math.dist(out[-1][:2], pts[i][:2]) > 80.0:
+            out.append(pts[i])
+    out.append(pts[-1])
+    out.append((float(target[0]), float(target[1]), float(target[2])))
+    return out
+
+
+def _turn_speed(angle):
+    if angle < 20:
+        return BIKE_SPEED
+    if angle < 60:
+        return BIKE_SPEED * 0.8
+    if angle < 100:
+        return BIKE_SPEED * 0.55
+    return BIKE_SPEED * 0.35
+
+
+def _follow(points, radius):
+    """Ikuti titik-titik rute dengan kendaraan: kecepatan konstan, melambat di tikungan, rem di titik akhir."""
+    api = st.api
+    n = len(points)
+    prev = api.getbotposition()
+    for i, (x, y, z) in enumerate(points):
+        last = i == n - 1
+        speed = BIKE_SPEED if last else max(4.0, _turn_speed(_angle(prev, (x, y), points[i + 1])))
+        if i == 0:
+            accel = None                               # percepatan awal bawaan pustaka
+        else:
+            accel = 0.0                                # lanjut tanpa mulai dari nol lagi
+        cd = (max(1.5, min(radius * 0.4, 6.0)) if radius else 2.0) if last else 0.5
+        ok = _go((x, y, z), "vehicle", radius if last else 0.0,
+                 timeout=max(25.0, math.dist(prev[:2], (x, y)) / max(1.0, speed * 0.4) + 15.0),
+                 cd=cd, reach=cd + 1.5, accel_time=accel, brake_time=None if last else 0.0, speed=speed)
+        if not ok:
+            return False
+        prev = (x, y)
+    return True
+
+
 def _drive(tgt):
     if not st.api.session.players.bot.is_in_vehicle():
         raise RuntimeError("bot tidak berada di kendaraan")
-    return _go(tgt, "vehicle", tgt[3] if len(tgt) > 3 else 0.0)
+    radius = tgt[3] if len(tgt) > 3 else 0.0
+    me = st.api.getbotposition()
+    route = _plan_route(me, tgt) if math.dist(me[:2], tgt[:2]) > 40.0 else None
+    if route:
+        length = sum(math.dist(route[i][:2], route[i + 1][:2]) for i in range(len(route) - 1))
+        log(f"rute jalan: {len(route)} titik, {length:.0f} m (lurus {math.dist(me[:2], tgt[:2]):.0f} m)", "info")
+        return _follow(route, radius)
+    return _go(tgt, "vehicle", radius)
 
 
 def _kind_ok(kind):
@@ -686,7 +886,8 @@ def _run_job_inner():
 def _worker():
     api = st.api
     log(f"worker aktif | pizza/sesi={DELIVERIES} | delay cadangan={FALLBACK_DELAY:g}s "
-        f"| sumber tujuan={TARGET_SOURCE}", "info")
+        f"| sumber tujuan={TARGET_SOURCE} | kecepatan jalan={RUN_SPEED:g} m/s, "
+        f"motor={BIKE_SPEED:g} m/s", "info")
     _status()
     while True:
         try:
