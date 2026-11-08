@@ -22,9 +22,15 @@ Environment variable (opsional):
   PIZZA_COLLECT=6      detik mengumpulkan kandidat tujuan sebelum memilih
   PIZZA_ROADS=...      lokasi roads.json.gz (default: di samping script ini / folder repo)
   PIZZA_RUN_SPEED=5    kecepatan jalan kaki (m/s)    PIZZA_BIKE_SPEED=13  kecepatan motor (m/s)
+  PIZZA_BIKE_Z=0.8     tinggi pusat motor di atas permukaan jalan (naikkan kalau motor "mendem", turunkan kalau melayang)
+  PIZZA_WALK_Z=1.1     tinggi pusat karakter di atas tanah saat berjalan
+  PIZZA_ANIM_RUN / PIZZA_ANIM_WALK / PIZZA_ANIM_FLAGS   id animasi lari/jalan (angka); kalau kosong dipelajari
+                       otomatis dari pemain lain yang sedang berlari di dekat bot
+  PIZZA_LEARN_ANIM=1   catat id animasi pemain di sekitar bot ke panel (untuk mencari id lari/jalan)
 
-Rute kendaraan mengikuti jaringan jalan GTA SA (roads.json.gz, dibuat dari nodes0-63.dat) dengan A*.
-Kalau roads.json.gz tidak ada, bot kembali bergerak lurus ke tujuan.
+Rute kendaraan mengikuti jalan GTA SA dan rute jalan kaki mengikuti jalur pejalan (roads.json.gz, dari
+nodes0-63.dat) dengan A*. Motor berhenti di tepi jalan terdekat, lalu karakter berjalan ke NPC.
+Kalau roads.json.gz tidak ada, bot kembali bergerak lurus.
 """
 import gzip
 import heapq
@@ -50,6 +56,22 @@ DELAY_MARGIN = 5.0
 RUN_SPEED = float(os.environ.get("PIZZA_RUN_SPEED", "5.0"))     # jalan kaki (lari biasa)
 BIKE_SPEED = float(os.environ.get("PIZZA_BIKE_SPEED", "13.0"))  # motor pizza di kota (~47 km/jam)
 MOVE_KEYS = os.environ.get("PIZZA_MOVE_KEYS", "1") != "0"       # tahan tombol sprint/gas saat bergerak
+BIKE_Z = float(os.environ.get("PIZZA_BIKE_Z", "0.8"))           # offset z pusat motor dari permukaan jalan (node)
+WALK_Z = float(os.environ.get("PIZZA_WALK_Z", "1.1"))           # offset z pusat karakter dari tanah (node pejalan)
+
+
+def _env_int(name):
+    v = os.environ.get(name, "").strip()
+    try:
+        return int(v) if v else None
+    except ValueError:
+        return None
+
+
+ANIM_RUN = _env_int("PIZZA_ANIM_RUN")
+ANIM_WALK = _env_int("PIZZA_ANIM_WALK")
+ANIM_FLAGS = _env_int("PIZZA_ANIM_FLAGS")
+LEARN_ANIM = os.environ.get("PIZZA_LEARN_ANIM", "0") == "1"
 
 # (x, y, z, heading) - posisi motor pizza 1..8
 BIKE_SPOTS = [
@@ -100,9 +122,14 @@ class State:
         self.want_delays = False
         self.delays_evt = threading.Event()
         self.delays_secs = None
-        self.ended_moves = set()
+        self.ended_moves = {}          # movement_id -> (waktu, status); id bisa berulang setelah reconnect
+        self.last_go_reason = ""
         self.next_ok = 0.0
         self.wait_kind = "delay"       # "delay" = delay pizza | "retry" = coba ulang setelah gagal
+        self.anim = {"run": ANIM_RUN, "walk": ANIM_WALK}   # id animasi (env atau dipelajari)
+        self.anim_depth = 0
+        self.anim_saved = None
+        self.anim_warned = False
         self.paused = not ENABLED
         self.abort = False
         self.stats = {
@@ -218,6 +245,7 @@ def _on_spawn(bot, *_):
 
 @emitter.on("disconnect")
 def _on_disconnect(bot, *_):
+    st.ended_moves.clear()
     st.spawned.clear()
     st.vehicles.clear()
     log("koneksi bot terputus", "warn")
@@ -309,9 +337,17 @@ def _td_set(bot, textdraw_id, text, *_):
 @emitter.on("OnCoordMoveEnd", sync=True)
 def _move_end(bot, movement, status, *_):
     try:
-        st.ended_moves.add(int(movement.get("movement_id")))
+        st.ended_moves[int(movement.get("movement_id"))] = (time.time(), str(status))
+        if len(st.ended_moves) > 200:
+            for k in sorted(st.ended_moves, key=lambda k: st.ended_moves[k][0])[:100]:
+                st.ended_moves.pop(k, None)
     except Exception:  # noqa: BLE001
         pass
+
+
+@emitter.on("onStateReset", sync=True)
+def _state_reset(bot, reason="", counter=0, *_):
+    st.ended_moves.clear()             # nomor gerak dimulai dari 1 lagi setelah reset/reconnect
 
 
 @emitter.on("onShowDialog")
@@ -423,21 +459,38 @@ def _go(target, mode, radius=0.0, timeout=240, cd=None, reach=None,
         extra["accel_time"] = accel_time
     if brake_time is not None:
         extra["brake_time"] = brake_time
-    mid = api.MoveToCoord(x, y, z, mode=mode, completion_distance=cd,
-                          stop_on_dialog=False, **_move_kwargs(mode, speed), **extra)
-    end = time.time() + timeout
-    while time.time() < end:
-        _check()
-        if _dist2(api.getbotposition(), (x, y, z)) <= reach:
-            try:
-                api.StopMoveToCoord(mid, reason="arrived")
-            except Exception:  # noqa: BLE001
-                pass
-            return True
-        if mid in st.ended_moves:
-            return _dist2(api.getbotposition(), (x, y, z)) <= reach + 4.0
-        time.sleep(0.05)               # polling rapat supaya tidak ada jeda antar titik rute
-    return False
+    if mode == "walk":
+        _anim_on(speed or RUN_SPEED)
+    try:
+        t0 = time.time()
+        mid = api.MoveToCoord(x, y, z, mode=mode, completion_distance=cd,
+                              stop_on_dialog=False, **_move_kwargs(mode, speed), **extra)
+        end = t0 + timeout
+        while time.time() < end:
+            _check()
+            dist = _dist2(api.getbotposition(), (x, y, z))
+            if dist <= reach:
+                try:
+                    api.StopMoveToCoord(mid, reason="arrived")
+                except Exception:  # noqa: BLE001
+                    pass
+                return True
+            ev = st.ended_moves.get(mid)
+            if ev and ev[0] >= t0:         # abaikan peristiwa lama dengan nomor yang sama
+                if dist <= reach + 4.0:
+                    return True
+                st.last_go_reason = (f"gerak {mode} berhenti (status '{ev[1]}') {time.time() - t0:.1f} dtk setelah "
+                                     f"mulai, sisa jarak {dist:.0f} m")
+                log(st.last_go_reason, "warn")
+                return False
+            time.sleep(0.05)           # polling rapat supaya tidak ada jeda antar titik rute
+        dist = _dist2(api.getbotposition(), (x, y, z))
+        st.last_go_reason = f"gerak {mode} habis waktu ({timeout:.0f} dtk), sisa jarak {dist:.0f} m"
+        log(st.last_go_reason, "warn")
+        return False
+    finally:
+        if mode == "walk":
+            _anim_off()
 
 
 def _enter(vid):
@@ -501,9 +554,86 @@ def _press_y():
             pass
 
 
+# ------------------------------------------------------------------ animasi jalan / lari
+
+def _anim_on(speed):
+    """Pasang animasi lari/jalan di paket sync selama bergerak (bertingkat: aman dipanggil bersarang)."""
+    st.anim_depth += 1
+    if st.anim_depth != 1:
+        return
+    kind = "run" if speed >= 3.5 else "walk"
+    aid = st.anim.get(kind) or st.anim.get("run") or st.anim.get("walk")
+    if not aid:
+        if not st.anim_warned:
+            st.anim_warned = True
+            log("id animasi lari/jalan belum diketahui: set PIZZA_ANIM_RUN atau biarkan bot belajar "
+                "dari pemain lain yang berlari di dekatnya (PIZZA_LEARN_ANIM=1 untuk melihat id-nya)", "warn")
+        return
+    try:
+        bp = st.api.session.players.bot
+        st.anim_saved = (bp.animation_id, bp.animation_flags)
+        bp.animation_id = int(aid)
+        if ANIM_FLAGS is not None:
+            bp.animation_flags = ANIM_FLAGS
+    except Exception as exc:  # noqa: BLE001
+        log(f"gagal memasang animasi: {exc}", "warn")
+
+
+def _anim_off():
+    st.anim_depth = max(0, st.anim_depth - 1)
+    if st.anim_depth == 0 and st.anim_saved is not None:
+        try:
+            bp = st.api.session.players.bot
+            bp.animation_id, bp.animation_flags = st.anim_saved
+        except Exception:  # noqa: BLE001
+            pass
+        st.anim_saved = None
+
+
+def _anim_learner():
+    """Belajar id animasi lari/jalan dari pemain lain yang terlihat bot (kecepatan -> animation_id)."""
+    last, counts, next_log = {}, {"run": {}, "walk": {}}, 0.0
+    while True:
+        time.sleep(0.5)
+        try:
+            players = st.api.getplayers()
+        except Exception:  # noqa: BLE001
+            continue
+        now = time.time()
+        for pid, pl in players.items():
+            if getattr(pl, "sync_state", "onfoot") != "onfoot":
+                last.pop(pid, None)
+                continue
+            cur = (pl.x, pl.y, now)
+            prev, last[pid] = last.get(pid), cur
+            if prev is None or now - prev[2] < 0.2:
+                continue
+            v = math.hypot(cur[0] - prev[0], cur[1] - prev[1]) / (now - prev[2])
+            aid = int(getattr(pl, "animation_id", 0) or 0)
+            if LEARN_ANIM and v > 0.5 and now >= next_log:
+                log(f"anim: {getattr(pl, 'name', pid)} v={v:.1f} m/s id={aid}", "info")
+            if aid <= 0 or v > 12:
+                continue
+            kind = "run" if 3.0 <= v <= 9.0 else ("walk" if 0.8 <= v < 2.6 else None)
+            if kind:
+                counts[kind][aid] = counts[kind].get(aid, 0) + 1
+        for pid in [k for k in last if k not in players]:
+            last.pop(pid, None)
+        if now >= next_log:
+            next_log = now + 1.5
+        for kind, c in counts.items():
+            total = sum(c.values())
+            if total < 6 or (kind == "run" and ANIM_RUN) or (kind == "walk" and ANIM_WALK):
+                continue
+            aid, n = max(c.items(), key=lambda kv: kv[1])
+            if n / total >= 0.5 and st.anim.get(kind) != aid:
+                st.anim[kind] = aid
+                log(f"animasi {kind} dipelajari dari pemain lain: id={aid} ({n}/{total} sampel)", "ok")
+
+
 # ------------------------------------------------------------------ jaringan jalan (A*)
 
-class RoadNet:
+class Graph:
     def __init__(self, pts, adj):
         self.pts, self.adj = pts, adj
         self.grid = {}
@@ -548,7 +678,24 @@ class RoadNet:
         return None
 
 
+class RoadNet:
+    def __init__(self, veh, ped):
+        self.veh, self.ped = veh, ped
+
+
 _ROADS = {"net": None, "tried": False}
+
+
+def _load_graph(d, pk, ek):
+    if pk not in d:
+        return None
+    pts = [tuple(p) for p in d[pk]]
+    adj = [[] for _ in pts]
+    for i, nb in enumerate(d[ek]):
+        for j in nb:
+            adj[i].append(j)
+            adj[j].append(i)
+    return Graph(pts, adj)
 
 
 def _roads():
@@ -563,18 +710,14 @@ def _roads():
             try:
                 with gzip.open(path, "rt", encoding="utf-8") as f:
                     d = json.load(f)
-                pts = [tuple(p) for p in d["p"]]
-                adj = [[] for _ in pts]
-                for i, nb in enumerate(d["e"]):
-                    for j in nb:
-                        adj[i].append(j)
-                        adj[j].append(i)
-                _ROADS["net"] = RoadNet(pts, adj)
-                log(f"data jalan dimuat: {len(pts)} node dari {path}", "info")
-                return _ROADS["net"]
+                net = RoadNet(_load_graph(d, "p", "e"), _load_graph(d, "pp", "pe"))
+                _ROADS["net"] = net
+                log(f"data jalan dimuat: {len(net.veh.pts)} node kendaraan, "
+                    f"{len(net.ped.pts) if net.ped else 0} node pejalan ({path})", "info")
+                return net
             except Exception as exc:  # noqa: BLE001
                 log(f"gagal memuat data jalan {path}: {exc}", "warn")
-    log("roads.json.gz tidak ditemukan, bot bergerak lurus ke tujuan", "warn")
+    log("roads.json.gz tidak ditemukan, bot bergerak lurus", "warn")
     return None
 
 
@@ -589,79 +732,168 @@ def _angle(a, b, c):
     return math.degrees(math.acos(cosv))
 
 
-def _plan_route(start, target):
-    """Daftar titik (x, y, z) mengikuti jalan dari `start` ke `target`; None kalau tidak ada rute."""
-    net = _roads()
-    if net is None:
-        return None
-    a = net.nearest(start[0], start[1], start[2] if len(start) > 2 else None)
-    b = net.nearest(target[0], target[1], target[2] if len(target) > 2 else None)
-    if not a or not b:
-        log("tujuan/posisi bot terlalu jauh dari jalan (>150 m), bergerak lurus", "warn")
-        return None
-    ids = net.route(a[1], b[1])
-    if not ids:
-        log("tidak ada rute jalan antara posisi bot dan tujuan, bergerak lurus", "warn")
-        return None
-    pts = [net.pts[k] for k in ids]
-    # buang node di belakang bot / di belakang tujuan supaya tidak berputar balik
-    while len(pts) >= 2 and math.dist(start[:2], pts[1][:2]) < math.dist(pts[0][:2], pts[1][:2]):
-        pts.pop(0)
-    while len(pts) >= 2 and math.dist(target[:2], pts[-2][:2]) < math.dist(pts[-1][:2], pts[-2][:2]):
-        pts.pop()
-    # sederhanakan: buang node yang hampir lurus
+def _seg_dev(a, b, p):
+    """Deviasi horizontal dan vertikal titik p dari ruas a-b."""
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    l2 = dx * dx + dy * dy
+    t = 0.0 if l2 < 1e-9 else max(0.0, min(1.0, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / l2))
+    cx, cy, cz = a[0] + dx * t, a[1] + dy * t, a[2] + (b[2] - a[2]) * t
+    return math.hypot(p[0] - cx, p[1] - cy), abs(p[2] - cz)
+
+
+def _simplify(pts, tol_xy, tol_z):
+    """Douglas-Peucker 3D: buang node hanya kalau jalur (dan ketinggian) tetap dekat dengan jalan asli."""
+    if len(pts) <= 2:
+        return list(pts)
+    keep = {0, len(pts) - 1}
+    stack = [(0, len(pts) - 1)]
+    while stack:
+        i, j = stack.pop()
+        worst, wk = 0.0, None
+        for k in range(i + 1, j):
+            dxy, dz = _seg_dev(pts[i], pts[j], pts[k])
+            score = max(dxy / tol_xy, dz / tol_z)
+            if score > worst:
+                worst, wk = score, k
+        if wk is not None and worst > 1.0:
+            keep.add(wk)
+            stack += [(i, wk), (wk, j)]
+    return [pts[k] for k in sorted(keep)]
+
+
+def _chamfer(pts, d, min_angle=30.0):
+    """Potong sudut tikungan tajam sedikit supaya belokan tidak patah (jarak potong d meter)."""
+    if len(pts) < 3:
+        return list(pts)
     out = [pts[0]]
     for i in range(1, len(pts) - 1):
-        if _angle(out[-1], pts[i], pts[i + 1]) >= 6.0 or math.dist(out[-1][:2], pts[i][:2]) > 80.0:
-            out.append(pts[i])
+        a, b, c = pts[i - 1], pts[i], pts[i + 1]
+        l1, l2 = math.dist(a[:2], b[:2]), math.dist(b[:2], c[:2])
+        dd = min(d, 0.35 * l1, 0.35 * l2)
+        if _angle(a, b, c) < min_angle or dd < 1.0:
+            out.append(b)
+            continue
+        out.append(tuple(b[k] + (a[k] - b[k]) * dd / l1 for k in range(3)))
+        out.append(tuple(b[k] + (c[k] - b[k]) * dd / l2 for k in range(3)))
     out.append(pts[-1])
-    out.append((float(target[0]), float(target[1]), float(target[2])))
     return out
 
 
-def _turn_speed(angle):
-    if angle < 20:
-        return BIKE_SPEED
-    if angle < 60:
-        return BIKE_SPEED * 0.8
-    if angle < 100:
-        return BIKE_SPEED * 0.55
-    return BIKE_SPEED * 0.35
+def _plan_route(start, target, kind="veh", park=False):
+    """Titik-titik (x, y, z) mengikuti jalan (kind='veh') atau jalur pejalan (kind='ped').
+    park=True: berakhir di node jalan terdekat dari target (bukan di target)."""
+    net = _roads()
+    g = None if net is None else (net.veh if kind == "veh" else net.ped)
+    if g is None:
+        return None
+    off = BIKE_Z if kind == "veh" else WALK_Z
+    maxd = 150.0 if kind == "veh" else 60.0
+    a = g.nearest(start[0], start[1], (start[2] - off) if len(start) > 2 else None, maxd)
+    b = g.nearest(target[0], target[1], (target[2] - off) if len(target) > 2 else None, maxd)
+    if not a or not b:
+        log(f"posisi/tujuan terlalu jauh dari {'jalan' if kind == 'veh' else 'jalur pejalan'} "
+            f"(>{maxd:.0f} m), bergerak lurus", "warn")
+        return None
+    ids = g.route(a[1], b[1])
+    if not ids:
+        log("tidak ada rute antara posisi bot dan tujuan, bergerak lurus", "warn")
+        return None
+    pts = [g.pts[k] for k in ids]
+    # buang node di belakang bot / di belakang tujuan supaya tidak berputar balik
+    while len(pts) >= 2 and math.dist(start[:2], pts[1][:2]) < math.dist(pts[0][:2], pts[1][:2]):
+        pts.pop(0)
+    while not park and len(pts) >= 2 and math.dist(target[:2], pts[-2][:2]) < math.dist(pts[-1][:2], pts[-2][:2]):
+        pts.pop()
+    pts = _simplify(pts, 1.2 if kind == "veh" else 0.8, 0.25)
+    pts = _chamfer(pts, 4.0 if kind == "veh" else 1.5)
+    pts = [(x, y, z + off) for x, y, z in pts]
+    if not park:
+        pts.append((float(target[0]), float(target[1]), float(target[2])))
+    if kind == "ped":      # jalur pejalan yang memutar terlalu jauh untuk jarak dekat -> lebih baik lurus
+        length = sum(math.dist(pts[i][:2], pts[i + 1][:2]) for i in range(len(pts) - 1))
+        straight = math.dist(start[:2], target[:2])
+        if straight <= 60.0 and length > 3.0 * straight + 40.0:
+            log(f"jalur pejalan memutar {length:.0f} m untuk jarak {straight:.0f} m, berjalan lurus", "warn")
+            return None
+    return pts
 
 
-def _follow(points, radius):
-    """Ikuti titik-titik rute dengan kendaraan: kecepatan konstan, melambat di tikungan, rem di titik akhir."""
+def _turn_speed(angle, mode="vehicle"):
+    if mode == "vehicle":
+        top = BIKE_SPEED
+        factor = 1.0 if angle < 20 else 0.8 if angle < 60 else 0.55 if angle < 100 else 0.35
+    else:
+        top = RUN_SPEED
+        factor = 1.0 if angle < 45 else 0.7 if angle < 100 else 0.5
+    return top * factor
+
+
+def _follow(points, mode, last_cd, last_reach, radius=0.0):
+    """Ikuti titik-titik rute: kecepatan konstan, melambat di tikungan, rem hanya di titik akhir."""
     api = st.api
     n = len(points)
+    top = BIKE_SPEED if mode == "vehicle" else RUN_SPEED
+    floor = 4.0 if mode == "vehicle" else 2.0
     prev = api.getbotposition()
-    for i, (x, y, z) in enumerate(points):
-        last = i == n - 1
-        speed = BIKE_SPEED if last else max(4.0, _turn_speed(_angle(prev, (x, y), points[i + 1])))
-        if i == 0:
-            accel = None                               # percepatan awal bawaan pustaka
-        else:
-            accel = 0.0                                # lanjut tanpa mulai dari nol lagi
-        cd = (max(1.5, min(radius * 0.4, 6.0)) if radius else 2.0) if last else 0.5
-        ok = _go((x, y, z), "vehicle", radius if last else 0.0,
-                 timeout=max(25.0, math.dist(prev[:2], (x, y)) / max(1.0, speed * 0.4) + 15.0),
-                 cd=cd, reach=cd + 1.5, accel_time=accel, brake_time=None if last else 0.0, speed=speed)
-        if not ok:
-            return False
-        prev = (x, y)
-    return True
+    if mode == "walk":
+        _anim_on(top)
+    try:
+        for i, (x, y, z) in enumerate(points):
+            last = i == n - 1
+            if last:
+                speed, cd, reach = top, last_cd, last_reach
+            else:
+                speed = max(floor, _turn_speed(_angle(prev, (x, y), points[i + 1]), mode))
+                cd, reach = 0.5, 2.0
+            ok = _go((x, y, z), mode, radius if last else 0.0,
+                     timeout=max(25.0, math.dist(prev[:2], (x, y)) / max(1.0, speed * 0.4) + 15.0),
+                     cd=cd, reach=reach, accel_time=None if i == 0 else 0.0,
+                     brake_time=None if last else 0.0, speed=speed)
+            if not ok:
+                return False
+            prev = (x, y)
+        return True
+    finally:
+        if mode == "walk":
+            _anim_off()
 
 
-def _drive(tgt):
+def _drive(tgt, park=True):
+    """Berkendara ke tujuan lewat jalan. park=True: berhenti di tepi jalan terdekat (lalu jalan kaki)."""
     if not st.api.session.players.bot.is_in_vehicle():
         raise RuntimeError("bot tidak berada di kendaraan")
     radius = tgt[3] if len(tgt) > 3 else 0.0
     me = st.api.getbotposition()
-    route = _plan_route(me, tgt) if math.dist(me[:2], tgt[:2]) > 40.0 else None
-    if route:
-        length = sum(math.dist(route[i][:2], route[i + 1][:2]) for i in range(len(route) - 1))
-        log(f"rute jalan: {len(route)} titik, {length:.0f} m (lurus {math.dist(me[:2], tgt[:2]):.0f} m)", "info")
-        return _follow(route, radius)
+    if math.dist(me[:2], tgt[:2]) > 40.0:
+        route = _plan_route(me, tgt, "veh", park=park)
+        if route:
+            length = sum(math.dist(route[i][:2], route[i + 1][:2]) for i in range(len(route) - 1))
+            log(f"rute jalan: {len(route)} titik, {length:.0f} m (lurus {math.dist(me[:2], tgt[:2]):.0f} m)"
+                f"{', berhenti di tepi jalan' if park else ''}", "info")
+            if park:
+                ok = _follow(route, "vehicle", 1.0, 2.5)
+            else:
+                cd = max(1.5, min(radius * 0.4, 6.0)) if radius else 2.0
+                ok = _follow(route, "vehicle", cd, cd + 1.5, radius)
+            if ok:
+                return True
+            log("rute jalan gagal diikuti, mencoba bergerak lurus ke tujuan", "warn")
     return _go(tgt, "vehicle", radius)
+
+
+def _walk_to(target, cd=1.5, reach=3.0, timeout=300.0):
+    """Jalan kaki ke target lewat jalur pejalan (tidak menembus bangunan); dekat -> lurus."""
+    me = st.api.getbotposition()
+    d = math.dist(me[:2], target[:2])
+    if d <= reach:
+        return True
+    if d > 8.0:
+        route = _plan_route(me, target, "ped")
+        if route:
+            if _follow(route, "walk", cd, reach):
+                return True
+            log("rute jalan kaki gagal diikuti, mencoba berjalan lurus", "warn")
+    return _go(target, "walk", 0.0, min(timeout, d / max(1.0, RUN_SPEED * 0.4) + 20.0), cd=cd, reach=reach)
 
 
 def _kind_ok(kind):
@@ -735,7 +967,7 @@ def _deliver(last):
 
 def _return_to_bike():
     if st.bike_pos and _dist2(st.api.getbotposition(), st.bike_pos) > 7.0:
-        _go(st.bike_pos, "walk", 0.0, 90, cd=2.0, reach=4.0)
+        _walk_to(st.bike_pos, cd=2.0, reach=4.0, timeout=120)
 
 
 # ------------------------------------------------------------------ siklus
@@ -749,7 +981,7 @@ def _goto_wait():
         pass
     if _dist2(api.getbotposition(), WAIT_POS) > 3.0:
         _status(state="Berjalan ke titik tunggu")
-        _go(WAIT_POS, "walk", 0.0, 600, cd=1.5, reach=3.0)
+        _walk_to(WAIT_POS, cd=1.5, reach=3.0, timeout=600)
     try:
         api.setbotrotation(WAIT_POS[3])
     except Exception:  # noqa: BLE001
@@ -788,8 +1020,8 @@ def _run_job_inner():
 
     if _dist2(api.getbotposition(), WAIT_POS) > 15.0:   # dekati area agar motor ter-stream
         _status(state="Berjalan ke area motor")
-        if not _go(WAIT_POS, "walk", 0.0, 600, cd=1.5, reach=3.0):
-            return _fail("Gagal sampai ke area motor pizza")
+        if not _walk_to(WAIT_POS, cd=1.5, reach=3.0, timeout=600):
+            return _fail("Gagal sampai ke area motor pizza | " + st.last_go_reason)
         _sleep(2.0)
 
     found = _find_bike()
@@ -801,8 +1033,8 @@ def _run_job_inner():
     if _dist2(api.getbotposition(), pos) > 6.0:
         _status(state="Berjalan ke motor pizza")
         log(f"jalan ke motor id={vid}", "info")
-        if not _go(pos, "walk", 0.0, 120):
-            return _fail("Gagal sampai ke motor pizza (waktu habis)")
+        if not _walk_to(pos, cd=2.0, reach=4.0, timeout=120):
+            return _fail("Gagal sampai ke motor pizza (waktu habis) | " + st.last_go_reason)
 
     st.job_started.clear()
     t_enter = time.time()               # kandidat tujuan dihitung sejak sebelum naik motor
@@ -838,13 +1070,13 @@ def _run_job_inner():
         log(f"tujuan {delivered + 1}/{DELIVERIES} ({src}): "
             f"{tgt[0]:.1f}, {tgt[1]:.1f}, {tgt[2]:.1f}", "info")
         if not _drive(tgt):
-            return _fail("Gagal sampai ke tujuan antar (waktu habis / tersangkut)")
+            return _fail("Gagal sampai ke tujuan antar (waktu habis / tersangkut) | " + st.last_go_reason)
         t_exit = time.time()
         _exit_vehicle()
 
         _status(state=f"Mengantar pizza {delivered + 1}/{DELIVERIES}")
-        if _dist2(api.getbotposition(), tgt) > 2.5:     # masuk ke tengah checkpoint pelanggan
-            _go(tgt, "walk", 0.0, 60, cd=1.0, reach=2.0)
+        if _dist2(api.getbotposition(), tgt) > 2.5:     # jalan kaki ke NPC pelanggan lewat jalur pejalan
+            _walk_to(tgt, cd=1.0, reach=2.0, timeout=120)
 
         t_press = time.time()           # tujuan berikutnya bisa datang sebelum _deliver selesai
         if not _deliver(last=(delivered + 1 >= DELIVERIES)):
@@ -875,8 +1107,8 @@ def _run_job_inner():
     if not _enter(vid):
         return _fail("Gagal naik motor untuk menuju titik akhir")
     _engine_if_off()
-    if not _drive(END_POS):
-        return _fail("Gagal sampai ke titik akhir (posisi 9)")
+    if not _drive(END_POS, park=False):
+        return _fail("Gagal sampai ke titik akhir (posisi 9) | " + st.last_go_reason)
     _sleep(3.0)
     _exit_vehicle()
     log("Motor dikembalikan di titik akhir, sesi selesai", "ok")
@@ -889,6 +1121,7 @@ def _worker():
         f"| sumber tujuan={TARGET_SOURCE} | kecepatan jalan={RUN_SPEED:g} m/s, "
         f"motor={BIKE_SPEED:g} m/s", "info")
     _status()
+    threading.Thread(target=_anim_learner, name="pizza-anim", daemon=True).start()
     while True:
         try:
             if st.paused:
