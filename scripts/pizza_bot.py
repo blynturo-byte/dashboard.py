@@ -27,6 +27,8 @@ Environment variable (opsional):
   PIZZA_ANIM_RUN / PIZZA_ANIM_WALK / PIZZA_ANIM_FLAGS   id animasi lari/jalan (angka); kalau kosong dipelajari
                        otomatis dari pemain lain yang sedang berlari di dekat bot
   PIZZA_LEARN_ANIM=1   catat id animasi pemain di sekitar bot ke panel (untuk mencari id lari/jalan)
+  PIZZA_MAX_DETOUR=1.6 batas rute memutar: kalau rute jalan lebih panjang dari (rasio x jarak lurus + 80 m),
+                       dianggap memutar tidak wajar dan bot bergerak lurus saja
 
 Rute kendaraan mengikuti jalan GTA SA dan rute jalan kaki mengikuti jalur pejalan (roads.json.gz, dari
 nodes0-63.dat) dengan A*. Motor berhenti di tepi jalan terdekat, lalu karakter berjalan ke NPC.
@@ -58,6 +60,7 @@ BIKE_SPEED = float(os.environ.get("PIZZA_BIKE_SPEED", "13.0"))  # motor pizza di
 MOVE_KEYS = os.environ.get("PIZZA_MOVE_KEYS", "1") != "0"       # tahan tombol sprint/gas saat bergerak
 BIKE_Z = float(os.environ.get("PIZZA_BIKE_Z", "0.8"))           # offset z pusat motor dari permukaan jalan (node)
 WALK_Z = float(os.environ.get("PIZZA_WALK_Z", "1.1"))           # offset z pusat karakter dari tanah (node pejalan)
+MAX_DETOUR = float(os.environ.get("PIZZA_MAX_DETOUR", "1.6"))   # batas rasio panjang-rute / jarak-lurus
 
 
 def _env_int(name):
@@ -799,6 +802,12 @@ def _plan_route(start, target, kind="veh", park=False):
         log("tidak ada rute antara posisi bot dan tujuan, bergerak lurus", "warn")
         return None
     pts = [g.pts[k] for k in ids]
+    raw_length = sum(math.dist(pts[i][:2], pts[i + 1][:2]) for i in range(len(pts) - 1))
+    straight = math.dist(start[:2], target[:2])
+    if raw_length > MAX_DETOUR * straight + 80.0:
+        log(f"rute {kind} memutar terlalu jauh ({raw_length:.0f} m untuk jarak lurus {straight:.0f} m), "
+            f"bergerak lurus saja", "warn")
+        return None
     # buang node di belakang bot / di belakang tujuan supaya tidak berputar balik
     while len(pts) >= 2 and math.dist(start[:2], pts[1][:2]) < math.dist(pts[0][:2], pts[1][:2]):
         pts.pop(0)
