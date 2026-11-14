@@ -299,6 +299,77 @@ def pizza_state(since):
         }
 
 
+FM_LOCK = threading.RLock()
+FM_LOG = deque(maxlen=400)
+_fm_id = 0
+FM_BOT = {"api": None}
+FM_STATS = {
+    "state": "Belum aktif", "paused": False, "plant_sessions": 0, "harvest_sessions": 0,
+    "potato_total": 0, "current_plants": 0, "plant_target": 0, "next_run": 0.0, "last_error": "",
+}
+
+
+def _fm_add(level, msg):
+    global _fm_id
+    with FM_LOCK:
+        _fm_id += 1
+        FM_LOG.append((_fm_id, time.strftime("%H:%M:%S"), level, str(msg)))
+
+
+@emitter.on("onFarmLog", sync=True)
+def _fm_ev_log(bot, level, msg, *_):
+    if bot is not None:
+        FM_BOT["api"] = bot
+    _fm_add(level, msg)
+
+
+@emitter.on("onFarmStatus", sync=True)
+def _fm_ev_status(bot, stats, *_):
+    with FM_LOCK:
+        FM_STATS.update(stats)
+
+
+def farm_state(since):
+    with FM_LOCK:
+        return {
+            "stats": dict(FM_STATS),
+            "now": time.time(),
+            "log": [{"id": i, "t": t, "lv": lv, "m": m} for (i, t, lv, m) in FM_LOG if i > since],
+            "last_id": _fm_id,
+        }
+
+
+def farm_get(path, query):
+    if path == "/farm":
+        return 200, FARM_PAGE, "text/html"
+    if path == "/api/farm/state":
+        try:
+            since = int(query.get("since", ["0"])[0])
+        except ValueError:
+            since = 0
+        return 200, json.dumps(farm_state(since)), "application/json"
+    return None
+
+
+def farm_post(path, body):
+    if path == "/api/farm/control":
+        action = str(body.get("action", ""))
+        if action not in ("pause", "resume", "stop"):
+            return {"ok": False, "msg": "Aksi tidak dikenal."}
+        with LOCK:
+            bot = S["bot"]
+        api = FM_BOT["api"] or (bot.api if bot else None)
+        if api is None:
+            return {"ok": False, "msg": "Bot belum dibuat. Tekan Connect di dashboard dulu."}
+        emitter.emit("onFarmControl", api, action)
+        return {"ok": True}
+    if path == "/api/farm/clear":
+        with FM_LOCK:
+            FM_LOG.clear()
+        return {"ok": True}
+    return {"ok": False, "msg": "Endpoint tidak dikenal."}
+
+
 def pizza_get(path, query):
     if path == "/pizza":
         return 200, PIZZA_PAGE, "text/html"
@@ -627,6 +698,10 @@ class Handler(BaseHTTPRequestHandler):
             r = pizza_get(url.path, parse_qs(url.query))
             if r:
                 return self._send(*r)
+        if url.path == "/farm" or url.path.startswith("/api/farm"):
+            r = farm_get(url.path, parse_qs(url.query))
+            if r:
+                return self._send(*r)
         if url.path == "/api/state":
             try:
                 since = int(parse_qs(url.query).get("since", ["0"])[0])
@@ -648,6 +723,8 @@ class Handler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         if path.startswith("/api/pizza"):
             return self._send(200, json.dumps(pizza_post(path, body)))
+        if path.startswith("/api/farm"):
+            return self._send(200, json.dumps(farm_post(path, body)))
         self._send(200, json.dumps(do_action(path, body)))
 
 
@@ -677,6 +754,7 @@ button.sec{background:#2a313c}button.bad{background:var(--bad)}
 <div class="card"><div id="st"><span class="dot" id="dot"></span><span id="status">...</span></div></div>
 
 <div class="card"><a href="/pizza" style="color:#3b82f6">Buka panel Pizza Bot &rarr;</a></div>
+<div class="card"><a href="/farm" style="color:#22c55e">Buka panel Farm Bot &rarr;</a></div>
 
 <div class="card"><h2>Koneksi</h2>
 <label>Host server</label><input type="text" id="host" autocapitalize="off" autocorrect="off">
@@ -834,6 +912,100 @@ function tick(){
   else $('cd').textContent='';
 }
 async function poll(){try{render(await api('/api/pizza/state?since='+since));}catch(e){$('state').textContent='Panel tidak terjangkau...';}setTimeout(poll,1500);}
+setInterval(tick,1000);poll();
+</script></body></html>
+"""
+
+
+FARM_PAGE = r"""<!doctype html>
+<html lang="id"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Farm Bot</title>
+<style>
+:root{color-scheme:dark;--bg:#12151a;--card:#1b2028;--line:#2a313c;--fg:#e6e9ee;--mut:#8b95a5;--acc:#22c55e;--warn:#eab308;--bad:#ef4444}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.4 system-ui,sans-serif;padding:12px;max-width:640px;margin:auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+h2{margin:0 0 8px;font-size:15px}a{color:var(--acc);text-decoration:none}
+.row{display:flex;gap:8px}.row>*{flex:1}
+button{padding:10px 12px;border:0;border-radius:8px;background:var(--acc);color:#fff;font-size:15px;cursor:pointer}
+button.sec{background:#2a313c}button.bad{background:var(--bad)}
+#state{font-size:18px;font-weight:600}
+.badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;background:#2a313c;margin-left:6px}
+.badge.run{background:#14532d}.badge.pause{background:#713f12}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.stat{background:#0f1217;border-radius:8px;padding:8px;text-align:center}
+.stat b{display:block;font-size:20px}.stat span{color:var(--mut);font-size:12px}
+.bar{height:8px;background:#0f1217;border-radius:99px;overflow:hidden;margin-top:10px}
+.bar>div{height:100%;background:var(--acc);width:0}
+#log,#issues{background:#0f1217;border:1px solid var(--line);border-radius:8px;padding:8px;font-size:13px}
+#log{height:320px;overflow:auto}
+#log div,#issues div{white-space:pre-wrap;word-break:break-word;margin-bottom:2px}
+.t{color:var(--mut)}.info{color:var(--fg)}.ok{color:var(--acc)}.warn{color:var(--warn)}.error{color:var(--bad)}
+.chk{display:flex;gap:8px;align-items:center;margin:8px 0;color:var(--mut);font-size:13px}
+</style></head><body>
+
+<div class="card"><a href="/">&larr; Kembali ke dashboard</a></div>
+
+<div class="card">
+<div><span id="state">...</span><span class="badge" id="badge"></span></div>
+<div id="cd" style="color:var(--mut);margin-top:4px"></div>
+<div class="bar"><div id="prog"></div></div>
+<div class="grid">
+<div class="stat"><b id="plants">0/0</b><span>Tanam sesi ini</span></div>
+<div class="stat"><b id="potato">0</b><span>Total potato didapat</span></div>
+<div class="stat"><b id="psess">0</b><span>Sesi tanam selesai</span></div>
+<div class="stat"><b id="hsess">0</b><span>Sesi panen selesai</span></div>
+</div>
+<div class="row" style="margin-top:12px">
+<button id="bt" onclick="toggle()">Jeda</button>
+<button class="bad" onclick="ctl('stop')">Stop sekarang</button>
+</div>
+<div id="hint" style="color:var(--mut);font-size:12px;margin-top:6px">Jeda: berhenti setelah langkah berjalan selesai. Stop: berhenti seketika.</div>
+</div>
+
+<div class="card"><h2>Kendala terakhir</h2><div id="issues"><div class="t">Belum ada kendala.</div></div></div>
+
+<div class="card"><h2>Log bot farm</h2>
+<div class="chk"><input type="checkbox" id="only"><span>Hanya tampilkan hasil &amp; kendala (sembunyikan info)</span></div>
+<div id="log"></div>
+<div style="margin-top:8px"><button class="sec" style="width:100%" onclick="clr()">Hapus log</button></div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let since=0,all=[],paused=false,nextRun=0,skew=0;
+async function api(p,b){const r=await fetch(p,{method:b?'POST':'GET',headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});return r.json();}
+async function ctl(a){const r=await api('/api/farm/control',{action:a});if(r.ok===false)alert(r.msg);}
+function toggle(){ctl(paused?'resume':'pause');}
+async function clr(){await api('/api/farm/clear',{});all=[];since=0;redraw();$('issues').innerHTML='<div class="t">Belum ada kendala.</div>';}
+function line(l){const d=document.createElement('div');d.className=l.lv;const t=document.createElement('span');t.className='t';t.textContent=l.t+' ';d.appendChild(t);d.appendChild(document.createTextNode(l.m));return d;}
+function redraw(){
+  const box=$('log'),only=$('only').checked,near=box.scrollHeight-box.scrollTop-box.clientHeight<40;
+  box.textContent='';
+  for(const l of all){if(only&&l.lv==='info')continue;box.appendChild(line(l));}
+  if(near)box.scrollTop=box.scrollHeight;
+  const bad=all.filter(l=>l.lv==='warn'||l.lv==='error').slice(-5).reverse();
+  if(bad.length){const iss=$('issues');iss.textContent='';bad.forEach(l=>iss.appendChild(line(l)));}
+}
+$('only').addEventListener('change',redraw);
+function render(s){
+  const st=s.stats;paused=st.paused;nextRun=st.next_run;skew=s.now-Date.now()/1000;
+  $('state').textContent=st.state;
+  const b=$('badge');b.textContent=paused?'dijeda':'aktif';b.className='badge '+(paused?'pause':'run');
+  $('bt').textContent=paused?'Lanjutkan':'Jeda';
+  $('plants').textContent=st.current_plants+'/'+st.plant_target;
+  $('potato').textContent=st.potato_total;
+  $('psess').textContent=st.plant_sessions;$('hsess').textContent=st.harvest_sessions;
+  $('prog').style.width=(st.plant_target?Math.min(100,st.current_plants/st.plant_target*100):0)+'%';
+  if(s.log.length){all=all.concat(s.log).slice(-400);redraw();}
+  since=s.last_id;
+}
+function tick(){
+  if(nextRun>0){const left=Math.max(0,Math.round(nextRun-(Date.now()/1000+skew)));
+    $('cd').textContent='Langkah berikutnya dalam '+Math.floor(left/60)+' mnt '+(left%60)+' dtk';}
+  else $('cd').textContent='';
+}
+async function poll(){try{render(await api('/api/farm/state?since='+since));}catch(e){$('state').textContent='Panel tidak terjangkau...';}setTimeout(poll,1500);}
 setInterval(tick,1000);poll();
 </script></body></html>
 """
