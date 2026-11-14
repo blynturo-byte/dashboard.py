@@ -1,0 +1,793 @@
+{"date":"2026-11-14 02:33:34","ev":"start","t":0,"version":"1.0"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":0.1615,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":0.5828,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":0.8949,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":1.1629,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":1.4422,"ud":0,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":1.4565,"text":"[VIP]: Thomas_Kowalczyk: kerja apa"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":1.7283,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":2.0137,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":2.3026,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":2.5602,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":2.8141,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":3.0913,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":3.3652,"ud":0,"wep":4}
+{"ev":"mark","label":"menanam potato","t":3.7446}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":3.7448,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":4.2156,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":4.5519,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":4.8259,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":5.1345,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":5.4049,"ud":0,"wep":4}
+{"ev":"cmd","t":5.8142,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":5.8163,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":5.9013,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}100"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":6.1678,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":6.389,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":6.5639}
+{"color":-958201857,"ev":"srv_msg","t":6.5933,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":6.6624,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":6.9022,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1008.7748,"y":-1051.2633,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":7.0366,"ud":65520,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65522,"pos":{"x":-1009.1104,"y":-1051.2754,"z":129.2188},"q":null,"spd":{"x":-0.0378,"y":-0.0015,"z":0},"t":7.1678,"ud":65430,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65521,"pos":{"x":-1009.4963,"y":-1051.298,"z":129.2188},"q":null,"spd":{"x":-0.045,"y":-0.0031,"z":0},"t":7.2793,"ud":65430,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1010.2144,"y":-1051.2849,"z":129.2188},"q":null,"spd":{"x":-0.1061,"y":0.0126,"z":0},"t":7.3863,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1010.6403,"y":-1051.2344,"z":129.2188},"q":null,"spd":{"x":-0.0201,"y":0.0024,"z":0},"t":7.4958,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":8,"pos":{"x":-1010.8463,"y":-1051.2119,"z":129.2188},"q":null,"spd":{"x":-0.0326,"y":0.0039,"z":0},"t":7.6038,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":8,"pos":{"x":-1011.1749,"y":-1051.1699,"z":129.2188},"q":null,"spd":{"x":-0.0316,"y":0.0041,"z":0},"t":7.7094,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.4835,"y":-1051.129,"z":129.2188},"q":null,"spd":{"x":-0.0256,"y":0.0034,"z":0},"t":7.8165,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":9,"pos":{"x":-1011.5839,"y":-1051.1147,"z":129.2188},"q":null,"spd":{"x":-0.0323,"y":0.0056,"z":0},"t":7.9227,"ud":65485,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":21,"pos":{"x":-1011.8906,"y":-1051.035,"z":129.2188},"q":null,"spd":{"x":-0.0366,"y":0.0095,"z":0},"t":8.0268,"ud":65411,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.0065,"y":-1051.0044,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":8.5159,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.0065,"y":-1051.0044,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":8.7923,"ud":0,"wep":4}
+{"ev":"cmd","t":9.035,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":9.0788,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}92"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.0065,"y":-1051.0044,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":9.2121,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.0065,"y":-1051.0044,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":9.5587,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":9.5919}
+{"color":2054847231,"ev":"srv_msg","t":9.6179,"text":"[ERROR]: You too closes with other plant!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.0065,"y":-1051.0044,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":9.8317,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65530,"pos":{"x":-1012.2874,"y":-1050.9818,"z":129.2188},"q":null,"spd":{"x":-0.0377,"y":0.0023,"z":0},"t":9.9445,"ud":65429,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4698,"y":-1050.9736,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":10.4287,"ud":0,"wep":4}
+{"ev":"cmd","t":10.9266,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4698,"y":-1050.9736,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":10.9271,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":11.0215,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}92"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4698,"y":-1050.9736,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":11.2441,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":11.3594}
+{"color":-958201857,"ev":"srv_msg","t":11.3876,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4698,"y":-1050.9736,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":11.5138,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1012.6059,"y":-1050.9602,"z":129.2188},"q":null,"spd":{"x":-0.0327,"y":0.003,"z":0},"t":11.6148,"ud":65421,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65533,"pos":{"x":-1012.9636,"y":-1050.9294,"z":129.2188},"q":null,"spd":{"x":-0.0304,"y":0.0024,"z":0},"t":11.7263,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65533,"pos":{"x":-1013.4053,"y":-1050.8947,"z":129.2188},"q":null,"spd":{"x":-0.0804,"y":0.0063,"z":0},"t":11.8411,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":3,"pos":{"x":-1014.23,"y":-1050.8287,"z":129.2188},"q":null,"spd":{"x":-0.0711,"y":0.007,"z":0},"t":11.9466,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":8,"pos":{"x":-1015.0591,"y":-1050.6987,"z":129.2188},"q":null,"spd":{"x":-0.0868,"y":0.0145,"z":0},"t":12.0596,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.0624,"y":-1050.5575,"z":129.2188},"q":null,"spd":{"x":-0.0788,"y":0.0106,"z":0},"t":12.1741,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.4755,"y":-1050.5018,"z":129.2188},"q":null,"spd":{"x":-0.0247,"y":0.0033,"z":0},"t":12.2936,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.5073,"y":-1050.4976,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":12.7636,"ud":0,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":12.8799,"text":"[VIP]: Joseph_Callahan: farmer"}
+{"ev":"cmd","t":13.1299,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.5073,"y":-1050.4976,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":13.1786,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":13.1865,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}84"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.5073,"y":-1050.4976,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":13.4874,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.5073,"y":-1050.4976,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":13.756,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":13.9314}
+{"color":-958201857,"ev":"srv_msg","t":13.9578,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.5073,"y":-1050.4976,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":14.0266,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.5073,"y":-1050.4976,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":14.1766,"ud":65510,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65531,"pos":{"x":-1016.8187,"y":-1050.4696,"z":129.2188},"q":null,"spd":{"x":-0.0377,"y":0.0032,"z":0},"t":14.2797,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1017.1907,"y":-1050.4406,"z":129.2188},"q":null,"spd":{"x":-0.0423,"y":0.0028,"z":0},"t":14.3937,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65528,"pos":{"x":-1017.8592,"y":-1050.4032,"z":129.2188},"q":null,"spd":{"x":-0.1106,"y":0.0057,"z":0},"t":14.4985,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65528,"pos":{"x":-1018.6607,"y":-1050.369,"z":129.2188},"q":null,"spd":{"x":-0.0706,"y":0.0025,"z":0},"t":14.6121,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1019.5064,"y":-1050.3458,"z":129.2188},"q":null,"spd":{"x":-0.1119,"y":0.0029,"z":0},"t":14.7205,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.1478,"y":-1050.3323,"z":129.2188},"q":null,"spd":{"x":-0.0479,"y":0.001,"z":0},"t":14.8314,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.3043,"y":-1050.3291,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":15.3432,"ud":0,"wep":4}
+{"ev":"cmd","t":15.8318,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.3043,"y":-1050.3291,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":15.8333,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":15.8867,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}76"}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":16.1437}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.3043,"y":-1050.3291,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":16.1607,"ud":0,"wep":4}
+{"color":-958201857,"ev":"srv_msg","t":16.1826,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.3043,"y":-1050.3291,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":16.433,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.3043,"y":-1050.3291,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":16.5551,"ud":65528,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.6478,"y":-1050.3063,"z":129.2188},"q":null,"spd":{"x":-0.0377,"y":0.0025,"z":0},"t":16.6621,"ud":65415,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1021.0255,"y":-1050.2822,"z":129.2188},"q":null,"spd":{"x":-0.0449,"y":0.0026,"z":0},"t":16.7713,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65532,"pos":{"x":-1021.7625,"y":-1050.2534,"z":129.2188},"q":null,"spd":{"x":-0.1057,"y":0.0034,"z":0},"t":16.8886,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1022.6978,"y":-1050.2169,"z":129.2188},"q":null,"spd":{"x":-0.0738,"y":0.0031,"z":0},"t":16.9918,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1023.5905,"y":-1050.1809,"z":129.2188},"q":null,"spd":{"x":-0.0372,"y":0.0015,"z":0},"t":17.108,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1023.6829,"y":-1050.1772,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":17.2243,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1023.6829,"y":-1050.1772,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":17.699,"ud":0,"wep":4}
+{"ev":"cmd","t":17.995,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":18.0452,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}68"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1023.6829,"y":-1050.1772,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":18.0894,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1023.6829,"y":-1050.1772,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":18.3871,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1023.6829,"y":-1050.1772,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":18.647,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":18.868}
+{"color":2054847231,"ev":"srv_msg","t":18.897,"text":"[ERROR]: You too closes with other plant!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1023.6829,"y":-1050.1772,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":18.9332,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1023.6829,"y":-1050.1772,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":19.2024,"ud":65531,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65521,"pos":{"x":-1024.0262,"y":-1050.207,"z":129.2188},"q":null,"spd":{"x":-0.0376,"y":-0.0035,"z":0},"t":19.3171,"ud":65421,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.1515,"y":-1050.219,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":19.6664,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.1515,"y":-1050.219,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":19.9556,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.1515,"y":-1050.219,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":20.3496,"ud":0,"wep":4}
+{"ev":"cmd","t":20.8229,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.1515,"y":-1050.219,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":20.8231,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":20.8801,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}68"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.1515,"y":-1050.219,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":21.1376,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":21.197}
+{"color":-958201857,"ev":"srv_msg","t":21.2207,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.1515,"y":-1050.219,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":21.394,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.2059,"y":-1050.2178,"z":129.2188},"q":null,"spd":{"x":-0.0328,"y":0.0007,"z":0},"t":21.5027,"ud":65447,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":4,"pos":{"x":-1024.5267,"y":-1050.2064,"z":129.2188},"q":null,"spd":{"x":-0.0378,"y":0.0018,"z":0},"t":21.6067,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":4,"pos":{"x":-1024.92,"y":-1050.1851,"z":129.2188},"q":null,"spd":{"x":-0.0473,"y":0.0026,"z":0},"t":21.7246,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":3,"pos":{"x":-1025.7343,"y":-1050.1396,"z":129.2188},"q":null,"spd":{"x":-0.0725,"y":0.0042,"z":0},"t":21.8348,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":3,"pos":{"x":-1026.3239,"y":-1050.1082,"z":129.2188},"q":null,"spd":{"x":-0.069,"y":0.0039,"z":0},"t":21.9548,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":3,"pos":{"x":-1027.2369,"y":-1050.0538,"z":129.2188},"q":null,"spd":{"x":-0.1117,"y":0.007,"z":0},"t":22.058,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.0413,"y":-1050.0085,"z":129.2188},"q":null,"spd":{"x":-0.0493,"y":0.0026,"z":0},"t":22.1687,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.3073,"y":-1049.9948,"z":129.2188},"q":null,"spd":{"x":-0.0002,"y":0,"z":0},"t":22.281,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.3073,"y":-1049.9948,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":22.5955,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.3073,"y":-1049.9948,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":22.9835,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.3073,"y":-1049.9948,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":23.3071,"ud":0,"wep":4}
+{"ev":"cmd","t":23.5993,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":23.6517,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}60"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.3073,"y":-1049.9948,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":23.6861,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":23.967}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.3073,"y":-1049.9948,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":23.9892,"ud":0,"wep":4}
+{"color":-958201857,"ev":"srv_msg","t":24.0014,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.3073,"y":-1049.9948,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":24.2609,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1028.5886,"y":-1049.9823,"z":129.2188},"q":null,"spd":{"x":-0.0378,"y":0.0015,"z":0},"t":24.365,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1028.9159,"y":-1049.9695,"z":129.2188},"q":null,"spd":{"x":-0.0424,"y":0.0017,"z":0},"t":24.4691,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1029.6648,"y":-1049.9312,"z":129.2188},"q":null,"spd":{"x":-0.1105,"y":0.0061,"z":0},"t":24.5878,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1030.4646,"y":-1049.887,"z":129.2188},"q":null,"spd":{"x":-0.0921,"y":0.0051,"z":0},"t":24.6924,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1031.3998,"y":-1049.8353,"z":129.2188},"q":null,"spd":{"x":-0.1088,"y":0.006,"z":0},"t":24.8041,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.1315,"y":-1049.7969,"z":129.2188},"q":null,"spd":{"x":-0.0581,"y":0.0027,"z":0},"t":24.9047,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.4856,"y":-1049.7803,"z":129.2188},"q":null,"spd":{"x":-0.0319,"y":0.0015,"z":0},"t":25.0058,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.5198,"y":-1049.7786,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":25.316,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.5198,"y":-1049.7786,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":25.6003,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.5198,"y":-1049.7786,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":26.002,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.5198,"y":-1049.7786,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":26.2975,"ud":0,"wep":4}
+{"ev":"cmd","t":26.6155,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":26.6689,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}52"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.5198,"y":-1049.7786,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":26.6824,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.5198,"y":-1049.7786,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":26.9542,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":27.1909}
+{"color":2054847231,"ev":"srv_msg","t":27.2183,"text":"[ERROR]: You too closes with other plant!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.5198,"y":-1049.7786,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":27.2401,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1032.5198,"y":-1049.7786,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":27.4379,"ud":65521,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.8896,"y":-1049.7703,"z":129.2188},"q":null,"spd":{"x":-0.0328,"y":0.0008,"z":0},"t":27.5533,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.9589,"y":-1049.7687,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":27.9459,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.9589,"y":-1049.7687,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":28.3587,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.9589,"y":-1049.7687,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":28.6893,"ud":0,"wep":4}
+{"ev":"cmd","t":28.9851,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":29.0385,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}52"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.9589,"y":-1049.7687,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":29.0835,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":29.2864}
+{"color":2054847231,"ev":"srv_msg","t":29.3197,"text":"[ERROR]: You too closes with other plant!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1032.9589,"y":-1049.7687,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":29.347,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1032.9589,"y":-1049.7687,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":29.4949,"ud":65511,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":5,"pos":{"x":-1033.3015,"y":-1049.74,"z":129.2188},"q":null,"spd":{"x":-0.0377,"y":0.0033,"z":0},"t":29.6022,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65532,"pos":{"x":-1033.6495,"y":-1049.7147,"z":129.2188},"q":null,"spd":{"x":-0.0466,"y":0.0015,"z":0},"t":29.7072,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.3165,"y":-1049.7184,"z":129.2188},"q":null,"spd":{"x":-0.0679,"y":-0.0006,"z":0},"t":29.8188,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.5154,"y":-1049.7201,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":29.9506,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.5154,"y":-1049.7201,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":30.4124,"ud":0,"wep":4}
+{"ev":"cmd","t":30.7325,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":30.7852,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}52"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.5154,"y":-1049.7201,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":30.7852,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":31.0851}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.5154,"y":-1049.7201,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":31.0978,"ud":0,"wep":4}
+{"color":2054847231,"ev":"srv_msg","t":31.1155,"text":"[ERROR]: You too closes with other plant!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.5154,"y":-1049.7201,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":31.3546,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.5154,"y":-1049.7201,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":31.5355,"ud":65525,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65522,"pos":{"x":-1034.7963,"y":-1049.7391,"z":129.2188},"q":null,"spd":{"x":-0.0376,"y":-0.0034,"z":0},"t":31.6429,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65520,"pos":{"x":-1035.1672,"y":-1049.7773,"z":129.2188},"q":null,"spd":{"x":-0.0465,"y":-0.0055,"z":0},"t":31.7584,"ud":65410,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1035.5846,"y":-1049.8285,"z":129.2188},"q":null,"spd":{"x":-0.0182,"y":-0.0022,"z":0},"t":31.879,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":12,"pos":{"x":-1035.6423,"y":-1049.8296,"z":129.2188},"q":null,"spd":{"x":-0.0326,"y":0.0033,"z":0},"t":31.9833,"ud":65527,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":55,"pos":{"x":-1035.6985,"y":-1049.6068,"z":129.2188},"q":null,"spd":{"x":0.0247,"y":0.0286,"z":0},"t":32.09,"ud":65500,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":60,"pos":{"x":-1035.3802,"y":-1049.5475,"z":129.2188},"q":null,"spd":{"x":0.0393,"y":0.0023,"z":0},"t":32.1942,"ud":65496,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":42,"pos":{"x":-1035.0674,"y":-1049.5886,"z":129.2188},"q":null,"spd":{"x":0.0391,"y":-0.0135,"z":0},"t":32.2943,"ud":65480,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.8101,"y":-1049.6279,"z":129.2188},"q":null,"spd":{"x":0.0262,"y":-0.0026,"z":0},"t":32.4031,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.6987,"y":-1049.6392,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":32.5121,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":10,"pos":{"x":-1034.5074,"y":-1049.7629,"z":129.2188},"q":null,"spd":{"x":0.0301,"y":-0.015,"z":0},"t":32.6458,"ud":65476,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65530,"pos":{"x":-1034.2781,"y":-1049.7383,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":32.9932,"ud":5,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65494,"pos":{"x":-1034.2772,"y":-1049.4958,"z":129.2188},"q":null,"spd":{"x":-0.0327,"y":0.0189,"z":0},"t":33.0938,"ud":120,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1034.6437,"y":-1049.4644,"z":129.2188},"q":null,"spd":{"x":-0.0445,"y":-0.0012,"z":0},"t":33.2264,"ud":127,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1035.406,"y":-1049.4901,"z":129.2188},"q":null,"spd":{"x":-0.1101,"y":-0.0039,"z":0},"t":33.3314,"ud":127,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1036.1045,"y":-1049.5145,"z":129.2188},"q":null,"spd":{"x":-0.0635,"y":-0.0022,"z":0},"t":33.4447,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1036.2854,"y":-1049.521,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":33.8378,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1036.2854,"y":-1049.521,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":34.2468,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1036.2854,"y":-1049.521,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":34.5455,"ud":0,"wep":4}
+{"ev":"cmd","t":34.7414,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":34.7961,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}52"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1036.2854,"y":-1049.521,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":34.934,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":35.0781}
+{"color":2054847231,"ev":"srv_msg","t":35.1047,"text":"[ERROR]: You too closes with other plant!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1036.2854,"y":-1049.521,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":35.2244,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65524,"pos":{"x":-1036.2854,"y":-1049.521,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":35.3289,"ud":65535,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65421,"pos":{"x":-1036.3643,"y":-1049.2441,"z":129.2188},"q":null,"spd":{"x":0.0096,"y":0.0365,"z":0},"t":35.4432,"ud":65494,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65431,"pos":{"x":-1036.2749,"y":-1048.9078,"z":129.2188},"q":null,"spd":{"x":0.0156,"y":0.0439,"z":0},"t":35.5457,"ud":65464,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65471,"pos":{"x":-1035.9531,"y":-1048.4253,"z":129.2188},"q":null,"spd":{"x":0.0458,"y":0.0554,"z":0},"t":35.6513,"ud":65426,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65474,"pos":{"x":-1035.4789,"y":-1047.786,"z":129.2188},"q":null,"spd":{"x":0.0542,"y":0.0803,"z":0},"t":35.765,"ud":65425,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1035.0933,"y":-1047.1451,"z":129.2188},"q":null,"spd":{"x":0.021,"y":0.0355,"z":0},"t":35.8788,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1035.0305,"y":-1047.0388,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":36.3494,"ud":0,"wep":4}
+{"ev":"cmd","t":36.7865,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1035.0305,"y":-1047.0388,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":36.7876,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":36.8431,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}52"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1035.0305,"y":-1047.0388,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":37.0964,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":37.2828}
+{"color":2054847231,"ev":"srv_msg","t":37.3137,"text":"[ERROR]: You too closes with other plant!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1035.0305,"y":-1047.0388,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":37.3726,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65530,"pos":{"x":-1035.0305,"y":-1047.0388,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":37.5439,"ud":65531,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65475,"pos":{"x":-1034.845,"y":-1046.8376,"z":129.2188},"q":null,"spd":{"x":0.0321,"y":0.02,"z":0},"t":37.6506,"ud":65479,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65455,"pos":{"x":-1034.6049,"y":-1046.7213,"z":129.2188},"q":null,"spd":{"x":0.0313,"y":0.0119,"z":0},"t":37.7544,"ud":65438,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65411,"pos":{"x":-1034.1476,"y":-1046.4554,"z":129.2188},"q":null,"spd":{"x":0.0542,"y":0.0753,"z":0},"t":37.855,"ud":65509,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65408,"pos":{"x":-1033.9923,"y":-1045.6733,"z":129.2188},"q":null,"spd":{"x":0.0019,"y":0.0872,"z":0},"t":37.968,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1033.995,"y":-1045.099,"z":129.2188},"q":null,"spd":{"x":-0.0001,"y":0.0156,"z":0},"t":38.0916,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1033.995,"y":-1045.0848,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":38.6375,"ud":0,"wep":4}
+{"ev":"cmd","t":38.9307,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":38.9848,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}52"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1033.995,"y":-1045.0848,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":39.0133,"ud":0,"wep":4}
+{"color":-10270721,"ev":"srv_msg","t":39.1095,"text":"BotCmd: Kordell_Miles have been kicked from the server."}
+{"color":-10270721,"ev":"srv_msg","t":39.1095,"text":"Reason: Health Hack"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1033.995,"y":-1045.0848,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":39.3152,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1033.995,"y":-1045.0848,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":39.5676,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":39.6503}
+{"color":-958201857,"ev":"srv_msg","t":39.6791,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1033.995,"y":-1045.0848,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":39.8453,"ud":0,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":39.9812,"text":"[VIP]: Jimyy_Franscot: naik lev 5 cepet ngpain"}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1033.995,"y":-1045.0848,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":39.9812,"ud":65522,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65503,"pos":{"x":-1033.712,"y":-1044.9501,"z":129.2188},"q":null,"spd":{"x":0.0375,"y":0.0045,"z":0},"t":40.0868,"ud":65413,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65514,"pos":{"x":-1033.3347,"y":-1044.9329,"z":129.2188},"q":null,"spd":{"x":0.045,"y":0.0013,"z":0},"t":40.2021,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65513,"pos":{"x":-1032.7059,"y":-1044.9056,"z":129.2188},"q":null,"spd":{"x":0.1101,"y":0.0066,"z":0},"t":40.3058,"ud":65411,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65532,"pos":{"x":-1031.9041,"y":-1044.9019,"z":129.2188},"q":null,"spd":{"x":0.0701,"y":-0.0029,"z":0},"t":40.4101,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65534,"pos":{"x":-1031.1542,"y":-1044.939,"z":129.2188},"q":null,"spd":{"x":0.0778,"y":-0.004,"z":0},"t":40.5198,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1030.2743,"y":-1044.9875,"z":129.2188},"q":null,"spd":{"x":0.0689,"y":-0.0038,"z":0},"t":40.63,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1029.9099,"y":-1045.0076,"z":129.2188},"q":null,"spd":{"x":0.008,"y":-0.0004,"z":0},"t":40.7449,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1029.9098,"y":-1045.0076,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":41.2028,"ud":0,"wep":4}
+{"ev":"cmd","t":41.5962,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1029.9098,"y":-1045.0076,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":41.5965,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":41.6509,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}44"}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":41.9232}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1029.9098,"y":-1045.0076,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":41.9232,"ud":0,"wep":4}
+{"color":-958201857,"ev":"srv_msg","t":41.958,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1029.9098,"y":-1045.0076,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":42.2016,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65520,"pos":{"x":-1029.8058,"y":-1045.0052,"z":129.2188},"q":null,"spd":{"x":0.0328,"y":0.0014,"z":0},"t":42.3189,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65521,"pos":{"x":-1029.4723,"y":-1044.9845,"z":129.2188},"q":null,"spd":{"x":0.0377,"y":0.0024,"z":0},"t":42.4333,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65521,"pos":{"x":-1029.0383,"y":-1044.9524,"z":129.2188},"q":null,"spd":{"x":0.0727,"y":0.0058,"z":0},"t":42.5452,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":9,"pos":{"x":-1028.2074,"y":-1044.9594,"z":129.2188},"q":null,"spd":{"x":0.072,"y":-0.0065,"z":0},"t":42.6488,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":9,"pos":{"x":-1027.3838,"y":-1045.0372,"z":129.2188},"q":null,"spd":{"x":0.0734,"y":-0.0075,"z":0},"t":42.7656,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":9,"pos":{"x":-1026.439,"y":-1045.1443,"z":129.2188},"q":null,"spd":{"x":0.0789,"y":-0.0098,"z":0},"t":42.8726,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.895,"y":-1045.2124,"z":129.2188},"q":null,"spd":{"x":0.0404,"y":-0.0051,"z":0},"t":42.9814,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.8315,"y":-1045.2205,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":43.2059,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.8315,"y":-1045.2205,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":43.5228,"ud":0,"wep":4}
+{"ev":"cmd","t":43.8159,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":43.8746,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}36"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.8315,"y":-1045.2205,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":43.9244,"ud":0,"wep":4}
+{"color":-958201857,"ev":"srv_msg","t":44.0193,"text":"[TRUCKER]: {FFFFFF}Workshop {FFFF00}[JKSS ] X HeppyFun V.2{FFFFFF} need supplies for 500 component. ({FFFF00}'/missions'{FFFFFF})"}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":44.092}
+{"color":-958201857,"ev":"srv_msg","t":44.1166,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.8315,"y":-1045.2205,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":44.1846,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1025.8315,"y":-1045.2205,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":44.3812,"ud":65520,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65519,"pos":{"x":-1025.5182,"y":-1045.204,"z":129.2188},"q":null,"spd":{"x":0.0377,"y":0.0023,"z":0},"t":44.4843,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65519,"pos":{"x":-1025.1469,"y":-1045.1777,"z":129.2188},"q":null,"spd":{"x":0.0422,"y":0.0033,"z":0},"t":44.5974,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65527,"pos":{"x":-1024.4783,"y":-1045.132,"z":129.2188},"q":null,"spd":{"x":0.1107,"y":0.0055,"z":0},"t":44.6979,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":6,"pos":{"x":-1023.7352,"y":-1045.1403,"z":129.2188},"q":null,"spd":{"x":0.069,"y":-0.0039,"z":0},"t":44.8031,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":12,"pos":{"x":-1022.9941,"y":-1045.2042,"z":129.2188},"q":null,"spd":{"x":0.0765,"y":-0.0084,"z":0},"t":44.9051,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1022.1238,"y":-1045.3324,"z":129.2188},"q":null,"spd":{"x":0.0682,"y":-0.0106,"z":0},"t":45.0125,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.7737,"y":-1045.3871,"z":129.2188},"q":null,"spd":{"x":0.0076,"y":-0.0012,"z":0},"t":45.1277,"ud":0,"wep":4}
+{"color":-11534081,"ev":"srv_msg","t":45.6443,"text":"[ADS]: {3BBD44}[Trade] Maverick to?"}
+{"color":-11534081,"ev":"srv_msg","t":45.6443,"text":"Contact Info: [{3BBD44}Chander_Phillips{FF5000}] Contact Number: [{3BBD44}11234{FF5000}]"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.7737,"y":-1045.3871,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":45.6443,"ud":0,"wep":4}
+{"ev":"cmd","t":45.9501,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":46.0049,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}28"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.7737,"y":-1045.3871,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":46.0491,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.7737,"y":-1045.3871,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":46.3402,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":46.3598}
+{"color":-958201857,"ev":"srv_msg","t":46.3872,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.7737,"y":-1045.3871,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":46.6119,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":6,"pos":{"x":-1021.5249,"y":-1045.4041,"z":129.2188},"q":null,"spd":{"x":0.0375,"y":-0.0045,"z":0},"t":46.7275,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":7,"pos":{"x":-1021.3371,"y":-1045.4288,"z":129.2188},"q":null,"spd":{"x":0.0374,"y":-0.0051,"z":0},"t":46.8294,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1021.0096,"y":-1045.4698,"z":129.2188},"q":null,"spd":{"x":0.0472,"y":-0.0048,"z":0},"t":46.9342,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65533,"pos":{"x":-1020.196,"y":-1045.5339,"z":129.2188},"q":null,"spd":{"x":0.0725,"y":-0.0048,"z":0},"t":47.0462,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65531,"pos":{"x":-1019.3732,"y":-1045.5847,"z":129.2188},"q":null,"spd":{"x":0.0954,"y":-0.005,"z":0},"t":47.1521,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1018.5328,"y":-1045.614,"z":129.2188},"q":null,"spd":{"x":0.0929,"y":-0.0027,"z":0},"t":47.2551,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1018.1912,"y":-1045.624,"z":129.2188},"q":null,"spd":{"x":0.0133,"y":-0.0004,"z":0},"t":47.3874,"ud":0,"wep":4}
+{"color":-958201857,"ev":"srv_msg","t":47.8394,"text":"[TRUCKER]: {FFFFFF}Workshop {FFFF00}[JKSS ] X HeppyFun V.2{FFFFFF} need supplies for 500 component. ({FFFF00}'/missions'{FFFFFF})"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1018.1795,"y":-1045.6244,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":47.8395,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1018.1795,"y":-1045.6244,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":48.1191,"ud":0,"wep":4}
+{"ev":"cmd","t":48.3725,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":48.4259,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}20"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1018.1795,"y":-1045.6244,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":48.5307,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1018.1795,"y":-1045.6244,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":48.8088,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":48.8852}
+{"color":-958201857,"ev":"srv_msg","t":48.9139,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1018.1795,"y":-1045.6244,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":49.0898,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65521,"pos":{"x":-1017.8983,"y":-1045.6156,"z":129.2188},"q":null,"spd":{"x":0.0377,"y":0.0022,"z":0},"t":49.1903,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65522,"pos":{"x":-1017.5673,"y":-1045.5944,"z":129.2188},"q":null,"spd":{"x":0.0433,"y":0.0028,"z":0},"t":49.2919,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1016.9789,"y":-1045.5643,"z":129.2188},"q":null,"spd":{"x":0.0685,"y":0.0022,"z":0},"t":49.3972,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1016.1387,"y":-1045.5552,"z":129.2188},"q":null,"spd":{"x":0.086,"y":-0.0006,"z":0},"t":49.5224,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1015.1791,"y":-1045.566,"z":129.2188},"q":null,"spd":{"x":0.1119,"y":-0.0012,"z":0},"t":49.6385,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1014.4117,"y":-1045.5745,"z":129.2188},"q":null,"spd":{"x":0.0403,"y":-0.0004,"z":0},"t":49.7441,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1014.2543,"y":-1045.576,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":49.8789,"ud":0,"wep":4}
+{"color":-958201857,"ev":"srv_msg","t":50.1909,"text":"[TRUCKER]: {FFFFFF}Workshop {FFFF00}[JKSS ] X HeppyFun V.2{FFFFFF} need supplies for 500 component. ({FFFF00}'/missions'{FFFFFF})"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1014.2543,"y":-1045.576,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":50.3401,"ud":0,"wep":4}
+{"ev":"cmd","t":50.6885,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1014.2543,"y":-1045.576,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":50.691,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":50.7459,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}12"}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":50.9983}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1014.2543,"y":-1045.576,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":50.9985,"ud":0,"wep":4}
+{"color":-958201857,"ev":"srv_msg","t":51.0307,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1014.2543,"y":-1045.576,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":51.2438,"ud":65530,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65521,"pos":{"x":-1013.9119,"y":-1045.5433,"z":129.2188},"q":null,"spd":{"x":0.0376,"y":0.0043,"z":0},"t":51.3565,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65522,"pos":{"x":-1013.5667,"y":-1045.5012,"z":129.2188},"q":null,"spd":{"x":0.0463,"y":0.0059,"z":0},"t":51.4569,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65523,"pos":{"x":-1012.9883,"y":-1045.4305,"z":129.2188},"q":null,"spd":{"x":0.0715,"y":0.0092,"z":0},"t":51.5602,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65479,"pos":{"x":-1012.249,"y":-1045.1971,"z":129.2188},"q":null,"spd":{"x":0.0823,"y":0.0466,"z":0},"t":51.6651,"ud":65422,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65478,"pos":{"x":-1011.532,"y":-1044.718,"z":129.2188},"q":null,"spd":{"x":0.0615,"y":0.0462,"z":0},"t":51.7698,"ud":65422,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65480,"pos":{"x":-1010.9013,"y":-1044.1846,"z":129.2188},"q":null,"spd":{"x":0.0577,"y":0.0548,"z":0},"t":51.876,"ud":65422,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65481,"pos":{"x":-1010.3126,"y":-1043.5466,"z":129.2188},"q":null,"spd":{"x":0.077,"y":0.0924,"z":0},"t":51.9862,"ud":65421,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8788,"y":-1042.978,"z":129.2188},"q":null,"spd":{"x":0.0254,"y":0.0344,"z":0},"t":52.0988,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0.0016,"y":0.0022,"z":0},"t":52.217,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":52.37,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":52.6612,"ud":0,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":52.6671,"text":"[VIP]: Anastasiya_Vyazemskaya: di sini sistem nya exp"}
+{"ev":"cmd","t":52.9562,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":53.0297,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}4"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":53.0976,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":53.3397,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":53.5832,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":53.8629,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":54.1403,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":54.4231,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":54.6861,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":54.8825}
+{"color":2054847231,"ev":"srv_msg","t":54.9135,"text":"[ERROR]: Not enough seed!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":54.9595,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1009.7908,"y":-1042.8593,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":55.144,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":60,"pos":{"x":-1009.731,"y":-1042.5988,"z":129.2188},"q":null,"spd":{"x":-0.0201,"y":0.032,"z":0},"t":55.2504,"ud":65454,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":11,"pos":{"x":-1010.0131,"y":-1042.4554,"z":129.2188},"q":null,"spd":{"x":-0.0418,"y":0.0048,"z":0},"t":55.3575,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1010.6011,"y":-1042.4125,"z":129.2188},"q":null,"spd":{"x":-0.0693,"y":0.0056,"z":0},"t":55.4619,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.0417,"y":-1042.3772,"z":129.2188},"q":null,"spd":{"x":-0.0126,"y":0.001,"z":0},"t":55.5742,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":97,"pos":{"x":-1011.1182,"y":-1042.1512,"z":129.2188},"q":null,"spd":{"x":0.0149,"y":0.0347,"z":0},"t":55.691,"ud":38,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":55.7962,"text":"[VIP]: Anastasiya_Vyazemskaya: berarti harus kerja"}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":88,"pos":{"x":-1011.003,"y":-1041.8052,"z":129.2188},"q":null,"spd":{"x":0.0029,"y":0.0439,"z":0},"t":55.7962,"ud":65510,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65450,"pos":{"x":-1011.3875,"y":-1041.6858,"z":129.2188},"q":null,"spd":{"x":-0.0529,"y":-0.0248,"z":0},"t":55.9028,"ud":65442,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65449,"pos":{"x":-1011.643,"y":-1042.2583,"z":129.2188},"q":null,"spd":{"x":0.0376,"y":-0.0916,"z":0},"t":56.0081,"ud":65443,"wep":4}
+{"act":0,"anim":1257,"ar":0,"ev":"foot","hp":60,"keys":8,"lr":65477,"pos":{"x":-1011.1984,"y":-1042.9264,"z":129.2188},"q":null,"spd":{"x":0.052,"y":-0.0642,"z":0},"t":56.1246,"ud":65423,"wep":4}
+{"act":0,"anim":1257,"ar":0,"ev":"foot","hp":60,"keys":8,"lr":65476,"pos":{"x":-1010.4434,"y":-1043.3931,"z":129.2188},"q":null,"spd":{"x":0.084,"y":-0.0437,"z":0},"t":56.2265,"ud":65433,"wep":4}
+{"act":0,"anim":1257,"ar":0,"ev":"foot","hp":60,"keys":8,"lr":55,"pos":{"x":-1010.081,"y":-1044.0713,"z":129.2188},"q":null,"spd":{"x":0.0215,"y":-0.12,"z":0},"t":56.3271,"ud":65421,"wep":4}
+{"color":-10270721,"ev":"srv_msg","t":56.344,"text":"BotCmd: Hanze_Breakers have been kicked from the server."}
+{"color":-10270721,"ev":"srv_msg","t":56.344,"text":"Reason: Vehicle Health Hack"}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":8,"lr":127,"pos":{"x":-1010.5275,"y":-1044.5291,"z":129.2188},"q":null,"spd":{"x":-0.0926,"y":-0.0669,"z":0},"t":56.4361,"ud":65529,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":8,"lr":125,"pos":{"x":-1011.5707,"y":-1044.9225,"z":129.2188},"q":null,"spd":{"x":-0.113,"y":-0.0272,"z":0},"t":56.5365,"ud":65512,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65494,"pos":{"x":-1011.8677,"y":-1045.7858,"z":129.2188},"q":null,"spd":{"x":0.0297,"y":-0.1194,"z":0},"t":56.6411,"ud":65441,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65500,"pos":{"x":-1011.6203,"y":-1046.824,"z":129.2188},"q":null,"spd":{"x":0.0267,"y":-0.1062,"z":0},"t":56.7472,"ud":65437,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65507,"pos":{"x":-1011.3207,"y":-1047.8929,"z":129.2188},"q":null,"spd":{"x":0.0361,"y":-0.1176,"z":0},"t":56.8498,"ud":65436,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":64,"pos":{"x":-1011.3618,"y":-1048.9885,"z":129.2188},"q":null,"spd":{"x":-0.0331,"y":-0.1081,"z":0},"t":56.9687,"ud":65426,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3653,"y":-1049.5361,"z":129.2188},"q":null,"spd":{"x":0.0026,"y":-0.0173,"z":0},"t":57.0732,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0.0001,"y":-0.0007,"z":0},"t":57.322,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":57.6803,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":57.9427,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":58.2169,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":58.464,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":58.7396,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":59.0122,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":59.2746,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":59.5293,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":59.8225,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":60.0894,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":60.3469,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":60.6017,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":60.8941,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":61.1731,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":61.4942,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":61.8011,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":62.1613,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":62.4608,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":62.7862,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":63.0924,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":63.418,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":63.7,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":64.0605,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":64.4029,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":64.8377,"ud":0,"wep":4}
+{"ev":"mark","label":"mengambil seed dari trunk karena seed di inventory habis","t":65.2372}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":65.2375,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65532,"pos":{"x":-1011.3589,"y":-1049.578,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":65.4834,"ud":65529,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":67,"pos":{"x":-1011.0853,"y":-1049.7592,"z":129.2188},"q":null,"spd":{"x":0.026,"y":-0.0274,"z":0},"t":65.5852,"ud":65427,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":3,"pos":{"x":-1010.8011,"y":-1050.0051,"z":129.2188},"q":null,"spd":{"x":0.0418,"y":-0.0155,"z":0},"t":65.6923,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":90,"pos":{"x":-1010.1949,"y":-1050.3206,"z":129.2188},"q":null,"spd":{"x":0.0619,"y":-0.0939,"z":0},"t":65.7956,"ud":65446,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":117,"pos":{"x":-1010.0414,"y":-1050.9719,"z":129.2188},"q":null,"spd":{"x":0.0009,"y":-0.0691,"z":0},"t":65.8957,"ud":65486,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":114,"pos":{"x":-1010.1375,"y":-1051.7258,"z":129.2188},"q":null,"spd":{"x":-0.018,"y":-0.0875,"z":0},"t":65.9998,"ud":65479,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":5,"pos":{"x":-1009.7911,"y":-1052.5592,"z":129.2188},"q":null,"spd":{"x":0.0473,"y":-0.064,"z":0},"t":66.1108,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":2,"pos":{"x":-1009.3207,"y":-1053.2157,"z":129.2188},"q":null,"spd":{"x":0.0703,"y":-0.0977,"z":0},"t":66.2136,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":2,"pos":{"x":-1008.817,"y":-1053.9213,"z":129.2188},"q":null,"spd":{"x":0.0414,"y":-0.0583,"z":0},"t":66.3271,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":27,"pos":{"x":-1008.4277,"y":-1054.593,"z":129.2188},"q":null,"spd":{"x":0.0356,"y":-0.0801,"z":0},"t":66.4304,"ud":65412,"wep":4}
+{"act":0,"anim":1257,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":28,"pos":{"x":-1008.045,"y":-1055.5665,"z":129.2188},"q":null,"spd":{"x":0.0299,"y":-0.0842,"z":0},"t":66.5464,"ud":65412,"wep":4}
+{"act":0,"anim":1257,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":27,"pos":{"x":-1007.7329,"y":-1056.5562,"z":129.2188},"q":null,"spd":{"x":0.0336,"y":-0.1165,"z":0},"t":66.6668,"ud":65411,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":26,"pos":{"x":-1007.5099,"y":-1057.4431,"z":129.2188},"q":null,"spd":{"x":0.0238,"y":-0.1118,"z":0},"t":66.7677,"ud":65411,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":25,"pos":{"x":-1007.3308,"y":-1058.5474,"z":129.2188},"q":null,"spd":{"x":0.014,"y":-0.1152,"z":0},"t":66.869,"ud":65411,"wep":4}
+{"act":0,"anim":1235,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.265,"y":-1059.5658,"z":129.2188},"q":null,"spd":{"x":-0.0102,"y":-0.0087,"z":0},"t":66.9838,"ud":0,"wep":4}
+{"act":0,"anim":1235,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3463,"y":-1059.6132,"z":129.2188},"q":null,"spd":{"x":-0.001,"y":0.0108,"z":0},"t":67.0938,"ud":0,"wep":4}
+{"act":0,"anim":1235,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3519,"y":-1059.5509,"z":129.2188},"q":null,"spd":{"x":-0.0012,"y":0.0134,"z":0},"t":67.347,"ud":0,"wep":4}
+{"act":0,"anim":1235,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3589,"y":-1059.4738,"z":129.2188},"q":null,"spd":{"x":0.0006,"y":-0.0065,"z":0},"t":67.4609,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":67.5829,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":67.8364,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":68.1193,"ud":0,"wep":4}
+{"ev":"cmd","t":68.5639,"text":"/trunk"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":68.5694,"ud":0,"wep":4}
+{"b1":"Select","b2":"Cancel","ev":"dlg_show","id":545,"style":2,"t":68.6091,"text":"Weapon Storage (0/3)\nComponent (0/5000)\nMaterial (0/5000)\nSchematic (0/100)\nBandage(0/20)\nGas Fuel (0/20)\nSeed List\n{FF0000}Marijuana(0/500){FFFFFF}\n{FF0000}Cocaine(0/500){FFFFFF}\n{FF0000}Heroin(0/500){FFFFFF}\n{FF0000}Steroids(0/500){FFFFFF}","title":"Trunk Storage"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":68.8707,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":69.1074,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":69.3348,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":545,"input":"[INPUT len=9]","list":6,"t":69.6072}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":69.6072,"ud":0,"wep":4}
+{"b1":"Select","b2":"Back","ev":"dlg_show","id":571,"style":2,"t":69.6327,"text":"Seed Plant (1000)\nSeed Marijuana (0)\nSeed Cocaine (0)\nSeed Heroin (0)\nSeed Steroids (0)","title":"Seed Safe"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":69.8491,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":70.1341,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":70.391,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":571,"input":"[INPUT len=17]","list":0,"t":70.467}
+{"b1":"Select","b2":"Back","ev":"dlg_show","id":572,"style":2,"t":70.4967,"text":"Withdraw from safe\nDeposit into safe","title":"Seed Safe"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":70.6745,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":70.9311,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":572,"input":"[INPUT len=18]","list":0,"t":71.172}
+{"b1":"Withdraw","b2":"Back","ev":"dlg_show","id":573,"style":1,"t":71.1985,"text":"Please enter how much you wish to withdraw from the safe:","title":"Withdraw from safe"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":71.2086,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":71.4609,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":71.9245,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":72.2063,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":573,"input":"[INPUT len=3]","list":65535,"t":72.4074}
+{"b1":"Select","b2":"Cancel","ev":"dlg_show","id":545,"style":2,"t":72.4853,"text":"Weapon Storage (0/3)\nComponent (0/5000)\nMaterial (0/5000)\nSchematic (0/100)\nBandage(0/20)\nGas Fuel (0/20)\nSeed List\n{FF0000}Marijuana(0/500){FFFFFF}\n{FF0000}Cocaine(0/500){FFFFFF}\n{FF0000}Heroin(0/500){FFFFFF}\n{FF0000}Steroids(0/500){FFFFFF}","title":"Trunk Storage"}
+{"color":-793842689,"ev":"srv_msg","t":72.4853,"text":"** Zayvion Knox has withdrawn 100 Seed's from their trunk safe."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":72.5314,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":72.8175,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":73.0873,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":73.3519,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":73.6233,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":545,"input":"[INPUT len=9]","list":6,"t":73.8498}
+{"b1":"Select","b2":"Back","ev":"dlg_show","id":571,"style":2,"t":73.8848,"text":"Seed Plant (900)\nSeed Marijuana (0)\nSeed Cocaine (0)\nSeed Heroin (0)\nSeed Steroids (0)","title":"Seed Safe"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":73.8961,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":74.1675,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":571,"input":"[INPUT len=16]","list":0,"t":74.3348}
+{"b1":"Select","b2":"Back","ev":"dlg_show","id":572,"style":2,"t":74.3617,"text":"Withdraw from safe\nDeposit into safe","title":"Seed Safe"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":74.4393,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":74.6959,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":74.957,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":572,"input":"[INPUT len=18]","list":0,"t":75.1225}
+{"b1":"Withdraw","b2":"Back","ev":"dlg_show","id":573,"style":1,"t":75.1505,"text":"Please enter how much you wish to withdraw from the safe:","title":"Withdraw from safe"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":75.2324,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":75.6442,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":76.0021,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":76.2519,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":573,"input":"[INPUT len=3]","list":65535,"t":76.5564}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":76.5565,"ud":0,"wep":4}
+{"b1":"Select","b2":"Cancel","ev":"dlg_show","id":545,"style":2,"t":76.6077,"text":"Weapon Storage (0/3)\nComponent (0/5000)\nMaterial (0/5000)\nSchematic (0/100)\nBandage(0/20)\nGas Fuel (0/20)\nSeed List\n{FF0000}Marijuana(0/500){FFFFFF}\n{FF0000}Cocaine(0/500){FFFFFF}\n{FF0000}Heroin(0/500){FFFFFF}\n{FF0000}Steroids(0/500){FFFFFF}","title":"Trunk Storage"}
+{"color":-793842689,"ev":"srv_msg","t":76.6077,"text":"** Zayvion Knox has withdrawn 900 Seed's from their trunk safe."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":76.8362,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":77.081,"ud":0,"wep":4}
+{"btn":0,"ev":"dlg_resp","id":545,"input":"[INPUT len=20]","list":0,"t":77.3349}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":77.3349,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1007.3584,"y":-1059.4808,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":77.6068,"ud":65535,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":55,"pos":{"x":-1007.5646,"y":-1059.5787,"z":129.2188},"q":null,"spd":{"x":-0.0328,"y":0.0188,"z":0},"t":77.7071,"ud":65456,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1007.5598,"y":-1059.2467,"z":129.2188},"q":null,"spd":{"x":0.0069,"y":0.0418,"z":0},"t":77.8127,"ud":65421,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65502,"pos":{"x":-1007.6588,"y":-1058.6641,"z":129.2188},"q":null,"spd":{"x":-0.0131,"y":0.0688,"z":0},"t":77.9142,"ud":65413,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65473,"pos":{"x":-1007.7927,"y":-1058.0494,"z":129.2188},"q":null,"spd":{"x":-0.031,"y":0.1008,"z":0},"t":78.0155,"ud":65425,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65521,"pos":{"x":-1008.2573,"y":-1057.2249,"z":129.2188},"q":null,"spd":{"x":-0.0243,"y":0.073,"z":0},"t":78.1199,"ud":65409,"wep":4}
+{"act":0,"anim":1257,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65528,"pos":{"x":-1008.257,"y":-1056.3652,"z":129.2188},"q":null,"spd":{"x":-0.01,"y":0.0884,"z":0},"t":78.2277,"ud":65409,"wep":4}
+{"act":0,"anim":1257,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65506,"pos":{"x":-1008.5676,"y":-1055.4821,"z":129.2188},"q":null,"spd":{"x":-0.0445,"y":0.1127,"z":0},"t":78.3365,"ud":65412,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65517,"pos":{"x":-1008.9504,"y":-1054.5525,"z":129.2188},"q":null,"spd":{"x":-0.0432,"y":0.1122,"z":0},"t":78.4416,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65521,"pos":{"x":-1009.3977,"y":-1053.4235,"z":129.2188},"q":null,"spd":{"x":-0.0433,"y":0.1042,"z":0},"t":78.5599,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65523,"pos":{"x":-1009.803,"y":-1052.4957,"z":129.2188},"q":null,"spd":{"x":-0.0457,"y":0.1002,"z":0},"t":78.676,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65530,"pos":{"x":-1010.3072,"y":-1051.3646,"z":129.2188},"q":null,"spd":{"x":-0.0452,"y":0.1049,"z":0},"t":78.7916,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1010.7349,"y":-1050.3237,"z":129.2188},"q":null,"spd":{"x":-0.0428,"y":0.108,"z":0},"t":78.8951,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":5,"pos":{"x":-1011.0908,"y":-1049.3198,"z":129.2188},"q":null,"spd":{"x":-0.038,"y":0.117,"z":0},"t":78.9985,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":14,"pos":{"x":-1011.3752,"y":-1048.2948,"z":129.2188},"q":null,"spd":{"x":-0.0236,"y":0.1026,"z":0},"t":79.1073,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":15,"pos":{"x":-1011.5885,"y":-1047.1913,"z":129.2188},"q":null,"spd":{"x":-0.0181,"y":0.1064,"z":0},"t":79.2186,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":18,"pos":{"x":-1011.3275,"y":-1046.2891,"z":129.2188},"q":null,"spd":{"x":0.0709,"y":0.0588,"z":0},"t":79.3339,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":10,"pos":{"x":-1010.4903,"y":-1045.84,"z":129.2188},"q":null,"spd":{"x":0.0151,"y":-0.0176,"z":0},"t":79.4377,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1010.0167,"y":-1045.8813,"z":129.2188},"q":null,"spd":{"x":0.0327,"y":-0.0015,"z":0},"t":79.5505,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65526,"pos":{"x":-1009.8998,"y":-1045.8837,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":79.8646,"ud":1,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65415,"pos":{"x":-1009.8851,"y":-1045.8795,"z":129.2188},"q":null,"spd":{"x":-0.0333,"y":-0.0055,"z":0},"t":79.9663,"ud":39,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65415,"pos":{"x":-1010.212,"y":-1045.9642,"z":129.2188},"q":null,"spd":{"x":-0.0418,"y":-0.0211,"z":0},"t":80.0663,"ud":41,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65487,"pos":{"x":-1010.7847,"y":-1045.875,"z":129.2188},"q":null,"spd":{"x":-0.0575,"y":0.0435,"z":0},"t":80.1694,"ud":65422,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":2,"pos":{"x":-1011.0793,"y":-1045.1317,"z":129.2188},"q":null,"spd":{"x":0.0074,"y":0.0687,"z":0},"t":80.2817,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65532,"pos":{"x":-1010.9151,"y":-1044.4763,"z":129.2188},"q":null,"spd":{"x":0.0304,"y":0.1003,"z":0},"t":80.3848,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65533,"pos":{"x":-1010.5553,"y":-1043.6691,"z":129.2188},"q":null,"spd":{"x":0.0514,"y":0.0607,"z":0},"t":80.4884,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1010.0137,"y":-1043.184,"z":129.2188},"q":null,"spd":{"x":0.0548,"y":0.0467,"z":0},"t":80.601,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8568,"y":-1043.0504,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":81.0068,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":124,"pos":{"x":-1009.8583,"y":-1042.8771,"z":129.2188},"q":null,"spd":{"x":-0.0204,"y":0.0257,"z":0},"t":81.1097,"ud":28,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1010.0416,"y":-1042.6986,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":81.3491,"ud":6,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8895,"y":-1042.4646,"z":129.2188},"q":null,"spd":{"x":0.0242,"y":0.0136,"z":0},"t":81.4633,"ud":0,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":81.4923,"text":"[VIP]: Jimyy_Franscot: vip ini bisa 2 job kan"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":81.5737,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":82.0613,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":82.3637,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":82.6413,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":82.9097,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":83.1839,"ud":0,"wep":4}
+{"ev":"cmd","t":83.58,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":83.5814,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":83.6219,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}1004"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":83.8733,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":84.0098}
+{"color":-958201857,"ev":"srv_msg","t":84.0522,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":84.1265,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":8,"pos":{"x":-1009.8293,"y":-1042.4305,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":84.3719,"ud":65533,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":35,"pos":{"x":-1009.9219,"y":-1042.1696,"z":129.2188},"q":null,"spd":{"x":-0.0337,"y":0.0172,"z":0},"t":84.4813,"ud":65426,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65513,"pos":{"x":-1010.2836,"y":-1042.0981,"z":129.2188},"q":null,"spd":{"x":-0.0447,"y":0.0006,"z":0},"t":84.607,"ud":65411,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65507,"pos":{"x":-1011.0885,"y":-1042.1437,"z":129.2188},"q":null,"spd":{"x":-0.0994,"y":-0.0075,"z":0},"t":84.7147,"ud":65412,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1011.8069,"y":-1042.1648,"z":129.2188},"q":null,"spd":{"x":-0.081,"y":0.0042,"z":0},"t":84.8159,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":13,"pos":{"x":-1012.7302,"y":-1042.006,"z":129.2188},"q":null,"spd":{"x":-0.1084,"y":0.021,"z":0},"t":84.9272,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1013.5056,"y":-1041.818,"z":129.2188},"q":null,"spd":{"x":-0.055,"y":0.0193,"z":0},"t":85.0354,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1013.8886,"y":-1041.684,"z":129.2188},"q":null,"spd":{"x":-0.0049,"y":0.0017,"z":0},"t":85.1449,"ud":0,"wep":4}
+{"color":-10270721,"ev":"srv_msg","t":85.5415,"text":"BotCmd: Keshawn_Daamir have been kicked from the server."}
+{"color":-10270721,"ev":"srv_msg","t":85.5415,"text":"Reason: Weapon Hack"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1013.8886,"y":-1041.684,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":85.6025,"ud":0,"wep":4}
+{"ev":"cmd","t":86.0229,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1013.8886,"y":-1041.684,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":86.0249,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":86.0788,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}996"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1013.8886,"y":-1041.684,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":86.3343,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":86.4886}
+{"color":-958201857,"ev":"srv_msg","t":86.5135,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1013.8886,"y":-1041.684,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":86.625,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1013.8886,"y":-1041.684,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":86.8305,"ud":65515,"wep":4}
+{"color":-10270721,"ev":"srv_msg","t":86.9308,"text":"AdmCmd: Zeno_Palmer has been kicked by Singularity "}
+{"color":-10270721,"ev":"srv_msg","t":86.9308,"text":"Reason: afk "}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65526,"pos":{"x":-1014.199,"y":-1041.6522,"z":129.2188},"q":null,"spd":{"x":-0.0376,"y":0.0034,"z":0},"t":86.9308,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65527,"pos":{"x":-1014.5781,"y":-1041.6179,"z":129.2188},"q":null,"spd":{"x":-0.0463,"y":0.0041,"z":0},"t":87.0482,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65527,"pos":{"x":-1015.3296,"y":-1041.5574,"z":129.2188},"q":null,"spd":{"x":-0.1122,"y":0.0083,"z":0},"t":87.1818,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65527,"pos":{"x":-1016.1224,"y":-1041.5082,"z":129.2188},"q":null,"spd":{"x":-0.0805,"y":0.0042,"z":0},"t":87.2828,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.0399,"y":-1041.4741,"z":129.2188},"q":null,"spd":{"x":-0.0958,"y":0.0025,"z":0},"t":87.3973,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3957,"y":-1041.4647,"z":129.2188},"q":null,"spd":{"x":-0.0022,"y":0.0001,"z":0},"t":87.5419,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3957,"y":-1041.4647,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":87.718,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3957,"y":-1041.4647,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":88.0323,"ud":0,"wep":4}
+{"ev":"cmd","t":88.3211,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":88.3737,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}988"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3957,"y":-1041.4647,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":88.424,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":88.6666}
+{"color":-958201857,"ev":"srv_msg","t":88.6943,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3957,"y":-1041.4647,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":88.7286,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3957,"y":-1041.4647,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":88.9173,"ud":65514,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":5,"pos":{"x":-1017.769,"y":-1041.4277,"z":129.2188},"q":null,"spd":{"x":-0.0375,"y":0.0044,"z":0},"t":89.0333,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":5,"pos":{"x":-1018.0841,"y":-1041.3901,"z":129.2188},"q":null,"spd":{"x":-0.0462,"y":0.0056,"z":0},"t":89.1357,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":5,"pos":{"x":-1018.7329,"y":-1041.3096,"z":129.2188},"q":null,"spd":{"x":-0.0856,"y":0.0109,"z":0},"t":89.2452,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":3,"pos":{"x":-1019.4951,"y":-1041.2089,"z":129.2188},"q":null,"spd":{"x":-0.0686,"y":0.0089,"z":0},"t":89.3502,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65527,"pos":{"x":-1020.2963,"y":-1041.1343,"z":129.2188},"q":null,"spd":{"x":-0.0769,"y":0.0032,"z":0},"t":89.4541,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.9628,"y":-1041.126,"z":129.2188},"q":null,"spd":{"x":-0.0367,"y":0.0003,"z":0},"t":89.5585,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.0345,"y":-1041.1254,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":90.106,"ud":0,"wep":4}
+{"ev":"cmd","t":90.4132,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":90.4672,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}980"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.0345,"y":-1041.1254,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":90.4839,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":90.7203}
+{"color":-958201857,"ev":"srv_msg","t":90.7462,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.0345,"y":-1041.1254,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":90.7753,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1021.0345,"y":-1041.1254,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":90.9982,"ud":65528,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":91.1274,"text":"[VIP]: Izane_Morgan: bisa"}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1021.4012,"y":-1041.0968,"z":129.2188},"q":null,"spd":{"x":-0.0377,"y":0.0029,"z":0},"t":91.1274,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1021.795,"y":-1041.0635,"z":129.2188},"q":null,"spd":{"x":-0.0472,"y":0.0037,"z":0},"t":91.2369,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65528,"pos":{"x":-1022.5994,"y":-1041.0386,"z":129.2188},"q":null,"spd":{"x":-0.0727,"y":0.0008,"z":0},"t":91.3466,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1023.4249,"y":-1041.0347,"z":129.2188},"q":null,"spd":{"x":-0.0738,"y":0.0002,"z":0},"t":91.4623,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1024.371,"y":-1041.0409,"z":129.2188},"q":null,"spd":{"x":-0.0795,"y":-0.0011,"z":0},"t":91.5708,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.9814,"y":-1041.0521,"z":129.2188},"q":null,"spd":{"x":-0.0278,"y":-0.0005,"z":0},"t":91.7213,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.0082,"y":-1041.0526,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":91.9344,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.0082,"y":-1041.0526,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":92.2535,"ud":0,"wep":4}
+{"ev":"cmd","t":92.4973,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":92.5657,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}972"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.0082,"y":-1041.0526,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":92.6711,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.0082,"y":-1041.0526,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":92.9022,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":92.9377}
+{"color":-958201857,"ev":"srv_msg","t":92.9652,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1025.0082,"y":-1041.0526,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":93.1626,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65532,"pos":{"x":-1025.2589,"y":-1041.0488,"z":129.2188},"q":null,"spd":{"x":-0.0378,"y":-0.0001,"z":0},"t":93.2633,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65530,"pos":{"x":-1025.6234,"y":-1041.0515,"z":129.2188},"q":null,"spd":{"x":-0.0432,"y":-0.0006,"z":0},"t":93.3785,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1026.2715,"y":-1041.0686,"z":129.2188},"q":null,"spd":{"x":-0.0741,"y":-0.0023,"z":0},"t":93.491,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65533,"pos":{"x":-1027.0481,"y":-1041.0957,"z":129.2188},"q":null,"spd":{"x":-0.0691,"y":-0.0015,"z":0},"t":93.5933,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":6,"pos":{"x":-1027.7231,"y":-1041.0792,"z":129.2188},"q":null,"spd":{"x":-0.116,"y":0.0057,"z":0},"t":93.6941,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.4429,"y":-1041.0428,"z":129.2188},"q":null,"spd":{"x":-0.037,"y":0.0019,"z":0},"t":93.8057,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5314,"y":-1041.0383,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":94.1857,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5314,"y":-1041.0383,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":94.6159,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5314,"y":-1041.0383,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":94.9021,"ud":0,"wep":4}
+{"ev":"cmd","t":95.1756,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":95.2522,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}964"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5314,"y":-1041.0383,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":95.3442,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":95.5312}
+{"color":-958201857,"ev":"srv_msg","t":95.5585,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5314,"y":-1041.0383,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":95.6254,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5314,"y":-1041.0383,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":95.8163,"ud":65531,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65519,"pos":{"x":-1028.7744,"y":-1040.9387,"z":129.2188},"q":null,"spd":{"x":-0.0205,"y":0.0317,"z":0},"t":95.9181,"ud":65417,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65469,"pos":{"x":-1028.8746,"y":-1040.5801,"z":129.2188},"q":null,"spd":{"x":-0.0156,"y":0.0442,"z":0},"t":96.0257,"ud":65427,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65494,"pos":{"x":-1029.1368,"y":-1039.9364,"z":129.2188},"q":null,"spd":{"x":-0.0203,"y":0.0854,"z":0},"t":96.1376,"ud":65416,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":20,"pos":{"x":-1029.1989,"y":-1039.175,"z":129.2188},"q":null,"spd":{"x":0.006,"y":0.0689,"z":0},"t":96.2487,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":27,"pos":{"x":-1028.9575,"y":-1038.3285,"z":129.2188},"q":null,"spd":{"x":0.0267,"y":0.0847,"z":0},"t":96.3499,"ud":65412,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":16,"pos":{"x":-1028.7307,"y":-1037.4774,"z":129.2188},"q":null,"spd":{"x":0.0198,"y":0.0729,"z":0},"t":96.4657,"ud":65410,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5939,"y":-1036.9655,"z":129.2188},"q":null,"spd":{"x":0.0104,"y":0.0389,"z":0},"t":96.5714,"ud":0,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":96.7972,"text":"[VIP]: Lupiesto_Soloniskov: my"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":96.7972,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":97.1141,"ud":0,"wep":4}
+{"ev":"cmd","t":97.3296,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":97.3786,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}956"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":97.5296,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":97.6692}
+{"color":-958201857,"ev":"srv_msg","t":97.7032,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":97.8236,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":98.1017,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":98.5264,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":98.8058,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":99.1028,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":99.3589,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":99.6514,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":99.9362,"ud":0,"wep":4}
+{"ev":"cmd","t":100.2466,"text":"/plant harvest"}
+{"color":2054847231,"ev":"srv_msg","t":100.2924,"text":"[ERROR]: This plant still needs {FFFF00}29:56 minutes {7A7A7A}to grow!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":100.3124,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65531,"pos":{"x":-1028.5848,"y":-1036.9316,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":100.6656,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1028.6099,"y":-1036.6415,"z":129.2188},"q":null,"spd":{"x":-0.0046,"y":0.0272,"z":0},"t":100.7792,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":3,"pos":{"x":-1028.615,"y":-1036.5103,"z":129.2188},"q":null,"spd":{"x":0.0081,"y":0.0294,"z":0},"t":100.8816,"ud":65439,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":11,"pos":{"x":-1028.3417,"y":-1036.4393,"z":129.2188},"q":null,"spd":{"x":0.0305,"y":0,"z":0},"t":100.9964,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":22,"pos":{"x":-1027.9443,"y":-1036.4667,"z":129.2188},"q":null,"spd":{"x":0.0487,"y":-0.0052,"z":0},"t":101.1044,"ud":65411,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":16,"pos":{"x":-1027.2084,"y":-1036.5356,"z":129.2188},"q":null,"spd":{"x":0.0736,"y":-0.0062,"z":0},"t":101.2162,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":11,"pos":{"x":-1026.3315,"y":-1036.6111,"z":129.2188},"q":null,"spd":{"x":0.1048,"y":-0.0092,"z":0},"t":101.3209,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":7,"pos":{"x":-1025.6342,"y":-1036.6647,"z":129.2188},"q":null,"spd":{"x":0.0695,"y":-0.0052,"z":0},"t":101.4286,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.7311,"y":-1036.7362,"z":129.2188},"q":null,"spd":{"x":0.0574,"y":-0.0046,"z":0},"t":101.5328,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.4635,"y":-1036.7574,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":101.6658,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.4635,"y":-1036.7574,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":102.0818,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.4635,"y":-1036.7574,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":102.3882,"ud":0,"wep":4}
+{"ev":"cmd","t":102.7018,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":102.759,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}948"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.4635,"y":-1036.7574,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":102.8106,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.4635,"y":-1036.7574,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":103.0815,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":103.1176}
+{"color":-958201857,"ev":"srv_msg","t":103.1458,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1024.4635,"y":-1036.7574,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":103.3754,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1024.2452,"y":-1036.7598,"z":129.2188},"q":null,"spd":{"x":0.0328,"y":0.0003,"z":0},"t":103.495,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1023.8867,"y":-1036.7559,"z":129.2188},"q":null,"spd":{"x":0.0397,"y":0.0006,"z":0},"t":103.6012,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65532,"pos":{"x":-1023.2633,"y":-1036.7551,"z":129.2188},"q":null,"spd":{"x":0.0687,"y":-0.0001,"z":0},"t":103.7165,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1022.4247,"y":-1036.7626,"z":129.2188},"q":null,"spd":{"x":0.0691,"y":-0.0012,"z":0},"t":103.8285,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1021.6752,"y":-1036.7743,"z":129.2188},"q":null,"spd":{"x":0.0952,"y":-0.0014,"z":0},"t":103.942,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.8865,"y":-1036.7854,"z":129.2188},"q":null,"spd":{"x":0.0372,"y":-0.0005,"z":0},"t":104.0527,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1020.7972,"y":-1036.7866,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":104.3368,"ud":65508,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.4968,"y":-1036.7646,"z":129.2188},"q":null,"spd":{"x":0.0226,"y":0.0019,"z":0},"t":104.4446,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.4437,"y":-1036.7601,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":104.9407,"ud":0,"wep":4}
+{"ev":"cmd","t":105.3485,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.4437,"y":-1036.7601,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":105.3513,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":105.4052,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}940"}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":105.6848}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1020.4437,"y":-1036.7601,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":105.6943,"ud":0,"wep":4}
+{"color":-958201857,"ev":"srv_msg","t":105.7114,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65531,"pos":{"x":-1020.4437,"y":-1036.7601,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":105.9589,"ud":65483,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65528,"pos":{"x":-1020.0692,"y":-1036.7247,"z":129.2188},"q":null,"spd":{"x":0.0377,"y":0.0025,"z":0},"t":106.0711,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1019.6362,"y":-1036.7139,"z":129.2188},"q":null,"spd":{"x":0.0627,"y":0.0004,"z":0},"t":106.1874,"ud":65408,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":28,"pos":{"x":-1018.8896,"y":-1036.7355,"z":129.2188},"q":null,"spd":{"x":0.0716,"y":-0.0121,"z":0},"t":106.2902,"ud":65412,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":18,"pos":{"x":-1018.1476,"y":-1036.9054,"z":129.2188},"q":null,"spd":{"x":0.1037,"y":-0.0194,"z":0},"t":106.3931,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1017.1573,"y":-1036.9774,"z":129.2188},"q":null,"spd":{"x":0.0953,"y":-0.0055,"z":0},"t":106.5218,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.5824,"y":-1037.0112,"z":129.2188},"q":null,"spd":{"x":0.0478,"y":-0.0028,"z":0},"t":106.6266,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.4784,"y":-1037.0173,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":106.7457,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.4784,"y":-1037.0173,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":107.1648,"ud":0,"wep":4}
+{"ev":"cmd","t":107.4506,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":107.4978,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}932"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.4784,"y":-1037.0173,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":107.5822,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":107.6893}
+{"color":-958201857,"ev":"srv_msg","t":107.7159,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.4784,"y":-1037.0173,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":107.851,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65522,"pos":{"x":-1016.3695,"y":-1037.0172,"z":129.2188},"q":null,"spd":{"x":0.0328,"y":0.0009,"z":0},"t":107.9562,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65523,"pos":{"x":-1016.0396,"y":-1037.0039,"z":129.2188},"q":null,"spd":{"x":0.0378,"y":0.0016,"z":0},"t":108.0609,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1015.6177,"y":-1036.988,"z":129.2188},"q":null,"spd":{"x":0.0716,"y":0.0011,"z":0},"t":108.1712,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1014.7637,"y":-1037.0098,"z":129.2188},"q":null,"spd":{"x":0.0714,"y":-0.0026,"z":0},"t":108.2884,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":4,"pos":{"x":-1013.9949,"y":-1037.049,"z":129.2188},"q":null,"spd":{"x":0.0737,"y":-0.0044,"z":0},"t":108.3959,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":7,"pos":{"x":-1013.1641,"y":-1037.1154,"z":129.2188},"q":null,"spd":{"x":0.0931,"y":-0.0083,"z":0},"t":108.5073,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.5534,"y":-1037.1776,"z":129.2188},"q":null,"spd":{"x":0.059,"y":-0.0061,"z":0},"t":108.6124,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.3964,"y":-1037.194,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":108.8506,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.3964,"y":-1037.194,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":109.1656,"ud":0,"wep":4}
+{"ev":"cmd","t":109.4392,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":109.4877,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}924"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.3964,"y":-1037.194,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":109.5667,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":109.6516}
+{"color":-958201857,"ev":"srv_msg","t":109.6803,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.3964,"y":-1037.194,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":109.8473,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65535,"pos":{"x":-1012.3964,"y":-1037.194,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":109.9507,"ud":65527,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65526,"pos":{"x":-1012.0847,"y":-1037.2129,"z":129.2188},"q":null,"spd":{"x":0.0377,"y":-0.002,"z":0},"t":110.0538,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65527,"pos":{"x":-1011.7043,"y":-1037.2289,"z":129.2188},"q":null,"spd":{"x":0.0465,"y":-0.002,"z":0},"t":110.163,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65529,"pos":{"x":-1010.9554,"y":-1037.2561,"z":129.2188},"q":null,"spd":{"x":0.1124,"y":-0.0039,"z":0},"t":110.2727,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":3,"pos":{"x":-1010.2218,"y":-1037.3044,"z":129.2188},"q":null,"spd":{"x":0.0688,"y":-0.0066,"z":0},"t":110.3852,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":5,"pos":{"x":-1009.4178,"y":-1037.3976,"z":129.2188},"q":null,"spd":{"x":0.0804,"y":-0.0097,"z":0},"t":110.4957,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.6887,"y":-1037.4886,"z":129.2188},"q":null,"spd":{"x":0.0352,"y":-0.0044,"z":0},"t":110.6029,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.5985,"y":-1037.5,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":110.7276,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.5985,"y":-1037.5,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":111.1539,"ud":0,"wep":4}
+{"ev":"cmd","t":111.4299,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":111.4764,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}916"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.5985,"y":-1037.5,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":111.5642,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.5985,"y":-1037.5,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":111.8009,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":111.8426}
+{"color":-958201857,"ev":"srv_msg","t":111.8888,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.5985,"y":-1037.5,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":112.0694,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":82,"pos":{"x":-1008.4657,"y":-1037.5919,"z":129.2188},"q":null,"spd":{"x":0.0299,"y":-0.0136,"z":0},"t":112.1788,"ud":65514,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":99,"pos":{"x":-1008.1993,"y":-1037.4083,"z":129.2188},"q":null,"spd":{"x":0.0107,"y":0.03,"z":0},"t":112.2845,"ud":65465,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":20,"pos":{"x":-1008.2604,"y":-1036.8561,"z":129.2188},"q":null,"spd":{"x":-0.0385,"y":0.0764,"z":0},"t":112.3925,"ud":65410,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":48,"pos":{"x":-1008.5405,"y":-1036.3286,"z":129.2188},"q":null,"spd":{"x":-0.0226,"y":0.0678,"z":0},"t":112.4935,"ud":65418,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":76,"pos":{"x":-1008.5023,"y":-1035.5715,"z":129.2188},"q":null,"spd":{"x":0.0113,"y":0.073,"z":0},"t":112.5938,"ud":65434,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":51,"pos":{"x":-1008.4355,"y":-1034.6902,"z":129.2188},"q":null,"spd":{"x":0.005,"y":0.0794,"z":0},"t":112.6957,"ud":65419,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":46,"pos":{"x":-1008.3948,"y":-1034.1155,"z":129.2188},"q":null,"spd":{"x":0.007,"y":0.0668,"z":0},"t":112.7966,"ud":65417,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.3451,"y":-1033.2942,"z":129.2188},"q":null,"spd":{"x":0.0019,"y":0.0562,"z":0},"t":112.8972,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.3362,"y":-1033.0348,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":113.032,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.3362,"y":-1033.0348,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":113.4425,"ud":0,"wep":4}
+{"ev":"cmd","t":113.7865,"text":"/plant plant"}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":113.8542,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}908"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.3362,"y":-1033.0348,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":113.8626,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":113.9964}
+{"color":-958201857,"ev":"srv_msg","t":114.0247,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.3362,"y":-1033.0348,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":114.158,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1008.3362,"y":-1033.0348,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":114.3809,"ud":65526,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65528,"pos":{"x":-1008.5676,"y":-1032.9664,"z":129.2188},"q":null,"spd":{"x":-0.0263,"y":-0.0271,"z":0},"t":114.4921,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":80,"pos":{"x":-1008.8469,"y":-1033.2076,"z":129.2188},"q":null,"spd":{"x":-0.0449,"y":-0.0123,"z":0},"t":114.5983,"ud":65437,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":107,"pos":{"x":-1009.5853,"y":-1033.1162,"z":129.2188},"q":null,"spd":{"x":-0.1094,"y":0.0264,"z":0},"t":114.7092,"ud":65467,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1010.2908,"y":-1032.9121,"z":129.2188},"q":null,"spd":{"x":-0.0658,"y":0.0211,"z":0},"t":114.8183,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1010.7784,"y":-1032.7556,"z":129.2188},"q":null,"spd":{"x":-0.0211,"y":0.0068,"z":0},"t":114.9275,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1010.7956,"y":-1032.7502,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":115.0799,"ud":65515,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":2,"pos":{"x":-1011.1083,"y":-1032.7689,"z":129.2188},"q":null,"spd":{"x":-0.0377,"y":-0.0027,"z":0},"t":115.1816,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1011.4435,"y":-1032.7931,"z":129.2188},"q":null,"spd":{"x":-0.0439,"y":-0.0032,"z":0},"t":115.2852,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.1183,"y":-1032.7786,"z":129.2188},"q":null,"spd":{"x":-0.085,"y":0.0073,"z":0},"t":115.4019,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4351,"y":-1032.7513,"z":129.2188},"q":null,"spd":{"x":-0.0042,"y":0.0004,"z":0},"t":115.5159,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4351,"y":-1032.7513,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":115.9738,"ud":0,"wep":4}
+{"ev":"cmd","t":116.4392,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4351,"y":-1032.7513,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":116.4392,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":116.4857,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}900"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4351,"y":-1032.7513,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":116.7542,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4351,"y":-1032.7513,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":117.0469,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":117.073}
+{"color":-958201857,"ev":"srv_msg","t":117.1012,"text":"[INFO]: {FFFFFF}Planting Potato."}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1012.4351,"y":-1032.7513,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":117.3203,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":1,"pos":{"x":-1012.4351,"y":-1032.7513,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":117.4444,"ud":65525,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":5,"pos":{"x":-1012.7798,"y":-1032.76,"z":129.2188},"q":null,"spd":{"x":-0.0378,"y":-0.0008,"z":0},"t":117.5584,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":28,"pos":{"x":-1013.1467,"y":-1032.707,"z":129.2188},"q":null,"spd":{"x":-0.0442,"y":0.009,"z":0},"t":117.6777,"ud":65412,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":12,"pos":{"x":-1013.8611,"y":-1032.6282,"z":129.2188},"q":null,"spd":{"x":-0.0872,"y":0.0084,"z":0},"t":117.7856,"ud":65409,"wep":4}
+{"color":-11534081,"ev":"srv_msg","t":117.889,"text":"[ADS]: {3BBD44}[S\\BT]Towtruck full up ke benson"}
+{"color":-11534081,"ev":"srv_msg","t":117.889,"text":"Contact Info: [{3BBD44}Gilbert_Martinez{FF5000}] Contact Number: [{3BBD44}51208{FF5000}]"}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":11,"pos":{"x":-1014.6817,"y":-1032.547,"z":129.2188},"q":null,"spd":{"x":-0.1048,"y":0.0115,"z":0},"t":117.9025,"ud":65409,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":7,"pos":{"x":-1015.4227,"y":-1032.4597,"z":129.2188},"q":null,"spd":{"x":-0.1112,"y":0.0128,"z":0},"t":118.0064,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.1705,"y":-1032.4054,"z":129.2188},"q":null,"spd":{"x":-0.0402,"y":0.0026,"z":0},"t":118.1209,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.3377,"y":-1032.3947,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":118.2239,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.3377,"y":-1032.3947,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":118.6213,"ud":0,"wep":4}
+{"ev":"cmd","t":119.0734,"text":"/plant plant"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.3377,"y":-1032.3947,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":119.074,"ud":0,"wep":4}
+{"b1":"Plant","b2":"Close","ev":"dlg_show","id":417,"style":5,"t":119.1235,"text":"Plant\tSeed\nPotato\t8 grams seed\nWheat\t18 grams seed\nOrange\t11 grams seed\nCorn\t20 grams seed\n{FF0000}Marijuana\t10 grams seed\n{FF0000}Cocaine\t20 grams seed\n{FF0000}Heroin\t15 grams seed\n{FF0000}Steroids\t30 grams seed","title":"{FFFFFF}My Seed: {3BBD44}892"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.3377,"y":-1032.3947,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":119.3757,"ud":0,"wep":4}
+{"btn":1,"ev":"dlg_resp","id":417,"input":"[INPUT len=6]","list":0,"t":119.5461}
+{"color":2054847231,"ev":"srv_msg","t":119.57,"text":"[ERROR]: Kamu hanya bisa menanam 26 plants!"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1016.3377,"y":-1032.3947,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":119.7008,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":2,"pos":{"x":-1016.6818,"y":-1032.3683,"z":129.2188},"q":null,"spd":{"x":-0.0377,"y":0.003,"z":0},"t":119.8157,"ud":65409,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.0146,"y":-1032.342,"z":129.2188},"q":null,"spd":{"x":-0.0204,"y":0.0016,"z":0},"t":119.9308,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":8,"pos":{"x":-1017.0886,"y":-1032.3363,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":120.0981,"ud":65531,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3069,"y":-1032.1354,"z":129.2188},"q":null,"spd":{"x":-0.0155,"y":0.0166,"z":0},"t":120.2123,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3436,"y":-1032.0961,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":120.5997,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3436,"y":-1032.0961,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":120.8842,"ud":0,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.3436,"y":-1032.0961,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":121.1076,"ud":65531,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65487,"pos":{"x":-1017.6313,"y":-1032.1512,"z":129.2188},"q":null,"spd":{"x":-0.0333,"y":-0.0178,"z":0},"t":121.2079,"ud":65418,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65410,"pos":{"x":-1017.8278,"y":-1032.4424,"z":129.2188},"q":null,"spd":{"x":-0.0026,"y":-0.0423,"z":0},"t":121.3177,"ud":65517,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":65451,"pos":{"x":-1017.5523,"y":-1032.8973,"z":129.2188},"q":null,"spd":{"x":0.0543,"y":-0.0419,"z":0},"t":121.418,"ud":71,"wep":4}
+{"act":0,"anim":1224,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":54,"pos":{"x":-1017.1481,"y":-1032.7644,"z":129.2188},"q":null,"spd":{"x":-0.0018,"y":0.0445,"z":0},"t":121.5235,"ud":65517,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.4902,"y":-1032.6895,"z":129.2188},"q":null,"spd":{"x":-0.0342,"y":-0.0167,"z":0},"t":121.6278,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":121.8941,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":122.2198,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":122.4945,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":122.7812,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":123.0487,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":123.3624,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":123.6389,"ud":0,"wep":4}
+{"color":-10270721,"ev":"srv_msg","t":123.7254,"text":"AdmCmd: Devanto_Alexander has been kicked by Singularity "}
+{"color":-10270721,"ev":"srv_msg","t":123.7254,"text":"Reason: afk"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":123.8964,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":124.1731,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":124.4513,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":124.7134,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":124.9828,"ud":0,"wep":4}
+{"color":512819199,"ev":"srv_msg","t":125.0312,"text":"[VIP]: Alisha_Kimberly: bosenn ih"}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":125.2607,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":125.5574,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":125.8321,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":126.1076,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":126.4004,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":126.7138,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":127.0099,"ud":0,"wep":4}
+{"ev":"mark","label":"menanam potato selesai","t":127.4744}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":127.4745,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":127.9004,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":128.2524,"ud":0,"wep":4}
+{"act":0,"anim":1189,"ar":0,"ev":"foot","hp":60,"keys":0,"lr":0,"pos":{"x":-1017.575,"y":-1032.7308,"z":129.2188},"q":null,"spd":{"x":0,"y":0,"z":0},"t":128.5216,"ud":0,"wep":4}
+{"ev":"stop","events":792,"t":128.9446}
